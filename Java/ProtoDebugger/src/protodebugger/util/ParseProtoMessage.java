@@ -33,7 +33,6 @@ public enum ParseProtoMessage {
 		
 		private ParseProtoMessage()
 		{
-			
 		}
 		private void printInformation(String info)
 		{

@@ -29,7 +29,7 @@
 		<link>
 			<name>protoLib</name>
 			<type>2</type>
-			<location>E:/Programming/libraries/GoogleProtobuf/protobuf/java/src/main/java</location>
+			<location>E:/Programming/ProtoCapstonProject/GoogleProtobuf/protobuf/java/src/main/java</location>
 		</link>
 	</linkedResources>
 </projectDescription>
