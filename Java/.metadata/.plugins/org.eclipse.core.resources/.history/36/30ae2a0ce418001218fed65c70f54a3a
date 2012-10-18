@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Protocol Buffer"
+            id="ProtoDebugger">
+      </category>
+      <view
+            name="ProtoViewer"
+            icon="icons/sample.gif"
+            category="ProtoDebugger"
+            class="protodebugger.views.ProtoViewer"
+            id="protodebugger.views.ProtoViewer">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.TaskList"
+               relationship="right"
+               id="protodebugger.views.ProtoViewer">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         id="toolbar:protodebugger.views.ProtoViewer"
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="toolbar:protodebugger.views.ProtoViewer">
+         <command
+               commandId="protodebugger.commands.ProtoSelection"
+               id="protodebugger.views.ProtoViewer.Toolbar.ProtoSelection"
+               label="ProtoSelection"
+               style="push"
+               tooltip="Selects the proto file">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               id="protodebugger.Menu"
+               label="Proto">
+            <command
+                  commandId="ProtoSelection"
+                  id="protodebugger.commands.ProtoSelection"
+                  label="ProtoSelection"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="protodebugger.commands.ProtoSelection"
+            id="protodebugger.commands.ProtoSelection"
+            name="ProtoSelection">
+      </command>
+   </extension>
+
+</plugin>

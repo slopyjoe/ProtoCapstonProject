@@ -1,0 +1,12 @@
+{
+  "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.commands_3.6.1.v20120814-150512.jar": {
+    "coordinate": "org.eclipse.core:org.eclipse.core.commands:zip:ovrm:3.0.0",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.commands_3.6.1.v20120814-150512.jar",
+    "status": "RESOLVED"
+  },
+  "C:\\Program Files\\Java\\jre7\\lib\\rt.jar": {
+    "coordinate": "jre:jre:zip:ovrm:1.0.0",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\rt.jar",
+    "status": "RESOLVED"
+  }
+}

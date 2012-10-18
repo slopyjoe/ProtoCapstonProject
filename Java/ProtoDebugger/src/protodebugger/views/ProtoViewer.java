@@ -69,7 +69,6 @@ public class ProtoViewer extends ViewPart implements PropertyChangeListener{
 	public void createPartControl(Composite parent) {
 		expandBar = new ExpandBar(parent, SWT.BORDER | SWT.V_SCROLL);
 		expandBar.setSpacing(SPACING);
-		selectionChanged(SimpleExample.getDefaultInstance());
 	}
 
 	private void addSubField(FieldDescriptorContainer field)

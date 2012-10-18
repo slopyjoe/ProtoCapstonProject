@@ -1,2 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="org.eclipse.core.commands.IHandler2"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="com.google.protobuf.GeneratedMessage"/>
+<fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
+<fullyQualifiedTypeName name="org.test.Simple"/>
+<fullyQualifiedTypeName name="org.test.Simple.SimpleExample"/>
+<fullyQualifiedTypeName name="org.eclipse.ui.dialogs.ElementListSelectionDialog"/>
+<fullyQualifiedTypeName name="org.eclipse.core.runtime.Plugin"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.viewers.LabelProvider"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.SWT"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.window.Window"/>
+<fullyQualifiedTypeName name="org.eclipse.ui.dialogs.ListDialog"/>
+<fullyQualifiedTypeName name="org.eclipse.ui.PlatformUI"/>
+<fullyQualifiedTypeName name="protodebugger.util.ParseProtoMessage"/>
+<fullyQualifiedTypeName name="org.eclipse.core.commands.AbstractHandler"/>
+<fullyQualifiedTypeName name="org.eclipse.ui.console.IConsoleManager"/>
+<fullyQualifiedTypeName name="org.eclipse.osgi.framework.internal.core.ConsoleManager"/>
+<fullyQualifiedTypeName name="org.eclipse.ui.internal.console.ConsoleManager"/>
+<fullyQualifiedTypeName name="org.eclipse.ui.console.ConsolePlugin"/>
+<fullyQualifiedTypeName name="org.eclipse.ui.console.MessageConsole"/>
+<fullyQualifiedTypeName name="org.eclipse.ui.console.IConsole"/>
+<fullyQualifiedTypeName name="org.eclipse.ui.console.MessageConsoleStream"/>
+<fullyQualifiedTypeName name="java.lang.Number"/>
+<fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
+<fullyQualifiedTypeName name="java.lang.Long"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="java.lang.Float"/>
+</qualifiedTypeNameHistroy>

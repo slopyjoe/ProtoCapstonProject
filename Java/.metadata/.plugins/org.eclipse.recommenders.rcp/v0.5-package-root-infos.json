@@ -1,0 +1,479 @@
+[
+  {
+    "symbolicName": "org.eclipse.ui.console",
+    "version": {
+      "major": 3,
+      "minor": 5,
+      "micro": 100,
+      "qualifier": "v20120521-2012"
+    },
+    "jarFileFingerprint": "eae07abf4b97283f6935878bbed14df00b514415",
+    "jarFileModificationDate": "2012-09-20T03:14:32-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.ui.console_3.5.100.v20120521-2012.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.eclipse.jface",
+    "version": {
+      "major": 3,
+      "minor": 8,
+      "micro": 101,
+      "qualifier": "v20120817-083647"
+    },
+    "jarFileFingerprint": "e90ecb479584cd8ea0a031073cbb7c1417cc9746",
+    "jarFileModificationDate": "2012-09-20T03:14:12-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.jface_3.8.101.v20120817-083647.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "ac870f9fcdf0068bda8d94ee04274f7b631b0528",
+    "jarFileModificationDate": "2012-02-17T19:37:24.513-07:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\jsse.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.eclipse.core.runtime",
+    "version": {
+      "major": 3,
+      "minor": 8,
+      "micro": 0,
+      "qualifier": "v20120521-2346"
+    },
+    "jarFileFingerprint": "67f491d25b9c90637c23ea801c8edda3019d5dc7",
+    "jarFileModificationDate": "2012-09-20T03:14:02-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.runtime_3.8.0.v20120521-2346.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "ProtoDebugger",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": "qualifier"
+    },
+    "jarFileModificationDate": "2012-10-16T21:38:37.650-06:00",
+    "location": "E:\\Programming\\ProtoCapstonProject\\Java\\ProtoDebugger\\src",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "433222199dfb1cbbc39b322eb4906dd953d385bd",
+    "jarFileModificationDate": "2012-02-17T19:37:22.157-07:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\zipfs.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.eclipse.core.commands.source",
+    "version": {
+      "major": 3,
+      "minor": 6,
+      "micro": 1,
+      "qualifier": "v20120814-150512"
+    },
+    "jarFileFingerprint": "2b5d4a402eeee6a044876262d1c0dd623e56de87",
+    "jarFileModificationDate": "2012-09-20T03:14:01-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.commands.source_3.6.1.v20120814-150512.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "10585215f79fb361342cfdcea749dad586f34414",
+    "jarFileModificationDate": "2012-02-17T19:37:24.544-07:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\localedata.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "923a6b1cc2fe4264d165ddc53803e981b4444050",
+    "jarFileModificationDate": "2012-02-17T19:37:22.126-07:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\dnsns.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.eclipse.equinox.common",
+    "version": {
+      "major": 3,
+      "minor": 6,
+      "micro": 100,
+      "qualifier": "v20120522-1841"
+    },
+    "jarFileFingerprint": "fafcf2db0911260c6d452bca2ff0bd55534cef78",
+    "jarFileModificationDate": "2012-09-20T03:14:05-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.equinox.common_3.6.100.v20120522-1841.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.eclipse.e4.ui.workbench3",
+    "version": {
+      "major": 0,
+      "minor": 12,
+      "micro": 0,
+      "qualifier": "v20120521-2329"
+    },
+    "jarFileFingerprint": "4f21b6ce6712b1b6b10e3b168e39ccad52d6e888",
+    "jarFileModificationDate": "2012-09-20T03:14:04-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.e4.ui.workbench3_0.12.0.v20120521-2329.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.eclipse.core.contenttype",
+    "version": {
+      "major": 3,
+      "minor": 4,
+      "micro": 200,
+      "qualifier": "v20120523-2004"
+    },
+    "jarFileFingerprint": "68e082392b14a5433ebb77a9d51809bff77e10c0",
+    "jarFileModificationDate": "2012-09-20T03:14:01-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.contenttype_3.4.200.v20120523-2004.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.eclipse.swt",
+    "version": {
+      "major": 3,
+      "minor": 100,
+      "micro": 1,
+      "qualifier": "v4234e"
+    },
+    "jarFileFingerprint": "62cfc540c857581a8a3c3a19241104af94e7b1bb",
+    "jarFileModificationDate": "2012-09-20T03:14:31-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.swt_3.100.1.v4234e.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "ProtoDebugger",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": "qualifier"
+    },
+    "jarFileModificationDate": "2012-10-16T21:31:27.479-06:00",
+    "location": "E:\\Programming\\ProtoCapstonProject\\GoogleProtobuf\\protobuf\\java\\src\\main\\java",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.eclipse.equinox.preferences",
+    "version": {
+      "major": 3,
+      "minor": 5,
+      "micro": 0,
+      "qualifier": "v20120522-1841"
+    },
+    "jarFileFingerprint": "e3ac06f07f369a21195a217a9882fb2aed65ff92",
+    "jarFileModificationDate": "2012-09-20T03:14:07-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.equinox.preferences_3.5.0.v20120522-1841.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.eclipse.equinox.registry",
+    "version": {
+      "major": 3,
+      "minor": 5,
+      "micro": 200,
+      "qualifier": "v20120522-1841"
+    },
+    "jarFileFingerprint": "4d7430750fab3cd4153c60d201aceef1d6f34d1e",
+    "jarFileModificationDate": "2012-09-20T03:14:07-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.equinox.registry_3.5.200.v20120522-1841.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.eclipse.osgi",
+    "version": {
+      "major": 3,
+      "minor": 8,
+      "micro": 1,
+      "qualifier": "v20120830-144521"
+    },
+    "jarFileFingerprint": "6d1c8f8a1e0cf189c7fa0d9283ade270fcb83f46",
+    "jarFileModificationDate": "2012-09-20T03:14:19-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.osgi_3.8.1.v20120830-144521.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a717cf29020f95db12fd1d37005353f92180c674",
+    "jarFileModificationDate": "2012-02-17T19:37:22.142-07:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\sunjce_provider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "com.google.gwtorm",
+    "version": {
+      "major": 1,
+      "minor": 1,
+      "micro": 4,
+      "qualifier": "v201112241444"
+    },
+    "jarFileFingerprint": "f12c746c144d18ee44f238f589e201dc2c559fd1",
+    "jarFileModificationDate": "2012-09-20T03:13:56-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\com.google.gwtorm_1.1.4.v201112241444.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.eclipse.core.commands",
+    "version": {
+      "major": 3,
+      "minor": 6,
+      "micro": 1,
+      "qualifier": "v20120814-150512"
+    },
+    "jarFileFingerprint": "c63b6e0a0fd55c626730f6e183949150a7f49f46",
+    "jarFileModificationDate": "2012-09-20T03:14:01-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.commands_3.6.1.v20120814-150512.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "ProtoDebugger",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": "qualifier"
+    },
+    "jarFileModificationDate": "2012-10-16T21:40:38.954-06:00",
+    "location": "E:\\Programming\\ProtoCapstonProject\\Java\\ProtoDebugger\\gen",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "runtime_registry_compatibility",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "c185f03ea1482d256f400958761e1e3297f5858f",
+    "jarFileModificationDate": "2012-07-26T10:45:18-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.runtime.compatibility.registry_3.5.100.v20120521-2346\\runtime_registry_compatibility.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.eclipse.core.jobs",
+    "version": {
+      "major": 3,
+      "minor": 5,
+      "micro": 300,
+      "qualifier": "v20120622-204750"
+    },
+    "jarFileFingerprint": "3e8ee2bcf0f96932874af1fa17e8a2ded3ac61d5",
+    "jarFileModificationDate": "2012-09-20T03:14:01-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.jobs_3.5.300.v20120622-204750.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.eclipse.swt.win32.win32.x86_64",
+    "version": {
+      "major": 3,
+      "minor": 100,
+      "micro": 1,
+      "qualifier": "v4234e"
+    },
+    "jarFileFingerprint": "f7563f5efe51068361581a58f9a89cc69ac70d2c",
+    "jarFileModificationDate": "2012-09-20T03:14:31-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.swt.win32.win32.x86_64_3.100.1.v4234e.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.eclipse.core.resources",
+    "version": {
+      "major": 3,
+      "minor": 8,
+      "micro": 1,
+      "qualifier": "v20120802-154922"
+    },
+    "jarFileFingerprint": "84680e32fab538bc874253a2ad9b82d82a905f11",
+    "jarFileModificationDate": "2012-09-20T03:14:02-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.resources_3.8.1.v20120802-154922.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f56383db77ae9502e6ca617e57d55ee73d631c46",
+    "jarFileModificationDate": "2012-02-17T19:37:22.126-07:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\sunec.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a31853a3c486908d5d1b68c3be8cf31c23f86bdf",
+    "jarFileModificationDate": "2012-02-17T19:37:22.204-07:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\jce.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.eclipse.equinox.app",
+    "version": {
+      "major": 1,
+      "minor": 3,
+      "micro": 100,
+      "qualifier": "v20120522-1841"
+    },
+    "jarFileFingerprint": "6e906fe9634427913bb978f44ea148da946c404e",
+    "jarFileModificationDate": "2012-09-20T03:14:05-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.equinox.app_1.3.100.v20120522-1841.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "99205532ad01ab8e5e50a8773b1c8761d5870786",
+    "jarFileModificationDate": "2012-02-17T19:37:22.157-07:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\ext\\sunmscapi.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7729be0269bf0025fd00f7ebf1427dd59e5440e2",
+    "jarFileModificationDate": "2012-02-17T19:37:24.263-07:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\charsets.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.eclipse.ui",
+    "version": {
+      "major": 3,
+      "minor": 103,
+      "micro": 0,
+      "qualifier": "v20120705-114351"
+    },
+    "jarFileFingerprint": "026b40ba9417edf784b0bb1e8ac4a14e83c60a79",
+    "jarFileModificationDate": "2012-09-20T03:14:32-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.ui_3.103.0.v20120705-114351.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.eclipse.ui.views",
+    "version": {
+      "major": 3,
+      "minor": 6,
+      "micro": 100,
+      "qualifier": "v20120705-114010"
+    },
+    "jarFileFingerprint": "c219f9aab7cff2b7cb624ac198f98a7f617c2f3f",
+    "jarFileModificationDate": "2012-09-20T03:14:34-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.ui.views_3.6.100.v20120705-114010.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7c88966400c457b10c96259d13a27e407da16b48",
+    "jarFileModificationDate": "2012-02-17T19:37:24.185-07:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\rt.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "ProtobufLib",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileModificationDate": "2012-10-17T21:59:32.627-06:00",
+    "location": "E:\\Programming\\ProtoCapstonProject\\Java\\ProtobufLib",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "3ed1ba37a0fae9d24d0755973e4fabb7bdbabff2",
+    "jarFileModificationDate": "2012-02-17T19:37:22.235-07:00",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\resources.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.eclipse.ui.workbench",
+    "version": {
+      "major": 3,
+      "minor": 103,
+      "micro": 1,
+      "qualifier": "v20120906-120042"
+    },
+    "jarFileFingerprint": "03ee64a9f0d8b6e7996e72839046fe6ff41e4cac",
+    "jarFileModificationDate": "2012-09-20T03:14:35-06:00",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.ui.workbench_3.103.1.v20120906-120042.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "protoLib",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "28d02106aa118a46ce91028392d7ad87be44ed93",
+    "jarFileModificationDate": "2012-10-17T21:03:48.611-06:00",
+    "location": "E:\\Programming\\libraries\\protoLib.jar",
+    "javaRuntime": false
+  }
+]

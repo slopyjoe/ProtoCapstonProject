@@ -1,0 +1,52 @@
+{
+  "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.commands_3.6.1.v20120814-150512.jar": {
+    "coordinate": "org.eclipse.core:org.eclipse.core.commands:zip:call:3.0.0",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.commands_3.6.1.v20120814-150512.jar",
+    "status": "RESOLVED"
+  },
+  "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.ui.console_3.5.100.v20120521-2012.jar": {
+    "coordinate": "org.eclipse.ui:org.eclipse.ui.console:zip:call:3.0.0",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.ui.console_3.5.100.v20120521-2012.jar",
+    "status": "RESOLVED"
+  },
+  "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.runtime_3.8.0.v20120521-2346.jar": {
+    "coordinate": "org.eclipse.core:org.eclipse.core.runtime:zip:call:3.0.0",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.core.runtime_3.8.0.v20120521-2346.jar",
+    "status": "RESOLVED"
+  },
+  "E:\\Programming\\ProtoCapstonProject\\Java\\ProtoDebugger\\src": {
+    "location": "E:\\Programming\\ProtoCapstonProject\\Java\\ProtoDebugger\\src",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027E:\\Programming\\ProtoCapstonProject\\Java\\ProtoDebugger\\src\u0027. Neither fingerprint \u0027null\u0027 nor symbolic name \u0027ProtoDebugger\u0027 are known."
+  },
+  "E:\\Programming\\ProtoCapstonProject\\Java\\ProtoDebugger\\gen": {
+    "location": "E:\\Programming\\ProtoCapstonProject\\Java\\ProtoDebugger\\gen",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027E:\\Programming\\ProtoCapstonProject\\Java\\ProtoDebugger\\gen\u0027. Neither fingerprint \u0027null\u0027 nor symbolic name \u0027ProtoDebugger\u0027 are known."
+  },
+  "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.swt.win32.win32.x86_64_3.100.1.v4234e.jar": {
+    "coordinate": "org.eclipse.swt:org.eclipse.swt.win32.win32.x86_64:zip:call:3.0.0",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.swt.win32.win32.x86_64_3.100.1.v4234e.jar",
+    "status": "RESOLVED"
+  },
+  "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.osgi_3.8.1.v20120830-144521.jar": {
+    "coordinate": "org.eclipse.osgi:org.eclipse.osgi:zip:call:3.0.0",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.osgi_3.8.1.v20120830-144521.jar",
+    "status": "RESOLVED"
+  },
+  "C:\\Program Files\\Java\\jre7\\lib\\rt.jar": {
+    "coordinate": "jre:jre:zip:call:1.0.0",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\rt.jar",
+    "status": "RESOLVED"
+  },
+  "E:\\Programming\\ProtoCapstonProject\\Java\\ProtobufLib": {
+    "location": "E:\\Programming\\ProtoCapstonProject\\Java\\ProtobufLib",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027E:\\Programming\\ProtoCapstonProject\\Java\\ProtobufLib\u0027. Neither fingerprint \u0027null\u0027 nor symbolic name \u0027ProtobufLib\u0027 are known."
+  },
+  "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.ui.workbench_3.103.1.v20120906-120042.jar": {
+    "coordinate": "org.eclipse.ui:org.eclipse.ui.workbench:zip:call:3.0.0",
+    "location": "E:\\Programs\\eclipse-rcp-juno-SR1-win32-x86_64\\eclipse\\plugins\\org.eclipse.ui.workbench_3.103.1.v20120906-120042.jar",
+    "status": "RESOLVED"
+  }
+}

@@ -1,0 +1,95 @@
+package protodebugger.model.descriptors;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Widget;
+
+
+import com.google.protobuf.Descriptors;
+import com.google.protobuf.GeneratedMessage.Builder;
+
+public class NumberFieldDescriptorContainer extends FieldDescriptorContainer {
+
+	private Text textField;
+	public NumberFieldDescriptorContainer(Descriptors.FieldDescriptor field)
+	{
+		super(field);
+	}
+	
+	@Override
+	public Object getValue() {
+		
+		try
+		{
+		switch (field.getJavaType())
+		{
+			case INT:
+				return Integer.valueOf(textField.getText());
+			case LONG:
+				return Long.valueOf(textField.getText());
+			case DOUBLE:
+				return Double.valueOf(textField.getText());
+			case FLOAT:
+				return Float.valueOf(textField.getText());
+			default:
+				return null;
+		}
+		}catch (NumberFormatException nfe)
+		{
+			return null;
+		}
+		/*if(value != null)
+			return value.toString();
+		else if(defaultValue != null)
+			return defaultValue.toString();
+		else 
+			return "";*/
+	}
+
+	@Override
+	public boolean buildMsg(Builder<?> build) {
+		if(field.isOptional() && textField.getText().equals(""))
+			return false;
+		
+		
+		
+		if(field.isRepeated())
+			build.addRepeatedField(field, textField.getText());
+		else
+			build.setField(field, textField.getText());
+		return true;
+	}
+
+	@Override
+	public void setValue(Object value) {
+		this.value = value;
+	}
+
+	@Override
+	public String toString() {
+		return "NumberField name = " + name;
+	}
+
+	@Override
+	public Widget getWidget(Composite parent) {
+		if(textField == null)
+		{
+			textField = new Text(parent, SWT.BORDER);
+			textField.setText((String)getValue());
+		}
+		else if(textField.getParent() != parent)
+		{
+			textField.setParent(parent);
+		}
+		return textField;
+	}
+
+	@Override
+	public Composite getParent() {
+		if(textField != null)
+			return textField.getParent();
+		return null;
+	}
+
+}

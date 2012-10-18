@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+	<bundle bundleID="612" localization="OSGI-INF/l10n/bundle" name="ProtobufLib" project="ProtobufLib"/>
+	<bundle bundleID="611" class="protodebugger.Activator" localization="OSGI-INF/l10n/bundle" name="ProtoDebugger" project="ProtoDebugger">
+		<library name="."/>
+	</bundle>
+</map>
