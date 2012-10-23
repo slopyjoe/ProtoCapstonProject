@@ -53,8 +53,8 @@ org.apache.jasper.glassfish,2.2.2.v201205150955,file:/E:/Programs/eclipse-rcp-ju
 org.apache.lucene,2.9.1.v201101211721,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.apache.lucene_2.9.1.v201101211721.jar,4,false
 org.apache.lucene,3.5.0.v20120319-2345,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.apache.lucene_3.5.0.v20120319-2345.jar,4,false
 org.apache.lucene.analysis,2.9.1.v201101211721,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.apache.lucene.analysis_2.9.1.v201101211721.jar,4,false
-org.apache.lucene.core,3.5.0.v20120319-2345,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.apache.lucene.core_3.5.0.v20120319-2345.jar,4,false
 org.apache.lucene.core,2.9.1.v201101211721,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.apache.lucene.core_2.9.1.v201101211721.jar,4,false
+org.apache.lucene.core,3.5.0.v20120319-2345,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.apache.lucene.core_3.5.0.v20120319-2345.jar,4,false
 org.apache.lucene.misc,3.5.0.v20120319-2345,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.apache.lucene.misc_3.5.0.v20120319-2345.jar,4,false
 org.apache.lucene.queries,3.5.0.v20120319-2345,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.apache.lucene.queries_3.5.0.v20120319-2345.jar,4,false
 org.apache.ws.commons.util,1.0.1.v20100518-1140,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.apache.ws.commons.util_1.0.1.v20100518-1140.jar,4,false
@@ -447,12 +447,12 @@ org.eclipse.wst.xsdeditor.doc.user,1.0.800.v201005192212,file:/E:/Programs/eclip
 org.eclipse.xsd,2.8.0.v20120917-0436,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.eclipse.xsd_2.8.0.v20120917-0436.jar,4,false
 org.eclipse.xsd.edit,2.6.0.v20120917-0436,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.eclipse.xsd.edit_2.6.0.v20120917-0436.jar,4,false
 org.hamcrest.core,1.1.0.v20090501071000,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar,4,false
-org.jboss.netty,3.2.5.Final-20120529-1956,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.jboss.netty_3.2.5.Final-20120529-1956.jar,4,false
 org.jboss.netty,3.2.5.Final-20120903-0645,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.jboss.netty_3.2.5.Final-20120903-0645.jar,4,false
+org.jboss.netty,3.2.5.Final-20120529-1956,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.jboss.netty_3.2.5.Final-20120529-1956.jar,4,false
 org.jdom,1.1.1.v201101151400,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.jdom_1.1.1.v201101151400.jar,4,false
 org.jsoup,1.6.1.v201201201356,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.jsoup_1.6.1.v201201201356.jar,4,false
-org.junit,4.10.0.v4_10_0_v20120426-0900,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.junit_4.10.0.v4_10_0_v20120426-0900/,4,false
 org.junit,3.8.2.v3_8_2_v20100427-1100,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100/,4,false
+org.junit,4.10.0.v4_10_0_v20120426-0900,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.junit_4.10.0.v4_10_0_v20120426-0900/,4,false
 org.junit4,4.8.1.v20120523-1257,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.junit4_4.8.1.v20120523-1257/,4,false
 org.objectweb.asm,3.3.1.v201105211655,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.objectweb.asm_3.3.1.v201105211655.jar,4,false
 org.sat4j.core,2.3.0.v20110329,file:/E:/Programs/eclipse-rcp-juno-SR1-win32-x86_64/eclipse/plugins/org.sat4j.core_2.3.0.v20110329.jar,4,false
