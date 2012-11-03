@@ -30,7 +30,7 @@ public abstract class FieldDescriptorContainer {
 	public boolean isSubField(){return subField;}
 	public void setSubField(boolean sub){subField = sub;}
 	public void setFieldParent(FieldDescriptorContainer parent){this.parent = parent;}
-	public FieldDescriptorContainer getFieldParent()
+	public final FieldDescriptorContainer getFieldParent()
 	{
 		if(subField)
 			return parent;
