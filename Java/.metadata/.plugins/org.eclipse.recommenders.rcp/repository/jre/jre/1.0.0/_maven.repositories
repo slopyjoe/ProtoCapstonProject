@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 #NOTE: This is an internal implementation file, its format can be changed without prior notice.
 #Wed Oct 17 22:41:07 MDT 2012
 jre-1.0.0.pom>remote-models=
 jre-1.0.0-ovrm.zip>remote-models=
 jre-1.0.0-call.zip>remote-models=
+=======
+#NOTE: This is an internal implementation file, its format can be changed without prior notice.
+#Wed Oct 17 22:41:07 MDT 2012
+jre-1.0.0.pom>remote-models=
+jre-1.0.0-ovrm.zip>remote-models=
+jre-1.0.0-call.zip>remote-models=
+>>>>>>> 5a14f9bb2eb2e5da316d0185feeade7969c536bd

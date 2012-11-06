@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 allowNonOKPlan=prompt
 eclipse.preferences.version=1
 showLatestVersion=true
+=======
+allowNonOKPlan=prompt
+eclipse.preferences.version=1
+showLatestVersion=true
+>>>>>>> 5a14f9bb2eb2e5da316d0185feeade7969c536bd

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 a#swt-examples img { background-image : url(../../images/topiclabel/sa_samplecube48.gif); }
 a#swt-examples:hover img { background-image : url(../../images/topiclabel/sa_samplecube48_hov.gif); }
 
@@ -9,3 +10,16 @@ a#property-sheet:hover img { background-image : url(../../images/topiclabel/sa_s
 
 a#readmetool img { background-image : url(../../images/topiclabel/sa_sampleorb48.gif); }
 a#readmetool:hover img { background-image : url(../../images/topiclabel/sa_sampleorb48_hov.gif); }
+=======
+a#swt-examples img { background-image : url(../../images/topiclabel/sa_samplecube48.gif); }
+a#swt-examples:hover img { background-image : url(../../images/topiclabel/sa_samplecube48_hov.gif); }
+
+a#multi-page-editor img { background-image : url(../../images/topiclabel/sa_sampleorb48.gif); }
+a#multi-page-editor:hover img { background-image : url(../../images/topiclabel/sa_sampleorb48_hov.gif); }
+
+a#property-sheet img { background-image : url(../../images/topiclabel/sa_sampleorb48.gif); }
+a#property-sheet:hover img { background-image : url(../../images/topiclabel/sa_sampleorb48_hov.gif); }
+
+a#readmetool img { background-image : url(../../images/topiclabel/sa_sampleorb48.gif); }
+a#readmetool:hover img { background-image : url(../../images/topiclabel/sa_sampleorb48_hov.gif); }
+>>>>>>> 5a14f9bb2eb2e5da316d0185feeade7969c536bd

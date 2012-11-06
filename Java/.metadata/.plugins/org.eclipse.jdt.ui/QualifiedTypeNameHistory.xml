@@ -1,3 +1,68 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.Number"/>
+<fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
+<fullyQualifiedTypeName name="java.lang.Long"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="java.lang.Float"/>
+<fullyQualifiedTypeName name="javax.swing.text.StyledEditorKit.BoldAction"/>
+<fullyQualifiedTypeName name="java.lang.Boolean"/>
+<fullyQualifiedTypeName name="protodebugger.util.io.IConnector"/>
+<fullyQualifiedTypeName name="java.net.SocketAddress"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="protodebugger.util.Logger"/>
+<fullyQualifiedTypeName name="protodebugger.util.io.ConnectorReader"/>
+<fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="protodebugger.util.io.socket.SocketConnector"/>
+<fullyQualifiedTypeName name="org.omg.PortableServer.THREAD_POLICY_ID"/>
+<fullyQualifiedTypeName name="protodebugger.test.io.SocketTester"/>
+<fullyQualifiedTypeName name="java.net.ServerSocket"/>
+<fullyQualifiedTypeName name="java.net.Socket"/>
+<fullyQualifiedTypeName name="java.io.PrintWriter"/>
+<fullyQualifiedTypeName name="java.io.BufferedOutputStream"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.io.BufferedInputStream"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="java.beans.PropertyChangeListener"/>
+<fullyQualifiedTypeName name="protodebugger.util.ProtoEvents"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.TreeItem"/>
+<fullyQualifiedTypeName name="protodebugger.util.ParseProtoMessage"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="java.lang.Runnable"/>
+<fullyQualifiedTypeName name="protodebugger.cache.CachedProtos"/>
+<fullyQualifiedTypeName name="java.lang.LinkageError"/>
+<fullyQualifiedTypeName name="java.nio.channels.ByteChannel"/>
+<fullyQualifiedTypeName name="com.google.protobuf.Descriptors.Descriptor"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="protodebugger.model.descriptors.generic.AbstractFieldDescriptor"/>
+<fullyQualifiedTypeName name="V"/>
+<fullyQualifiedTypeName name="protodebugger.model.descriptors.generic.FieldDescriptor"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="protodebugger.model.descriptors.generic.IFieldDescriptor"/>
+<fullyQualifiedTypeName name="protodebugger.model.descriptors.generic.FieldDescriptorContainer"/>
+<fullyQualifiedTypeName name="protodebugger.model.descriptors.generic.DefaultFieldDescriptor"/>
+<fullyQualifiedTypeName name="protodebugger.model.descriptors.generic.DefaultRepeatedFieldDescriptor"/>
+<fullyQualifiedTypeName name="java.lang.Enum"/>
+<fullyQualifiedTypeName name="protodebugger.model.descriptors.FieldDescriptorContainer"/>
+<fullyQualifiedTypeName name="com.google.protobuf.Descriptors"/>
+<fullyQualifiedTypeName name="com.google.protobuf.Descriptors.FieldDescriptor"/>
+<fullyQualifiedTypeName name="com.google.protobuf.GeneratedMessage"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="protodebugger.model.ProtoMessage"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Text"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Button"/>
+<fullyQualifiedTypeName name="java.lang.RuntimeException"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Widget"/>
+<fullyQualifiedTypeName name="protodebugger.model.descriptors.generic.RepeatedFieldDescriptor"/>
+<fullyQualifiedTypeName name="com.google.protobuf.ByteString"/>
+</qualifiedTypeNameHistroy>
+=======
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.lang.Override"/>
@@ -29,3 +94,4 @@
 <fullyQualifiedTypeName name="java.lang.Double"/>
 <fullyQualifiedTypeName name="java.lang.Float"/>
 </qualifiedTypeNameHistroy>
+>>>>>>> 5a14f9bb2eb2e5da316d0185feeade7969c536bd
