@@ -34,7 +34,7 @@ public class Remove extends AbstractHandler
 			{
 				for(FieldDescriptorContainer field :ParseProtoMessage.INSTANCE.getAddedforMsg())
 				{
-						messageList.put(field.name, field);
+						messageList.put(field.getName(), field);
 				}
 				dialog.setElements(messageList.keySet().toArray());
 				dialog.setTitle("Select a Message Field to Remove");
