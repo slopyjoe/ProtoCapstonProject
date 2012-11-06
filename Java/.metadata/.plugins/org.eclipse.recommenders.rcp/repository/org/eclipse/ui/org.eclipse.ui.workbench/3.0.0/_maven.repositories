@@ -1,4 +1,5 @@
 #NOTE: This is an internal implementation file, its format can be changed without prior notice.
-#Wed Oct 17 22:44:16 MDT 2012
+#Sat Nov 03 16:41:03 MDT 2012
 org.eclipse.ui.workbench-3.0.0-call.zip>remote-models=
+org.eclipse.ui.workbench-3.0.0-ovrm.zip>remote-models=
 org.eclipse.ui.workbench-3.0.0.pom>remote-models=

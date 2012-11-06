@@ -142,7 +142,7 @@ public enum ParseProtoMessage {
 		}
 		public void addRepeatedField(FieldDescriptorContainer field, GeneratedMessage msg)
 		{
-			FieldDescriptorContainer added = parseFieldDescriptor(field.field);
+			FieldDescriptorContainer added = parseFieldDescriptor(field.getFieldDescriptor());
 			if(!field.isSubField() && members.containsKey(msg))
 			{
 				int index = members.get(msg).getContents().indexOf(field);
@@ -159,6 +159,11 @@ public enum ParseProtoMessage {
 			}
 			members.get(msg).addAddField(field);
 			pcs.firePropertyChange("REPEATED_FIELD", field, added);
+		}
+		
+		public ProtoMessage getCurrentPM()
+		{
+			return members.get(current);
 		}
 		public List<FieldDescriptorContainer> getListforMsg(GeneratedMessage msg)
 		{

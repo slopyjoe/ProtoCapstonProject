@@ -20,8 +20,6 @@ public class TextFieldDescriptorContainer extends FieldDescriptorContainer {
 	public Object getValue() {
 		if(value != null)
 			return value.toString();
-		else if(defaultValue != null)
-			return defaultValue.toString();
 		else
 			return "";
 	}
@@ -36,11 +34,6 @@ public class TextFieldDescriptorContainer extends FieldDescriptorContainer {
 			build.setField(field, textField.getText());
 		return true;
 			
-	}
-
-	@Override
-	public void setValue(Object value) {
-		this.value = value;
 	}
 
 	@Override

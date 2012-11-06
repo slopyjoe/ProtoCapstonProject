@@ -22,8 +22,6 @@ public class NumberFieldDescriptorContainer extends FieldDescriptorContainer {
 		
 		if(value != null)
 			return value.toString();
-		else if(defaultValue != null)
-			return defaultValue.toString();
 		else 
 			return "";
 	}
@@ -59,11 +57,6 @@ public class NumberFieldDescriptorContainer extends FieldDescriptorContainer {
 		else
 			build.setField(field, obj);
 		return true;
-	}
-
-	@Override
-	public void setValue(Object value) {
-		this.value = value;
 	}
 
 	@Override

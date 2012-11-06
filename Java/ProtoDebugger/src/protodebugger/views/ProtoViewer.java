@@ -14,7 +14,6 @@ import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
-import org.test.Simple.SimpleExample;
 
 import protodebugger.model.descriptors.FieldDescriptorContainer;
 import protodebugger.model.descriptors.MessageFieldDescriptorContainer;
@@ -74,7 +73,7 @@ public class ProtoViewer extends ViewPart implements PropertyChangeListener{
 	private void addSubField(FieldDescriptorContainer field)
 	{
 		ExpandItem item = new ExpandItem(currentBar, SWT.NONE);
-		item.setText(field.name.replace("_", " "));
+		item.setText(field.getName().replace("_", " "));
 		item.setData(field);
 		item.setExpanded(false);
 		item.setControl((Control)field.getWidget(currentBar));
@@ -112,7 +111,7 @@ public class ProtoViewer extends ViewPart implements PropertyChangeListener{
 	private void addMessageField(MessageFieldDescriptorContainer field)
 	{
 		final ExpandItem item = new ExpandItem(currentBar, SWT.NONE);
-		item.setText(field.name.replace("_"," "));
+		item.setText(field.getName().replace("_"," "));
 		item.setData(field);
 		item.setExpanded(false);
 		final ExpandBar innerBar = new ExpandBar(currentBar, SWT.NONE);

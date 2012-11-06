@@ -60,11 +60,6 @@ public class MessageFieldDescriptorContainer extends FieldDescriptorContainer {
 	}
 
 	@Override
-	public void setValue(Object value) 
-	{
-	}
-
-	@Override
 	public String toString() {
 		StringBuilder build = new 
 				StringBuilder("MessageField name = " + name +"\n");

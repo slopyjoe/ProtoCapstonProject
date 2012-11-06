@@ -15,6 +15,11 @@
             class="protodebugger.views.ProtoViewer"
             id="protodebugger.views.ProtoViewer">
       </view>
+      <view
+            class="protodebugger.views.ProtoCacheViewer"
+            id="protodebugger.views.ProtoCacheViewer"
+            name="New ViewPart">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -81,6 +86,11 @@
             defaultHandler="protodebugger.commands.Build"
             id="protodebugger.commands.Build"
             name="Build">
+      </command>
+      <command
+            defaultHandler="CacheCommand"
+            id="protodebugger.commands.cache"
+            name="Cache">
       </command>
    </extension>
 

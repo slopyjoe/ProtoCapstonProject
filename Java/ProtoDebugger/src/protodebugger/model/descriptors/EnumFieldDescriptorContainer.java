@@ -22,8 +22,6 @@ public class EnumFieldDescriptorContainer extends FieldDescriptorContainer {
 	public Object getValue() {
 		if(value != null)
 			return value.toString();
-		else if(defaultValue != null)
-			return ((EnumValueDescriptor)defaultValue).getName();
 		else 
 			return field.getEnumType().getValues().get(0).toString();
 	}
@@ -40,21 +38,6 @@ public class EnumFieldDescriptorContainer extends FieldDescriptorContainer {
 	}
 
 	@Override
-	public void setValue(Object value) {
-		if(value instanceof String)
-		{
-			for(EnumValueDescriptor evd : field.getEnumType().getValues())
-			{
-				if(evd.getName().equals(value))
-				{
-					value = evd;
-					break;
-				}
-			}
-		}
-	}
-
-	@Override
 	public String toString() 
 	{
 		return "EnumField name = " + name;
@@ -67,9 +50,9 @@ public class EnumFieldDescriptorContainer extends FieldDescriptorContainer {
 		{
 			comboField = new Combo(parent, SWT.READ_ONLY);
 			comboField.setItems(getValues());
-			if(defaultValue != null)
+			if(value != null)
 				comboField.select(((EnumValueDescriptor)
-						defaultValue).getIndex());
+						value).getIndex());
 		}
 		else if(comboField.getParent() != parent)
 		{
