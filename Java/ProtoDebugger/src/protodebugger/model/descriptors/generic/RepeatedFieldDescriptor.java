@@ -45,6 +45,7 @@ public class RepeatedFieldDescriptor<V> extends FieldDescriptorContainer<V> {
 			Float f = v;
 			Text text = new Text(null, SWT.NONE);
 			text.setText(v.toString());
+			v = Float.valueOf(text.getText());
 			return text;
 		}
 		

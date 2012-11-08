@@ -12,7 +12,7 @@
             name="ProtoViewer"
             icon="icons/sample.gif"
             category="ProtoDebugger"
-            class="protodebugger.views.ProtoViewer"
+            class="protodebugger.views.ProtoEditor"
             id="protodebugger.views.ProtoViewer">
       </view>
       <view
