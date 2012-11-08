@@ -7,12 +7,14 @@ import protodebugger.model.descriptors.FieldDescriptorContainer;
 
 import com.google.protobuf.GeneratedMessage;
 
+
 public class ProtoMessage {
 	private GeneratedMessage genMsg;
 	private List<FieldDescriptorContainer> contents;
 	private List<FieldDescriptorContainer> repeatedFields;
 	private List<FieldDescriptorContainer> addFields;
 	
+	@Deprecated
 	public ProtoMessage(GeneratedMessage genMsg, 
 						List<FieldDescriptorContainer> contents,
 						List<FieldDescriptorContainer> repeatedFields)

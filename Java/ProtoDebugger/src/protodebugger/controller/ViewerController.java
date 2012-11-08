@@ -1,31 +1,34 @@
 package protodebugger.controller;
 
-import com.google.protobuf.ByteString;
-
 import protodebugger.model.ProtoPackageModel;
-import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
-import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
+import protodebugger.views.ProtoCacheViewer;
 
+/**
+ * 
+ * ViewerController
+ * DESCRIPTION: {@link ProtoCacheViewer} controller.
+ * Keeps {@link ProtoCacheViewer} in sync with {@link ProtoPackageModel}
+ * 
+ * PACKAGE: protodebugger.controller
+ * @author sloppyjoe -Initial release
+ *
+ */
 public enum ViewerController {
 
 	INSTANCE;
 	private ProtoPackageModel packageModel  = new ProtoPackageModel();
 	
+	
 	private ViewerController()
 	{
-		ProtoPackage.Builder pkgBuild = ProtoPackage.newBuilder();
-		ProtoMessage.Builder msgBuild = ProtoMessage.newBuilder();
-		pkgBuild.setName("Hello");
-		pkgBuild.setFilePath("filePath");
-		msgBuild.setName("Message");
-		msgBuild.addClassName("class name 1");
-		msgBuild.addClassName("class name 2");
-		msgBuild.addMessage(ByteString.copyFrom("adf".getBytes()));
-		pkgBuild.addMsgs(msgBuild);
-		packageModel.addProtoPkg(pkgBuild.build());
 	}
 	
-	public ProtoPackageModel getModel()
+	/**
+	 * Returns the current model in control
+	 * 
+	 * @return {@link ProtoPackageModel}
+	 */
+	public final ProtoPackageModel getModel()
 	{
 		return packageModel;
 	}

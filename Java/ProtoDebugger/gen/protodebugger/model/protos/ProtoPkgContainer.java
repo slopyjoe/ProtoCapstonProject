@@ -785,10 +785,9 @@ public final class ProtoPkgContainer {
     boolean hasName();
     String getName();
     
-    // repeated string className = 2;
-    java.util.List<String> getClassNameList();
-    int getClassNameCount();
-    String getClassName(int index);
+    // required string className = 2;
+    boolean hasClassName();
+    String getClassName();
     
     // repeated bytes message = 3;
     java.util.List<com.google.protobuf.ByteString> getMessageList();
@@ -856,18 +855,36 @@ public final class ProtoPkgContainer {
       }
     }
     
-    // repeated string className = 2;
+    // required string className = 2;
     public static final int CLASSNAME_FIELD_NUMBER = 2;
-    private com.google.protobuf.LazyStringList className_;
-    public java.util.List<String>
-        getClassNameList() {
-      return className_;
+    private java.lang.Object className_;
+    public boolean hasClassName() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public int getClassNameCount() {
-      return className_.size();
+    public String getClassName() {
+      java.lang.Object ref = className_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          className_ = s;
+        }
+        return s;
+      }
     }
-    public String getClassName(int index) {
-      return className_.get(index);
+    private com.google.protobuf.ByteString getClassNameBytes() {
+      java.lang.Object ref = className_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        className_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
     
     // repeated bytes message = 3;
@@ -886,7 +903,7 @@ public final class ProtoPkgContainer {
     
     private void initFields() {
       name_ = "";
-      className_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      className_ = "";
       message_ = java.util.Collections.emptyList();;
     }
     private byte memoizedIsInitialized = -1;
@@ -895,6 +912,10 @@ public final class ProtoPkgContainer {
       if (isInitialized != -1) return isInitialized == 1;
       
       if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasClassName()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -908,8 +929,8 @@ public final class ProtoPkgContainer {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getNameBytes());
       }
-      for (int i = 0; i < className_.size(); i++) {
-        output.writeBytes(2, className_.getByteString(i));
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getClassNameBytes());
       }
       for (int i = 0; i < message_.size(); i++) {
         output.writeBytes(3, message_.get(i));
@@ -927,14 +948,9 @@ public final class ProtoPkgContainer {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, getNameBytes());
       }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < className_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeBytesSizeNoTag(className_.getByteString(i));
-        }
-        size += dataSize;
-        size += 1 * getClassNameList().size();
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getClassNameBytes());
       }
       {
         int dataSize = 0;
@@ -1071,7 +1087,7 @@ public final class ProtoPkgContainer {
         super.clear();
         name_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        className_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        className_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
         message_ = java.util.Collections.emptyList();;
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -1117,10 +1133,8 @@ public final class ProtoPkgContainer {
           to_bitField0_ |= 0x00000001;
         }
         result.name_ = name_;
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          className_ = new com.google.protobuf.UnmodifiableLazyStringList(
-              className_);
-          bitField0_ = (bitField0_ & ~0x00000002);
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
         }
         result.className_ = className_;
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
@@ -1147,15 +1161,8 @@ public final class ProtoPkgContainer {
         if (other.hasName()) {
           setName(other.getName());
         }
-        if (!other.className_.isEmpty()) {
-          if (className_.isEmpty()) {
-            className_ = other.className_;
-            bitField0_ = (bitField0_ & ~0x00000002);
-          } else {
-            ensureClassNameIsMutable();
-            className_.addAll(other.className_);
-          }
-          onChanged();
+        if (other.hasClassName()) {
+          setClassName(other.getClassName());
         }
         if (!other.message_.isEmpty()) {
           if (message_.isEmpty()) {
@@ -1173,6 +1180,10 @@ public final class ProtoPkgContainer {
       
       public final boolean isInitialized() {
         if (!hasName()) {
+          
+          return false;
+        }
+        if (!hasClassName()) {
           
           return false;
         }
@@ -1208,8 +1219,8 @@ public final class ProtoPkgContainer {
               break;
             }
             case 18: {
-              ensureClassNameIsMutable();
-              className_.add(input.readBytes());
+              bitField0_ |= 0x00000002;
+              className_ = input.readBytes();
               break;
             }
             case 26: {
@@ -1259,59 +1270,39 @@ public final class ProtoPkgContainer {
         onChanged();
       }
       
-      // repeated string className = 2;
-      private com.google.protobuf.LazyStringList className_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      private void ensureClassNameIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-          className_ = new com.google.protobuf.LazyStringArrayList(className_);
-          bitField0_ |= 0x00000002;
-         }
+      // required string className = 2;
+      private java.lang.Object className_ = "";
+      public boolean hasClassName() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public java.util.List<String>
-          getClassNameList() {
-        return java.util.Collections.unmodifiableList(className_);
+      public String getClassName() {
+        java.lang.Object ref = className_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          className_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
       }
-      public int getClassNameCount() {
-        return className_.size();
-      }
-      public String getClassName(int index) {
-        return className_.get(index);
-      }
-      public Builder setClassName(
-          int index, String value) {
+      public Builder setClassName(String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  ensureClassNameIsMutable();
-        className_.set(index, value);
-        onChanged();
-        return this;
-      }
-      public Builder addClassName(String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureClassNameIsMutable();
-        className_.add(value);
-        onChanged();
-        return this;
-      }
-      public Builder addAllClassName(
-          java.lang.Iterable<String> values) {
-        ensureClassNameIsMutable();
-        super.addAll(values, className_);
+  bitField0_ |= 0x00000002;
+        className_ = value;
         onChanged();
         return this;
       }
       public Builder clearClassName() {
-        className_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000002);
+        className_ = getDefaultInstance().getClassName();
         onChanged();
         return this;
       }
-      void addClassName(com.google.protobuf.ByteString value) {
-        ensureClassNameIsMutable();
-        className_.add(value);
+      void setClassName(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000002;
+        className_ = value;
         onChanged();
       }
       
@@ -1401,7 +1392,7 @@ public final class ProtoPkgContainer {
       "\n\004name\030\001 \002(\t\022\020\n\010filePath\030\002 \002(\t\0226\n\004msgs\030\003" +
       " \003(\0132(.protodebugger.model.protos.ProtoM" +
       "essage\"@\n\014ProtoMessage\022\014\n\004name\030\001 \002(\t\022\021\n\t" +
-      "className\030\002 \003(\t\022\017\n\007message\030\003 \003(\014"
+      "className\030\002 \002(\t\022\017\n\007message\030\003 \003(\014"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

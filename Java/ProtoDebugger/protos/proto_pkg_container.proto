@@ -1,13 +1,35 @@
 
 package protodebugger.model.protos;
+
+//Protocol Buffer that represents a 
+//project for ProtoDebugger ProtoCacheViewer
 message ProtoPackage{
+	
+	//name of the project
 	required string name = 1;
+	
+	//filePath of the project
 	required string filePath = 2;
+	
+	//list of proto messages in the project
 	repeated ProtoMessage msgs = 3;
 }
 
+//Protocol Buffer that associates
+//a protocol buffer class to 
+// multiple instances of that class.
+//In the project sense it is viewed as
+// a child folder to a proto package.
 message ProtoMessage{
+	
+	//Name of the protocol buffer
 	required string name = 1;
-	repeated string className = 2;
+	
+	//class name of the protocol buffer
+	//used to create a protocol instance
+	required string className = 2;
+	
+	//List of protocol instances in 
+	//ByteString format
 	repeated bytes message = 3;
 }

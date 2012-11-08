@@ -89,16 +89,14 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 			pkgBuild.setName("Hello");
 			pkgBuild.setFilePath("filePath");
 			msgBuild.setName("Message");
-			msgBuild.addClassName("class name 1");
-			msgBuild.addClassName("class name 2");
+			msgBuild.setClassName("class name 1");
 			msgBuild.addMessage(ByteString.copyFrom("adf".getBytes()));
 			pkgBuild.addMsgs(msgBuild);
 			model.addProtoPkg(pkgBuild.build());
 			pkgBuild.setName("Hello2");
 			pkgBuild.setFilePath("filePath");
 			msgBuild.setName("Message2");
-			msgBuild.addClassName("class name 1");
-			msgBuild.addClassName("class name 2");
+			msgBuild.setClassName("class name 1");
 			msgBuild.addMessage(ByteString.copyFrom("adf".getBytes()));
 			pkgBuild.addMsgs(msgBuild);
 			model.addProtoPkg(pkgBuild.build());
@@ -131,7 +129,7 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 				return ((ProtoPackage)parentElement).getMsgsList().toArray();
 			}else if(parentElement instanceof ProtoMessage)
 			{
-				return((ProtoMessage)parentElement).getClassNameList().toArray();
+				return((ProtoMessage)parentElement).getMessageList().toArray();
 			}
 			return null;
 		}
