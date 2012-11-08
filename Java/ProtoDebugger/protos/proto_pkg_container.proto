@@ -1,0 +1,13 @@
+
+package protodebugger.model.protos;
+message ProtoPackage{
+	required string name = 1;
+	required string filePath = 2;
+	repeated ProtoMessage msgs = 3;
+}
+
+message ProtoMessage{
+	required string name = 1;
+	repeated string className = 2;
+	repeated bytes message = 3;
+}
