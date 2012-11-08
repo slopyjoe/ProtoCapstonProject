@@ -2,26 +2,31 @@ package protodebugger.views;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.layout.TreeColumnLayout;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import com.google.protobuf.GeneratedMessage;
-
 import protodebugger.cache.CachedProtos;
+import protodebugger.controller.ViewerController;
+import protodebugger.model.ProtoPackageModel;
+import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
+import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
 import protodebugger.util.ProtoEvents;
+
+import com.google.protobuf.ByteString;
+import com.google.protobuf.GeneratedMessage;
 
 public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener{
 
@@ -38,60 +43,15 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-		Composite container = new Composite(parent, SWT.NONE);
-		container.setLayout(new FormLayout());
-		
-		Composite composite = new Composite(container, SWT.NONE);
-		composite.setBounds(114, 217, 64, 64);
-		FormData fd_composite = new FormData();
-		fd_composite.bottom = new FormAttachment(100);
-		fd_composite.right = new FormAttachment(100);
-		fd_composite.top = new FormAttachment(0);
-		fd_composite.left = new FormAttachment(0);
-		composite.setLayoutData(fd_composite);
-		composite.setLayout(new TreeColumnLayout());
-		
-		TreeViewer treeViewer = new TreeViewer(composite, SWT.BORDER);
-		Tree tree = treeViewer.getTree();
-		tree.setHeaderVisible(true);
-		tree.setLinesVisible(true);
-		
-		root = new TreeItem(tree, SWT.NONE);
-		root.setText("Proto");
-		
-
-		createActions();
-		initializeToolBar();
-		initializeMenu();
+	    TreeViewer viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+	    viewer.setContentProvider(new ProtoCacheContentProvider());
+	    viewer.setLabelProvider(new ProtoCacheLabelProvider());
+	    // Expand the tree
+	    viewer.setAutoExpandLevel(2);
+	    // Provide the input to the ContentProvider
+	    viewer.setInput(ViewerController.INSTANCE.getModel());
 	}
 
-	/**
-	 * Create the actions.
-	 */
-	private void createActions() {
-		// Create the actions
-	}
-
-	/**
-	 * Initialize the toolbar.
-	 */
-	private void initializeToolBar() {
-		IToolBarManager toolbarManager = getViewSite().getActionBars()
-				.getToolBarManager();
-	}
-
-	/**
-	 * Initialize the menu.
-	 */
-	private void initializeMenu() {
-		IMenuManager menuManager = getViewSite().getActionBars()
-				.getMenuManager();
-	}
-
-	@Override
-	public void setFocus() {
-		// Set the focus
-	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -111,5 +71,111 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 				}
 			}
 		}
+	}
+
+	@Override
+	public void setFocus() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private class ProtoCacheContentProvider implements ITreeContentProvider{
+
+		private ProtoPackageModel model  = new ProtoPackageModel();
+		
+		{
+			ProtoPackage.Builder pkgBuild = ProtoPackage.newBuilder();
+			ProtoMessage.Builder msgBuild = ProtoMessage.newBuilder();
+			pkgBuild.setName("Hello");
+			pkgBuild.setFilePath("filePath");
+			msgBuild.setName("Message");
+			msgBuild.addClassName("class name 1");
+			msgBuild.addClassName("class name 2");
+			msgBuild.addMessage(ByteString.copyFrom("adf".getBytes()));
+			pkgBuild.addMsgs(msgBuild);
+			model.addProtoPkg(pkgBuild.build());
+			pkgBuild.setName("Hello2");
+			pkgBuild.setFilePath("filePath");
+			msgBuild.setName("Message2");
+			msgBuild.addClassName("class name 1");
+			msgBuild.addClassName("class name 2");
+			msgBuild.addMessage(ByteString.copyFrom("adf".getBytes()));
+			pkgBuild.addMsgs(msgBuild);
+			model.addProtoPkg(pkgBuild.build());
+		}
+		
+		@Override
+		public void dispose() {
+			
+		}
+
+		@Override
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		/*	if(newInput instanceof ProtoPackage)
+			{
+				this.model = (ProtoPackageModel) newInput;
+			}*/
+		}
+
+		@Override
+		public Object[] getElements(Object inputElement) {
+			if(model == null)
+				return Collections.EMPTY_LIST.toArray();
+			return model.getPackages().toArray();
+		}
+
+		@Override
+		public Object[] getChildren(Object parentElement) {
+			if(parentElement instanceof ProtoPackage)
+			{
+				return ((ProtoPackage)parentElement).getMsgsList().toArray();
+			}else if(parentElement instanceof ProtoMessage)
+			{
+				return((ProtoMessage)parentElement).getClassNameList().toArray();
+			}
+			return null;
+		}
+
+		@Override
+		public Object getParent(Object element) {
+			return null;
+		}
+
+		@Override
+		public boolean hasChildren(Object element) {
+			return (element instanceof ProtoPackage ||
+					element instanceof ProtoMessage);
+		}
+		
+	}
+	
+	private class ProtoCacheLabelProvider extends LabelProvider{
+		@Override
+		public String getText(Object element)
+		{
+			if(element instanceof ProtoPackage)
+			{
+				ProtoPackage proto = (ProtoPackage) element;
+				return proto.getName();
+			}
+			else if(element instanceof ProtoMessage)
+			{
+				ProtoMessage proto = (ProtoMessage) element;
+				return proto.getName();
+			}else {
+				return element.toString();
+			}
+		}
+		  @Override
+		  public Image getImage(Object element) {
+		    if (element instanceof ProtoPackage ||
+					element instanceof ProtoMessage) {
+		      return PlatformUI.getWorkbench().getSharedImages()
+		          .getImage(ISharedImages.IMG_OBJ_FOLDER);
+		    }
+		    return PlatformUI.getWorkbench().getSharedImages()
+		    .getImage(ISharedImages.IMG_OBJ_FILE);
+		  }
+
 	}
 }

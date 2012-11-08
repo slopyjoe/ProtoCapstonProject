@@ -12,7 +12,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.test.AddressBookProtos.AddressBook;
 import org.test.AlienSpeciesProto.AlienSpecies;
-import org.test.Simple;
 
 import protodebugger.util.ParseProtoMessage;
 
@@ -21,7 +20,7 @@ import com.google.protobuf.GeneratedMessage;
 public class ProtoSelection extends AbstractHandler {
 
 	private ElementListSelectionDialog dialog;
-	private Map<String, GeneratedMessage> messageList = new LinkedHashMap<String, GeneratedMessage>();
+	private final Map<String, GeneratedMessage> messageList = new LinkedHashMap<String, GeneratedMessage>();
 	{
 		messageList.put("AddressBook", AddressBook.getDefaultInstance());
 		messageList.put("AlienSpecies", AlienSpecies.getDefaultInstance());

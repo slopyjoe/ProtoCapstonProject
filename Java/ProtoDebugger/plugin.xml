@@ -9,16 +9,16 @@
             id="ProtoDebugger">
       </category>
       <view
-            name="ProtoViewer"
-            icon="icons/sample.gif"
+            name="ProtoEditor"
             category="ProtoDebugger"
             class="protodebugger.views.ProtoEditor"
             id="protodebugger.views.ProtoViewer">
       </view>
       <view
+            category="ProtoDebugger"
             class="protodebugger.views.ProtoCacheViewer"
             id="protodebugger.views.ProtoCacheViewer"
-            name="New ViewPart">
+            name="ProtoViewer">
       </view>
    </extension>
    <extension
@@ -28,8 +28,14 @@
          <view
                ratio="0.5"
                relative="org.eclipse.ui.views.TaskList"
-               relationship="right"
+               relationship="left"
                id="protodebugger.views.ProtoViewer">
+         </view>
+         <view
+               id="protodebugger.views.ProtoCacheViewer"
+               minimized="false"
+               relationship="stack"
+               relative="protodebugger.views.ProtoViewer">
          </view>
       </perspectiveExtension>
    </extension>
@@ -116,6 +122,14 @@
             id="protodebugger.commands.Add"
             name="Add">
       </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="protodebugger.views.ProtoPerspective"
+            id="ProtoDebugger.perspective"
+            name="ProtoDebugger">
+      </perspective>
    </extension>
 
 </plugin>
