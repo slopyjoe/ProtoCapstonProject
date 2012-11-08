@@ -80,6 +80,16 @@
                tooltip="Removes an added field from the message">
          </command>
       </menuContribution>
+	<menuContribution
+            allPopups="true"
+            locationURI="toolbar:protodebugger.views.ProtoCacheViewer">
+         <command
+               commandId="protodebugger.commands.Save"
+               id="protodebugger.views.ProtoViewer.Toolbar.Save"
+               label="Save"
+               style="push"
+               tooltip="Saves Proto Files"/>
+      </menuContribution>
       <menuContribution
             allPopups="false"
             locationURI="menu:org.eclipse.ui.main.menu">
@@ -121,6 +131,11 @@
             defaultHandler="protodebugger.commands.Add"
             id="protodebugger.commands.Add"
             name="Add">
+      </command>
+            <command
+            defaultHandler="protodebugger.commands.Save"
+            id="protodebugger.commands.Save"
+            name="Save">
       </command>
    </extension>
    <extension
