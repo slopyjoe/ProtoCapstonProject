@@ -8,32 +8,43 @@ import com.google.protobuf.GeneratedMessage.Builder;
 
 public abstract class FieldDescriptorContainer {
 
-	public String name; 
-	protected Object defaultValue, value;
-	public Descriptors.FieldDescriptor field;
+	protected final String name; 
+	protected Object value;
+	protected final Descriptors.FieldDescriptor field;
 	protected boolean subField = false;
 	protected FieldDescriptorContainer parent;
-	public FieldDescriptorContainer(Descriptors.FieldDescriptor field)
+	
+	public FieldDescriptorContainer(final Descriptors.FieldDescriptor field)
 	{
 		this.field = field;
 		this.name = field.getName();
 		if(field.hasDefaultValue())
-			defaultValue = field.getDefaultValue();
+			value = field.getDefaultValue();
 	}
 	
-	public abstract Object getValue();
+	
 	public abstract boolean buildMsg(Builder<?> build);
-	public abstract void setValue(Object value);
-	public abstract String toString();
+	public abstract Object getValue();
+	public void setDefaultValue(){
+		if(field.hasDefaultValue())
+			value = field.getDefaultValue();
+	}
+	
 	public abstract Widget getWidget(Composite parent);
 	public abstract Composite getParent();
+	
 	public boolean isSubField(){return subField;}
 	public void setSubField(boolean sub){subField = sub;}
 	public void setFieldParent(FieldDescriptorContainer parent){this.parent = parent;}
-	public FieldDescriptorContainer getFieldParent()
+	public final FieldDescriptorContainer getFieldParent()
 	{
 		if(subField)
 			return parent;
 		return null;
 	}
+	
+	public final String getName(){return name;}
+	public final Descriptors.FieldDescriptor getFieldDescriptor(){return field;}
+	
+	public abstract String toString();
 }

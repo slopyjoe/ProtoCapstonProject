@@ -1,0 +1,30 @@
+// See README.txt for information and build instructions.
+
+package test;
+
+option java_package = "org.test";
+option java_outer_classname = "AlienSpeciesProto";
+
+message Alien {
+  required string name = 1;
+  required int32 id = 2;        // Unique ID number for this person.
+  optional string species = 3;
+
+  enum PlanetType {
+    AQUA = 0;
+    DESERT = 1;
+    CANOPY = 2;
+  }
+
+  message Language {
+    required string grammer = 1;
+    optional PlanetType type = 2 [default = AQUA];
+  }
+
+  repeated Language tongue = 4;
+}
+
+// Our alien book file is just one of these.
+message AlienSpecies {
+  repeated Alien alien = 1;
+}

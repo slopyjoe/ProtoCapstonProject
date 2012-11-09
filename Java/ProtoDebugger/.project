@@ -25,11 +25,5 @@
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>protoLib</name>
-			<type>2</type>
-			<location>E:/Programming/libraries/GoogleProtobuf/protobuf/java/src/main/java</location>
-		</link>
-	</linkedResources>
 </projectDescription>
+

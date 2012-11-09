@@ -5,15 +5,20 @@
    <extension
          point="org.eclipse.ui.views">
       <category
-            name="Sample Category"
+            name="Protocol Buffer"
             id="ProtoDebugger">
       </category>
       <view
-            name="ProtoViewer"
-            icon="icons/sample.gif"
+            name="ProtoEditor"
             category="ProtoDebugger"
-            class="protodebugger.views.ProtoViewer"
+            class="protodebugger.views.ProtoEditor"
             id="protodebugger.views.ProtoViewer">
+      </view>
+      <view
+            category="ProtoDebugger"
+            class="protodebugger.views.ProtoCacheViewer"
+            id="protodebugger.views.ProtoCacheViewer"
+            name="ProtoViewer">
       </view>
    </extension>
    <extension
@@ -23,16 +28,146 @@
          <view
                ratio="0.5"
                relative="org.eclipse.ui.views.TaskList"
-               relationship="right"
+               relationship="left"
                id="protodebugger.views.ProtoViewer">
+         </view>
+         <view
+               id="protodebugger.views.ProtoCacheViewer"
+               minimized="false"
+               relationship="stack"
+               relative="protodebugger.views.ProtoViewer">
          </view>
       </perspectiveExtension>
    </extension>
    <extension
-         point="org.eclipse.help.contexts">
-      <contexts
-            file="contexts.xml">
-      </contexts>
+         id="toolbar:protodebugger.views.ProtoViewer"
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="toolbar:protodebugger.views.ProtoViewer">
+         <command
+               commandId="protodebugger.commands.ProtoSelection"
+               id="protodebugger.views.ProtoViewer.Toolbar.ProtoSelection"
+               label="ProtoSelection"
+               style="push"
+               tooltip="Selects the proto file">
+         </command>
+         <command
+               commandId="protodebugger.commands.Build"
+               id="protodebugger.views.ProtoViewer.Toolbar.Build"
+               label="Build"
+               style="push"
+               tooltip="Builds the current proto file">
+         </command>
+         <command
+               commandId="protodebugger.commands.Add"
+               id="protodebugger.views.ProtoViewer.Toolbar.Add"
+               label="Add Repeated Field"
+               style="push"
+               tooltip="Adds a repeated field to the message">
+         </command>
+         <command
+               commandId="protodebugger.commands.Remove"
+               id="protodebugger.views.ProtoViewer.Toolbar.Remove"
+               label="Remove Added Field"
+               style="push"
+               tooltip="Removes an added field from the message">
+         </command>
+      </menuContribution>
+	<menuContribution
+            allPopups="true"
+            locationURI="toolbar:protodebugger.views.ProtoCacheViewer">
+         <command
+               commandId="protodebugger.commands.Save"
+               id="protodebugger.views.ProtoViewer.Toolbar.Save"
+               label="Save"
+               style="push"
+               tooltip="Saves Proto Files">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               id="protodebugger.Menu"
+               label="Proto">
+            <command
+                  commandId="ProtoSelection"
+                  id="protodebugger.commands.ProtoSelection"
+                  label="ProtoSelection"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:protodebugger.views.ProtoCacheViewer?after=additions">
+         <command
+               commandId="protodebugger.commands.Save"
+               id="protodebugger.views.ProtoViewer.Toolbar.Save"
+               label="Save"
+               style="push"
+               tooltip="Saves Proto Files">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeMenuSelection">
+                  <iterate>
+                     <adapt
+                           type="protodebugger.model.protos.ProtoPkgContainer$ProtoPackage">
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="protodebugger.commands.ProtoSelection"
+            id="protodebugger.commands.ProtoSelection"
+            name="ProtoSelection">
+      </command>
+      <command
+            defaultHandler="protodebugger.commands.Build"
+            id="protodebugger.commands.Build"
+            name="Build">
+      </command>
+      <command
+            defaultHandler="CacheCommand"
+            id="protodebugger.commands.cache"
+            name="Cache">
+      </command>
+      <command
+            defaultHandler="protodebugger.commands.Remove"
+            id="protodebugger.commands.Remove"
+            name="Remove">
+      </command>
+      <command
+            defaultHandler="protodebugger.commands.Add"
+            id="protodebugger.commands.Add"
+            name="Add">
+      </command>
+            <command
+            defaultHandler="protodebugger.commands.Save"
+            id="protodebugger.commands.Save"
+            name="Save">
+      </command>
+            <command
+                  defaultHandler="protodebugger.commands.AddProtoPackage"
+                  id="protodebugger.commands.AddProtoPackage"
+                  name="AddProtoPackage">
+            </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="protodebugger.views.ProtoPerspective"
+            id="ProtoDebugger.perspective"
+            name="ProtoDebugger">
+      </perspective>
    </extension>
 
 </plugin>
+

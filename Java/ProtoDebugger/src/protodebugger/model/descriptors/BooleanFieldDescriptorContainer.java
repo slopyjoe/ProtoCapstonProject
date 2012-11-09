@@ -20,8 +20,6 @@ public class BooleanFieldDescriptorContainer extends FieldDescriptorContainer {
 	public Object getValue() {
 		if(value != null)
 			return value.toString();
-		else if(defaultValue != null)
-			return defaultValue.toString();
 		else 
 			return false;
 	}
@@ -36,11 +34,6 @@ public class BooleanFieldDescriptorContainer extends FieldDescriptorContainer {
 	}
 
 	@Override
-	public void setValue(Object value) {
-		this.value = value;
-	}
-
-	@Override
 	public String toString() {
 		return "BooleanField name = " + name;
 	}
@@ -48,7 +41,11 @@ public class BooleanFieldDescriptorContainer extends FieldDescriptorContainer {
 	@Override
 	public Widget getWidget(Composite parent) {
 		if(check == null)
+		{
 			check = new Button(parent, SWT.CHECK);
+			if(value != null)
+				check.setEnabled((Boolean)value);
+		}
 		else if(check.getParent() != parent)
 			check.setParent(parent);
 		return check;
@@ -60,5 +57,6 @@ public class BooleanFieldDescriptorContainer extends FieldDescriptorContainer {
 			return check.getParent();
 		return null;
 	}
+	
 
 }
