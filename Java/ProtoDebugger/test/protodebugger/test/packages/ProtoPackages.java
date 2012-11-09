@@ -11,6 +11,10 @@ import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
 
+import com.google.protobuf.Descriptors;
+import com.google.protobuf.Descriptors.FieldDescriptor;
+import com.google.protobuf.Descriptors.FieldDescriptor.JavaType;
+
 public class ProtoPackages {
 
 
@@ -24,7 +28,12 @@ public class ProtoPackages {
 		ProtoInstance.Builder insBuild = ProtoInstance.newBuilder();
 		Alien.Builder alienBld = Alien.newBuilder();
 		
-		
+		Descriptors.FieldDescriptor field = null;
+		for(FieldDescriptor desc : Language.getDescriptor().getFields())
+		{
+			if(desc.getJavaType() == JavaType.ENUM)
+				field = desc;
+		}
 		pkgBuild.setName("Alian's Protos");
 		pkgBuild.setFilePath("/e/temp/alian.protoPkg");
 		msgBuild.setName("Alien");
@@ -33,8 +42,9 @@ public class ProtoPackages {
 		alienBld.setName("MarsBar");
 		alienBld.setId(23);
 		alienBld.setSpecies("Martian");
+		
 		alienBld.addTongue(
-				Language.newBuilder().setGrammer("Frasier").setType(PlanetType.AQUA).build());
+				Language.newBuilder().setGrammer("Frasier").setField(field, field.getDefaultValue()));
 		insBuild.setMessage(alienBld.build().toByteString());
 		msgBuild.addMessage(insBuild.build());
 		pkgBuild.addMsgs(msgBuild);
@@ -68,6 +78,14 @@ public class ProtoPackages {
 	
 	public static void main(String args[])
 	{
+		
+		Descriptors.FieldDescriptor field = null;
+		for(FieldDescriptor desc : Language.getDescriptor().getFields())
+		{
+			if(desc.getJavaType() == JavaType.ENUM)
+				field = desc;
+		}
+		System.out.println(field.getDefaultValue());
 		ArrayList<Integer> h = new ArrayList<Integer>();
 		System.out.println(h.getClass().getGenericSuperclass());
 	}

@@ -1,18 +1,30 @@
 package protodebugger.model.descriptors.generic;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import protodebugger.util.ParseGeneratedMessage;
 
 import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.google.protobuf.GeneratedMessage.Builder;
 import com.google.protobuf.Message;
 
-public class MessageDescriptor extends FieldDescriptorContainer<Builder<?>> implements IMessageDescriptor<Builder<?>> {
+public class MessageDescriptor extends AbstractFieldDescriptor<Builder<?>> implements IMessageDescriptor<Builder<?>> {
 
 	protected List<IFieldDescriptor<?>> descriptors;
 	
 	public MessageDescriptor(FieldDescriptor protoField) {
 		super(protoField);
+		descriptors = new ArrayList<IFieldDescriptor<?>>();
+		parseFieldDescriptor();
+	}
+	
+	private void parseFieldDescriptor(){
+		for(FieldDescriptor childFields : protoField.getMessageType().getFields())
+		{
+			descriptors.add(ParseGeneratedMessage.parseFieldDescriptor(childFields));
+		}
 	}
 
 	protected Message getBuiltMsg(Builder<?> builder)
@@ -53,6 +65,11 @@ public class MessageDescriptor extends FieldDescriptorContainer<Builder<?>> impl
 	public void removeDescriptor(IFieldDescriptor<?> descriptor) {
 		if(descriptors.contains(descriptor))
 			descriptors.remove(descriptor);
+	}
+
+	@Override
+	public void setValue(Object value) {
+		throw new RuntimeException("Uh oh not suppose to call MessageDescriptor setValue...");
 	}
 
 }

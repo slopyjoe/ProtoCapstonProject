@@ -20,6 +20,13 @@
             id="protodebugger.views.ProtoCacheViewer"
             name="ProtoViewer">
       </view>
+      <view
+            category="ProtoDebugger"
+            class="protodebugger.views.EditorTree"
+            id="protodebugger.views.ProtoEditorTree"
+            name="EditorTree"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">

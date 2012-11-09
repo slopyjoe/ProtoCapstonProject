@@ -1,13 +1,32 @@
 package protodebugger.model;
 
-import com.google.protobuf.GeneratedMessage;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import protodebugger.model.descriptors.generic.MessageDescriptor;
+import protodebugger.model.descriptors.generic.IFieldDescriptor;
+import protodebugger.util.ParseGeneratedMessage;
+
+import com.google.protobuf.GeneratedMessage;
 
 
 public class ProtoMessageGeneric {
 
-	private MessageDescriptor messageDescriptor;
+	private List<IFieldDescriptor<?>> fieldDescriptors;
 	private GeneratedMessage genMsg;
 
+	public ProtoMessageGeneric(){
+		
+	}
+	
+	public void setGenMsg(GeneratedMessage msg){
+		this.genMsg = msg;
+		fieldDescriptors = new ArrayList<IFieldDescriptor<?>>(ParseGeneratedMessage.parseGeneric(genMsg));
+	}
+	
+	public List<IFieldDescriptor<?>> getDescriptors(){
+		if(fieldDescriptors == null)
+			return Collections.emptyList();
+		return fieldDescriptors;
+	}
 }

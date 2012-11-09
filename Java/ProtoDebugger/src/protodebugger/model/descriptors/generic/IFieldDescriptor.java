@@ -1,14 +1,11 @@
 package protodebugger.model.descriptors.generic;
-import org.eclipse.swt.widgets.Widget;
-
 import com.google.protobuf.GeneratedMessage.Builder;
 
 public interface IFieldDescriptor<V> {
 
 	public V getValue();
-	public void setDefaultValue(V v);
+	public void setValue(Object value);
 	public boolean buildMsg(Builder<?> builder);
 	public String getName();
-	public Widget getWidget();
-	
+	public boolean isRepeated();
 }

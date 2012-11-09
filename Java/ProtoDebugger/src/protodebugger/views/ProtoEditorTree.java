@@ -2,13 +2,9 @@ package protodebugger.views;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -20,49 +16,42 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
+import org.test.AlienSpeciesProto.Alien;
 
 import protodebugger.cache.CachedProtos;
-import protodebugger.controller.EditorController;
-import protodebugger.model.ProtoPackageModel;
-import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
+import protodebugger.model.ProtoMessageGeneric;
+import protodebugger.model.descriptors.generic.IFieldDescriptor;
+import protodebugger.model.descriptors.generic.MessageDescriptor;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
-import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
-import protodebugger.test.packages.ProtoPackages;
 import protodebugger.util.ProtoEvents;
 
 import com.google.protobuf.GeneratedMessage;
 
-public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener{
+public class ProtoEditorTree extends ViewPart implements PropertyChangeListener{
 
-	public static final String ID = "protodebugger.views.ProtoCacheViewer"; //$NON-NLS-1$
+	public static final String ID = "protodebugger.views.ProtoEditorTree"; //$NON-NLS-1$
 	private TreeItem root;
-	
-	private final ProtoPackageModel model  = new ProtoPackageModel();
+	private final ProtoMessageGeneric model  = new ProtoMessageGeneric();
 	
 	{
-		for(ProtoPackage pkg : ProtoPackages.getPackages())
-		{
-			model.addProtoPkg(pkg);
-		}
+		model.setGenMsg(Alien.getDefaultInstance());
 	}
 	
-	public ProtoCacheViewer() {
-		
+	public ProtoEditorTree(Composite parent) {
 	}
+	
+	
 
-	/**
-	 * Create contents of the view part.
-	 * @param parent
-	 */
 	@Override
 	public void createPartControl(Composite parent) {
-	    TreeViewer viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-	    viewer.setContentProvider(new ProtoCacheContentProvider());
-	    viewer.setLabelProvider(new ProtoCacheLabelProvider());
+		
+		TreeViewer viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+	    viewer.setContentProvider(new ProtoEditorTreeContentProvider());
+	    viewer.setLabelProvider(new ProtoEditorTreeLabelProvider());
 	    
 	    // Provide the input to the ContentProvider
 	    viewer.setInput(model);
-	    viewer.addDoubleClickListener(new IDoubleClickListener() {
+	    /*viewer.addDoubleClickListener(new IDoubleClickListener() {
 			
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
@@ -80,7 +69,7 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 			    	}
 			    }
 			}
-		});
+		});*/
 	}
 
 
@@ -103,14 +92,8 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 			}
 		}
 	}
-
-	@Override
-	public void setFocus() {
-		// TODO Auto-generated method stub
-		
-	}
 	
-	private class ProtoCacheContentProvider implements ITreeContentProvider{
+	private class ProtoEditorTreeContentProvider implements ITreeContentProvider{
 
 		/*private ProtoPackageModel model  = new ProtoPackageModel();
 		
@@ -136,16 +119,14 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 
 		@Override
 		public Object[] getElements(Object inputElement) {
-			if(model == null)
-				return Collections.EMPTY_LIST.toArray();
-			return model.getPackages().toArray();
+			return model.getDescriptors().toArray();
 		}
 
 		@Override
 		public Object[] getChildren(Object parentElement) {
-			if(parentElement instanceof ProtoPackage)
+			if(parentElement instanceof MessageDescriptor)
 			{
-				return ((ProtoPackage)parentElement).getMsgsList().toArray();
+				return ((MessageDescriptor)parentElement).getDescriptors().toArray();
 			}else if(parentElement instanceof ProtoMessage)
 			{
 				return((ProtoMessage)parentElement).getMessageList().toArray();
@@ -155,41 +136,31 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 
 		@Override
 		public Object getParent(Object element) {
-			return model.getParent(element);
+			return null;//model.getParent(element);
 		}
 
 		@Override
 		public boolean hasChildren(Object element) {
-			return (element instanceof ProtoPackage ||
-					element instanceof ProtoMessage);
+			return (element instanceof MessageDescriptor);
 		}
 		
 	}
 	
-	private class ProtoCacheLabelProvider extends LabelProvider{
+	private class ProtoEditorTreeLabelProvider extends LabelProvider{
 		@Override
 		public String getText(Object element)
 		{
-			if(element instanceof ProtoPackage)
+			if(element instanceof IFieldDescriptor<?>)
 			{
-				ProtoPackage proto = (ProtoPackage) element;
-				return proto.getName();
-			}
-			else if(element instanceof ProtoMessage)
-			{
-				ProtoMessage proto = (ProtoMessage) element;
-				return proto.getName();
-			}else if(element instanceof ProtoInstance){
-				ProtoInstance proto = (ProtoInstance) element;
-				return proto.getName();
+				IFieldDescriptor<?> fieldDescriptor = (IFieldDescriptor<?>) element;
+				return fieldDescriptor.getName();
 			}else {
 				return element.toString();
 			}
 		}
 		  @Override
 		  public Image getImage(Object element) {
-		    if (element instanceof ProtoPackage ||
-					element instanceof ProtoMessage) {
+		    if (element instanceof MessageDescriptor) {
 		      return PlatformUI.getWorkbench().getSharedImages()
 		          .getImage(ISharedImages.IMG_OBJ_FOLDER);
 		    }
@@ -197,5 +168,14 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 		    .getImage(ISharedImages.IMG_OBJ_FILE);
 		  }
 
+	}
+
+
+
+
+	@Override
+	public void setFocus() {
+		// TODO Auto-generated method stub
+		
 	}
 }
