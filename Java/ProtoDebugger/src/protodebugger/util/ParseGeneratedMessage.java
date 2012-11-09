@@ -2,7 +2,7 @@ package protodebugger.util;
 
 import java.util.ArrayList;
 
-import protodebugger.model.ProtoMessage;
+import protodebugger.model.ProtoMessageModel;
 import protodebugger.model.descriptors.BooleanFieldDescriptorContainer;
 import protodebugger.model.descriptors.EnumFieldDescriptorContainer;
 import protodebugger.model.descriptors.FieldDescriptorContainer;
@@ -15,7 +15,7 @@ import com.google.protobuf.GeneratedMessage;
 
 public class ParseGeneratedMessage {
 
-	public static ProtoMessage parseGeneratedMessage(GeneratedMessage msg){
+	public static ProtoMessageModel parseGeneratedMessage(GeneratedMessage msg){
 		ArrayList<FieldDescriptorContainer> fields = 
 				new ArrayList<FieldDescriptorContainer>();
 		ArrayList<FieldDescriptorContainer> repeated = 
@@ -34,7 +34,7 @@ public class ParseGeneratedMessage {
 			}
 		}
 		
-		return new ProtoMessage(msg, fields, repeated);
+		return new ProtoMessageModel(msg, fields, repeated);
 	}
 	
 	public static FieldDescriptorContainer parseFieldDescriptor(Descriptors.FieldDescriptor field){

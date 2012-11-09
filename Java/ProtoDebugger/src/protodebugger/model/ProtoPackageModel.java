@@ -3,6 +3,8 @@ package protodebugger.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
+import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
 import protodebugger.views.ProtoCacheViewer;
 
@@ -50,7 +52,47 @@ public class ProtoPackageModel {
 		return protoPackages;
 	}
 	
+	/**
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	public Object getParent(Object obj)
+	{
+		if(obj instanceof ProtoMessage)
+			return getPackageForMessage((ProtoMessage)obj);
+		else if(obj instanceof ProtoInstance)
+			return getMessageForInstance((ProtoInstance)obj);
+		else
+			return null;
+	}
 	
-	
+	public ProtoPackage getPackageForMessage(ProtoMessage msg)
+	{
+		for(ProtoPackage pkg : protoPackages)
+		{
+			for(ProtoMessage pkgMsg : pkg.getMsgsList())
+			{
+				if(pkgMsg.equals(msg))
+					return pkg;
+			}
+		}
+		return null;
+	}
+	public ProtoMessage getMessageForInstance(ProtoInstance instance)
+	{
+		for(ProtoPackage pkg : protoPackages)
+		{
+			for(ProtoMessage pkgMsg : pkg.getMsgsList())
+			{
+				for(ProtoInstance msgIns : pkgMsg.getMessageList())
+				{
+					if(msgIns.equals(instance))
+						return pkgMsg;
+				}
+			}
+		}
+		return null;
+	}
 	
 }

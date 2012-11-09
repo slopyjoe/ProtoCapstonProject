@@ -789,10 +789,15 @@ public final class ProtoPkgContainer {
     boolean hasClassName();
     String getClassName();
     
-    // repeated bytes message = 3;
-    java.util.List<com.google.protobuf.ByteString> getMessageList();
+    // repeated .protodebugger.model.protos.ProtoInstance message = 3;
+    java.util.List<protodebugger.model.protos.ProtoPkgContainer.ProtoInstance> 
+        getMessageList();
+    protodebugger.model.protos.ProtoPkgContainer.ProtoInstance getMessage(int index);
     int getMessageCount();
-    com.google.protobuf.ByteString getMessage(int index);
+    java.util.List<? extends protodebugger.model.protos.ProtoPkgContainer.ProtoInstanceOrBuilder> 
+        getMessageOrBuilderList();
+    protodebugger.model.protos.ProtoPkgContainer.ProtoInstanceOrBuilder getMessageOrBuilder(
+        int index);
   }
   public static final class ProtoMessage extends
       com.google.protobuf.GeneratedMessage
@@ -887,24 +892,31 @@ public final class ProtoPkgContainer {
       }
     }
     
-    // repeated bytes message = 3;
+    // repeated .protodebugger.model.protos.ProtoInstance message = 3;
     public static final int MESSAGE_FIELD_NUMBER = 3;
-    private java.util.List<com.google.protobuf.ByteString> message_;
-    public java.util.List<com.google.protobuf.ByteString>
-        getMessageList() {
+    private java.util.List<protodebugger.model.protos.ProtoPkgContainer.ProtoInstance> message_;
+    public java.util.List<protodebugger.model.protos.ProtoPkgContainer.ProtoInstance> getMessageList() {
+      return message_;
+    }
+    public java.util.List<? extends protodebugger.model.protos.ProtoPkgContainer.ProtoInstanceOrBuilder> 
+        getMessageOrBuilderList() {
       return message_;
     }
     public int getMessageCount() {
       return message_.size();
     }
-    public com.google.protobuf.ByteString getMessage(int index) {
+    public protodebugger.model.protos.ProtoPkgContainer.ProtoInstance getMessage(int index) {
+      return message_.get(index);
+    }
+    public protodebugger.model.protos.ProtoPkgContainer.ProtoInstanceOrBuilder getMessageOrBuilder(
+        int index) {
       return message_.get(index);
     }
     
     private void initFields() {
       name_ = "";
       className_ = "";
-      message_ = java.util.Collections.emptyList();;
+      message_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -918,6 +930,12 @@ public final class ProtoPkgContainer {
       if (!hasClassName()) {
         memoizedIsInitialized = 0;
         return false;
+      }
+      for (int i = 0; i < getMessageCount(); i++) {
+        if (!getMessage(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
       memoizedIsInitialized = 1;
       return true;
@@ -933,7 +951,7 @@ public final class ProtoPkgContainer {
         output.writeBytes(2, getClassNameBytes());
       }
       for (int i = 0; i < message_.size(); i++) {
-        output.writeBytes(3, message_.get(i));
+        output.writeMessage(3, message_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -952,14 +970,9 @@ public final class ProtoPkgContainer {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, getClassNameBytes());
       }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < message_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeBytesSizeNoTag(message_.get(i));
-        }
-        size += dataSize;
-        size += 1 * getMessageList().size();
+      for (int i = 0; i < message_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, message_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1077,6 +1090,7 @@ public final class ProtoPkgContainer {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getMessageFieldBuilder();
         }
       }
       private static Builder create() {
@@ -1089,8 +1103,12 @@ public final class ProtoPkgContainer {
         bitField0_ = (bitField0_ & ~0x00000001);
         className_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        message_ = java.util.Collections.emptyList();;
-        bitField0_ = (bitField0_ & ~0x00000004);
+        if (messageBuilder_ == null) {
+          message_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          messageBuilder_.clear();
+        }
         return this;
       }
       
@@ -1137,11 +1155,15 @@ public final class ProtoPkgContainer {
           to_bitField0_ |= 0x00000002;
         }
         result.className_ = className_;
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          message_ = java.util.Collections.unmodifiableList(message_);
-          bitField0_ = (bitField0_ & ~0x00000004);
+        if (messageBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            message_ = java.util.Collections.unmodifiableList(message_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.message_ = message_;
+        } else {
+          result.message_ = messageBuilder_.build();
         }
-        result.message_ = message_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1164,15 +1186,31 @@ public final class ProtoPkgContainer {
         if (other.hasClassName()) {
           setClassName(other.getClassName());
         }
-        if (!other.message_.isEmpty()) {
-          if (message_.isEmpty()) {
-            message_ = other.message_;
-            bitField0_ = (bitField0_ & ~0x00000004);
-          } else {
-            ensureMessageIsMutable();
-            message_.addAll(other.message_);
+        if (messageBuilder_ == null) {
+          if (!other.message_.isEmpty()) {
+            if (message_.isEmpty()) {
+              message_ = other.message_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureMessageIsMutable();
+              message_.addAll(other.message_);
+            }
+            onChanged();
           }
-          onChanged();
+        } else {
+          if (!other.message_.isEmpty()) {
+            if (messageBuilder_.isEmpty()) {
+              messageBuilder_.dispose();
+              messageBuilder_ = null;
+              message_ = other.message_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              messageBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getMessageFieldBuilder() : null;
+            } else {
+              messageBuilder_.addAllMessages(other.message_);
+            }
+          }
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -1186,6 +1224,12 @@ public final class ProtoPkgContainer {
         if (!hasClassName()) {
           
           return false;
+        }
+        for (int i = 0; i < getMessageCount(); i++) {
+          if (!getMessage(i).isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -1224,8 +1268,9 @@ public final class ProtoPkgContainer {
               break;
             }
             case 26: {
-              ensureMessageIsMutable();
-              message_.add(input.readBytes());
+              protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.Builder subBuilder = protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addMessage(subBuilder.buildPartial());
               break;
             }
           }
@@ -1306,55 +1351,190 @@ public final class ProtoPkgContainer {
         onChanged();
       }
       
-      // repeated bytes message = 3;
-      private java.util.List<com.google.protobuf.ByteString> message_ = java.util.Collections.emptyList();;
+      // repeated .protodebugger.model.protos.ProtoInstance message = 3;
+      private java.util.List<protodebugger.model.protos.ProtoPkgContainer.ProtoInstance> message_ =
+        java.util.Collections.emptyList();
       private void ensureMessageIsMutable() {
         if (!((bitField0_ & 0x00000004) == 0x00000004)) {
-          message_ = new java.util.ArrayList<com.google.protobuf.ByteString>(message_);
+          message_ = new java.util.ArrayList<protodebugger.model.protos.ProtoPkgContainer.ProtoInstance>(message_);
           bitField0_ |= 0x00000004;
          }
       }
-      public java.util.List<com.google.protobuf.ByteString>
-          getMessageList() {
-        return java.util.Collections.unmodifiableList(message_);
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          protodebugger.model.protos.ProtoPkgContainer.ProtoInstance, protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.Builder, protodebugger.model.protos.ProtoPkgContainer.ProtoInstanceOrBuilder> messageBuilder_;
+      
+      public java.util.List<protodebugger.model.protos.ProtoPkgContainer.ProtoInstance> getMessageList() {
+        if (messageBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(message_);
+        } else {
+          return messageBuilder_.getMessageList();
+        }
       }
       public int getMessageCount() {
-        return message_.size();
+        if (messageBuilder_ == null) {
+          return message_.size();
+        } else {
+          return messageBuilder_.getCount();
+        }
       }
-      public com.google.protobuf.ByteString getMessage(int index) {
-        return message_.get(index);
+      public protodebugger.model.protos.ProtoPkgContainer.ProtoInstance getMessage(int index) {
+        if (messageBuilder_ == null) {
+          return message_.get(index);
+        } else {
+          return messageBuilder_.getMessage(index);
+        }
       }
       public Builder setMessage(
-          int index, com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureMessageIsMutable();
-        message_.set(index, value);
-        onChanged();
+          int index, protodebugger.model.protos.ProtoPkgContainer.ProtoInstance value) {
+        if (messageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMessageIsMutable();
+          message_.set(index, value);
+          onChanged();
+        } else {
+          messageBuilder_.setMessage(index, value);
+        }
         return this;
       }
-      public Builder addMessage(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureMessageIsMutable();
-        message_.add(value);
-        onChanged();
+      public Builder setMessage(
+          int index, protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.Builder builderForValue) {
+        if (messageBuilder_ == null) {
+          ensureMessageIsMutable();
+          message_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          messageBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addMessage(protodebugger.model.protos.ProtoPkgContainer.ProtoInstance value) {
+        if (messageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMessageIsMutable();
+          message_.add(value);
+          onChanged();
+        } else {
+          messageBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addMessage(
+          int index, protodebugger.model.protos.ProtoPkgContainer.ProtoInstance value) {
+        if (messageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMessageIsMutable();
+          message_.add(index, value);
+          onChanged();
+        } else {
+          messageBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addMessage(
+          protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.Builder builderForValue) {
+        if (messageBuilder_ == null) {
+          ensureMessageIsMutable();
+          message_.add(builderForValue.build());
+          onChanged();
+        } else {
+          messageBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addMessage(
+          int index, protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.Builder builderForValue) {
+        if (messageBuilder_ == null) {
+          ensureMessageIsMutable();
+          message_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          messageBuilder_.addMessage(index, builderForValue.build());
+        }
         return this;
       }
       public Builder addAllMessage(
-          java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
-        ensureMessageIsMutable();
-        super.addAll(values, message_);
-        onChanged();
+          java.lang.Iterable<? extends protodebugger.model.protos.ProtoPkgContainer.ProtoInstance> values) {
+        if (messageBuilder_ == null) {
+          ensureMessageIsMutable();
+          super.addAll(values, message_);
+          onChanged();
+        } else {
+          messageBuilder_.addAllMessages(values);
+        }
         return this;
       }
       public Builder clearMessage() {
-        message_ = java.util.Collections.emptyList();;
-        bitField0_ = (bitField0_ & ~0x00000004);
-        onChanged();
+        if (messageBuilder_ == null) {
+          message_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          messageBuilder_.clear();
+        }
         return this;
+      }
+      public Builder removeMessage(int index) {
+        if (messageBuilder_ == null) {
+          ensureMessageIsMutable();
+          message_.remove(index);
+          onChanged();
+        } else {
+          messageBuilder_.remove(index);
+        }
+        return this;
+      }
+      public protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.Builder getMessageBuilder(
+          int index) {
+        return getMessageFieldBuilder().getBuilder(index);
+      }
+      public protodebugger.model.protos.ProtoPkgContainer.ProtoInstanceOrBuilder getMessageOrBuilder(
+          int index) {
+        if (messageBuilder_ == null) {
+          return message_.get(index);  } else {
+          return messageBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends protodebugger.model.protos.ProtoPkgContainer.ProtoInstanceOrBuilder> 
+           getMessageOrBuilderList() {
+        if (messageBuilder_ != null) {
+          return messageBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(message_);
+        }
+      }
+      public protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.Builder addMessageBuilder() {
+        return getMessageFieldBuilder().addBuilder(
+            protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.getDefaultInstance());
+      }
+      public protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.Builder addMessageBuilder(
+          int index) {
+        return getMessageFieldBuilder().addBuilder(
+            index, protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.getDefaultInstance());
+      }
+      public java.util.List<protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.Builder> 
+           getMessageBuilderList() {
+        return getMessageFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          protodebugger.model.protos.ProtoPkgContainer.ProtoInstance, protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.Builder, protodebugger.model.protos.ProtoPkgContainer.ProtoInstanceOrBuilder> 
+          getMessageFieldBuilder() {
+        if (messageBuilder_ == null) {
+          messageBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              protodebugger.model.protos.ProtoPkgContainer.ProtoInstance, protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.Builder, protodebugger.model.protos.ProtoPkgContainer.ProtoInstanceOrBuilder>(
+                  message_,
+                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  getParentForChildren(),
+                  isClean());
+          message_ = null;
+        }
+        return messageBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:protodebugger.model.protos.ProtoMessage)
@@ -1368,6 +1548,457 @@ public final class ProtoPkgContainer {
     // @@protoc_insertion_point(class_scope:protodebugger.model.protos.ProtoMessage)
   }
   
+  public interface ProtoInstanceOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required string name = 1;
+    boolean hasName();
+    String getName();
+    
+    // required bytes message = 2;
+    boolean hasMessage();
+    com.google.protobuf.ByteString getMessage();
+  }
+  public static final class ProtoInstance extends
+      com.google.protobuf.GeneratedMessage
+      implements ProtoInstanceOrBuilder {
+    // Use ProtoInstance.newBuilder() to construct.
+    private ProtoInstance(Builder builder) {
+      super(builder);
+    }
+    private ProtoInstance(boolean noInit) {}
+    
+    private static final ProtoInstance defaultInstance;
+    public static ProtoInstance getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public ProtoInstance getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protodebugger.model.protos.ProtoPkgContainer.internal_static_protodebugger_model_protos_ProtoInstance_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protodebugger.model.protos.ProtoPkgContainer.internal_static_protodebugger_model_protos_ProtoInstance_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required string name = 1;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private java.lang.Object name_;
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    // required bytes message = 2;
+    public static final int MESSAGE_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString message_;
+    public boolean hasMessage() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.google.protobuf.ByteString getMessage() {
+      return message_;
+    }
+    
+    private void initFields() {
+      name_ = "";
+      message_ = com.google.protobuf.ByteString.EMPTY;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMessage()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, message_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, message_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static protodebugger.model.protos.ProtoPkgContainer.ProtoInstance parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static protodebugger.model.protos.ProtoPkgContainer.ProtoInstance parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static protodebugger.model.protos.ProtoPkgContainer.ProtoInstance parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static protodebugger.model.protos.ProtoPkgContainer.ProtoInstance parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static protodebugger.model.protos.ProtoPkgContainer.ProtoInstance parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static protodebugger.model.protos.ProtoPkgContainer.ProtoInstance parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static protodebugger.model.protos.ProtoPkgContainer.ProtoInstance parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static protodebugger.model.protos.ProtoPkgContainer.ProtoInstance parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static protodebugger.model.protos.ProtoPkgContainer.ProtoInstance parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static protodebugger.model.protos.ProtoPkgContainer.ProtoInstance parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protodebugger.model.protos.ProtoPkgContainer.ProtoInstance prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protodebugger.model.protos.ProtoPkgContainer.ProtoInstanceOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protodebugger.model.protos.ProtoPkgContainer.internal_static_protodebugger_model_protos_ProtoInstance_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protodebugger.model.protos.ProtoPkgContainer.internal_static_protodebugger_model_protos_ProtoInstance_fieldAccessorTable;
+      }
+      
+      // Construct using protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        message_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.getDescriptor();
+      }
+      
+      public protodebugger.model.protos.ProtoPkgContainer.ProtoInstance getDefaultInstanceForType() {
+        return protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.getDefaultInstance();
+      }
+      
+      public protodebugger.model.protos.ProtoPkgContainer.ProtoInstance build() {
+        protodebugger.model.protos.ProtoPkgContainer.ProtoInstance result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private protodebugger.model.protos.ProtoPkgContainer.ProtoInstance buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        protodebugger.model.protos.ProtoPkgContainer.ProtoInstance result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public protodebugger.model.protos.ProtoPkgContainer.ProtoInstance buildPartial() {
+        protodebugger.model.protos.ProtoPkgContainer.ProtoInstance result = new protodebugger.model.protos.ProtoPkgContainer.ProtoInstance(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.message_ = message_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protodebugger.model.protos.ProtoPkgContainer.ProtoInstance) {
+          return mergeFrom((protodebugger.model.protos.ProtoPkgContainer.ProtoInstance)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(protodebugger.model.protos.ProtoPkgContainer.ProtoInstance other) {
+        if (other == protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.getDefaultInstance()) return this;
+        if (other.hasName()) {
+          setName(other.getName());
+        }
+        if (other.hasMessage()) {
+          setMessage(other.getMessage());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasName()) {
+          
+          return false;
+        }
+        if (!hasMessage()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              name_ = input.readBytes();
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              message_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required string name = 1;
+      private java.lang.Object name_ = "";
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setName(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      void setName(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+      }
+      
+      // required bytes message = 2;
+      private com.google.protobuf.ByteString message_ = com.google.protobuf.ByteString.EMPTY;
+      public boolean hasMessage() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.google.protobuf.ByteString getMessage() {
+        return message_;
+      }
+      public Builder setMessage(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        message_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMessage() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        message_ = getDefaultInstance().getMessage();
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:protodebugger.model.protos.ProtoInstance)
+    }
+    
+    static {
+      defaultInstance = new ProtoInstance(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:protodebugger.model.protos.ProtoInstance)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_protodebugger_model_protos_ProtoPackage_descriptor;
   private static
@@ -1378,6 +2009,11 @@ public final class ProtoPkgContainer {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_protodebugger_model_protos_ProtoMessage_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_protodebugger_model_protos_ProtoInstance_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_protodebugger_model_protos_ProtoInstance_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1391,8 +2027,11 @@ public final class ProtoPkgContainer {
       "odebugger.model.protos\"f\n\014ProtoPackage\022\014" +
       "\n\004name\030\001 \002(\t\022\020\n\010filePath\030\002 \002(\t\0226\n\004msgs\030\003" +
       " \003(\0132(.protodebugger.model.protos.ProtoM" +
-      "essage\"@\n\014ProtoMessage\022\014\n\004name\030\001 \002(\t\022\021\n\t" +
-      "className\030\002 \002(\t\022\017\n\007message\030\003 \003(\014"
+      "essage\"k\n\014ProtoMessage\022\014\n\004name\030\001 \002(\t\022\021\n\t" +
+      "className\030\002 \002(\t\022:\n\007message\030\003 \003(\0132).proto" +
+      "debugger.model.protos.ProtoInstance\".\n\rP" +
+      "rotoInstance\022\014\n\004name\030\001 \002(\t\022\017\n\007message\030\002 " +
+      "\002(\014"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1415,6 +2054,14 @@ public final class ProtoPkgContainer {
               new java.lang.String[] { "Name", "ClassName", "Message", },
               protodebugger.model.protos.ProtoPkgContainer.ProtoMessage.class,
               protodebugger.model.protos.ProtoPkgContainer.ProtoMessage.Builder.class);
+          internal_static_protodebugger_model_protos_ProtoInstance_descriptor =
+            getDescriptor().getMessageTypes().get(2);
+          internal_static_protodebugger_model_protos_ProtoInstance_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_protodebugger_model_protos_ProtoInstance_descriptor,
+              new java.lang.String[] { "Name", "Message", },
+              protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.class,
+              protodebugger.model.protos.ProtoPkgContainer.ProtoInstance.Builder.class);
           return null;
         }
       };

@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import protodebugger.model.descriptors.FieldDescriptorContainer;
+import protodebugger.util.ParseProtoMessage;
 
 import com.google.protobuf.GeneratedMessage;
 
 
-public class ProtoMessage {
+public class ProtoMessageModel {
 	private GeneratedMessage genMsg;
 	private List<FieldDescriptorContainer> contents;
 	private List<FieldDescriptorContainer> repeatedFields;
-	private List<FieldDescriptorContainer> addFields;
+	private List<FieldDescriptorContainer> addedFields;
 	
-	@Deprecated
-	public ProtoMessage(GeneratedMessage genMsg, 
+	
+	public ProtoMessageModel(GeneratedMessage genMsg, 
 						List<FieldDescriptorContainer> contents,
 						List<FieldDescriptorContainer> repeatedFields)
 	{
@@ -44,28 +45,30 @@ public class ProtoMessage {
 	public List<FieldDescriptorContainer> getRepeatedFields() {
 		return repeatedFields;
 	}
-
-	public void setRepeatedFields(List<FieldDescriptorContainer> repeatedFields) {
-		this.repeatedFields = repeatedFields;
-	}
 	
 	public void addAddField(FieldDescriptorContainer add)
 	{
-		if(addFields == null)
-			addFields = new ArrayList<FieldDescriptorContainer>();
-		addFields.add(add);
+		if(addedFields == null)
+			addedFields = new ArrayList<FieldDescriptorContainer>();
+		addedFields.add(add);
 	}
 	
 	public void removeAddedField(FieldDescriptorContainer add)
 	{
-		if(addFields == null)
+		if(addedFields == null)
 			return;
-		addFields.remove(add);
+		addedFields.remove(add);
 	}
 	
 	public List<FieldDescriptorContainer> getAddFields()
 	{
-		return addFields;
+		return addedFields;
+	}
+	
+	public static ProtoMessageModel parseGeneratedMsg(GeneratedMessage msg)
+	{
+		return ParseProtoMessage.INSTANCE.parse(msg);
+		
 	}
 	
 }

@@ -40,12 +40,6 @@
       </perspectiveExtension>
    </extension>
    <extension
-         point="org.eclipse.help.contexts">
-      <contexts
-            file="contexts.xml">
-      </contexts>
-   </extension>
-   <extension
          id="toolbar:protodebugger.views.ProtoViewer"
          point="org.eclipse.ui.menus">
       <menuContribution
@@ -88,7 +82,8 @@
                id="protodebugger.views.ProtoViewer.Toolbar.Save"
                label="Save"
                style="push"
-               tooltip="Saves Proto Files"/>
+               tooltip="Saves Proto Files">
+         </command>
       </menuContribution>
       <menuContribution
             allPopups="false"
@@ -103,6 +98,28 @@
                   style="push">
             </command>
          </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:protodebugger.views.ProtoCacheViewer?after=additions">
+         <command
+               commandId="protodebugger.commands.Save"
+               id="protodebugger.views.ProtoViewer.Toolbar.Save"
+               label="Save"
+               style="push"
+               tooltip="Saves Proto Files">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeMenuSelection">
+                  <iterate>
+                     <adapt
+                           type="protodebugger.model.protos.ProtoPkgContainer$ProtoPackage">
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
    <extension
@@ -137,6 +154,11 @@
             id="protodebugger.commands.Save"
             name="Save">
       </command>
+            <command
+                  defaultHandler="protodebugger.commands.AddProtoPackage"
+                  id="protodebugger.commands.AddProtoPackage"
+                  name="AddProtoPackage">
+            </command>
    </extension>
    <extension
          point="org.eclipse.ui.perspectives">

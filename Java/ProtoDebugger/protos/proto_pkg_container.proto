@@ -31,5 +31,10 @@ message ProtoMessage{
 	
 	//List of protocol instances in 
 	//ByteString format
-	repeated bytes message = 3;
+	repeated ProtoInstance message = 3;
+}
+
+message ProtoInstance{
+	required string name = 1;
+	required bytes message = 2;
 }

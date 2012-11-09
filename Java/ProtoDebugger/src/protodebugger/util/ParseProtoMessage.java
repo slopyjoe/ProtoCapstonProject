@@ -13,7 +13,7 @@ import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 
-import protodebugger.model.ProtoMessage;
+import protodebugger.model.ProtoMessageModel;
 import protodebugger.model.descriptors.BooleanFieldDescriptorContainer;
 import protodebugger.model.descriptors.EnumFieldDescriptorContainer;
 import protodebugger.model.descriptors.FieldDescriptorContainer;
@@ -30,8 +30,8 @@ public enum ParseProtoMessage {
 
 		INSTANCE;
 		
-		private Map<GeneratedMessage, ProtoMessage> members=
-				new HashMap<GeneratedMessage, ProtoMessage>();
+		private Map<GeneratedMessage, ProtoMessageModel> members=
+				new HashMap<GeneratedMessage, ProtoMessageModel>();
 		private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 		private GeneratedMessage current;
 		private MessageConsole protoConsole;
@@ -58,7 +58,7 @@ public enum ParseProtoMessage {
 		{
 			System.err.println(error);
 		}
-		public void parse(GeneratedMessage msg)
+		public ProtoMessageModel parse(GeneratedMessage msg)
 		{
 			printInformation("\t Loading Message");
 			ArrayList<FieldDescriptorContainer> fields = 
@@ -78,8 +78,10 @@ public enum ParseProtoMessage {
 					}
 				}
 			}
-			members.put(msg,  new ProtoMessage(msg, fields, repeated));
+			printInformation("\t Done Loading " + msg.toString());
 			printContainments();
+			return new ProtoMessageModel(msg, fields, repeated);
+			
 		}
 		public void addChangeListener(PropertyChangeListener pcl)
 		{
@@ -126,7 +128,7 @@ public enum ParseProtoMessage {
 		}
 
 
-		public ProtoMessage getCurrentPM()
+		public ProtoMessageModel getCurrentPM()
 		{
 			return members.get(current);
 		}

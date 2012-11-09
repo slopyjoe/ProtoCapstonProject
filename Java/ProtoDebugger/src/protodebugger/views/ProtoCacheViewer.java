@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -19,19 +22,32 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import protodebugger.cache.CachedProtos;
+import protodebugger.controller.EditorController;
 import protodebugger.controller.ViewerController;
 import protodebugger.model.ProtoPackageModel;
+import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
+import protodebugger.test.packages.ProtoPackages;
 import protodebugger.util.ProtoEvents;
 
-import com.google.protobuf.ByteString;
+import com.google.protobuf.AbstractMessage;
+import com.google.protobuf.AbstractMessageLite;
 import com.google.protobuf.GeneratedMessage;
 
 public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener{
 
 	public static final String ID = "protodebugger.views.ProtoCacheViewer"; //$NON-NLS-1$
 	private TreeItem root;
+	
+	private final ProtoPackageModel model  = new ProtoPackageModel();
+	
+	{
+		for(ProtoPackage pkg : ProtoPackages.getPackages())
+		{
+			model.addProtoPkg(pkg);
+		}
+	}
 	
 	public ProtoCacheViewer() {
 		
@@ -46,10 +62,28 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	    TreeViewer viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 	    viewer.setContentProvider(new ProtoCacheContentProvider());
 	    viewer.setLabelProvider(new ProtoCacheLabelProvider());
-	    // Expand the tree
-	    viewer.setAutoExpandLevel(2);
+	    
 	    // Provide the input to the ContentProvider
-	    viewer.setInput(ViewerController.INSTANCE.getModel());
+	    viewer.setInput(model);
+	    viewer.addDoubleClickListener(new IDoubleClickListener() {
+			
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				TreeViewer view = (TreeViewer) event.getViewer();
+				IStructuredSelection thisSelection = (IStructuredSelection) event.getSelection(); 
+			    Object selectedNode = thisSelection.getFirstElement(); 
+			    if(selectedNode instanceof ProtoInstance &&
+			    		view.getInput() instanceof ProtoPackageModel)
+			    {
+			    	ProtoPackageModel derp =  (ProtoPackageModel)view.getInput();
+			    	ProtoMessage msg = derp.getMessageForInstance((ProtoInstance)selectedNode);
+			    	if(msg != null)
+			    	{
+			    		EditorController.INSTANCE.editMessage(msg, (ProtoInstance) selectedNode);
+			    	}
+			    }
+			}
+		});
 	}
 
 
@@ -81,26 +115,14 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	
 	private class ProtoCacheContentProvider implements ITreeContentProvider{
 
-		private ProtoPackageModel model  = new ProtoPackageModel();
+		/*private ProtoPackageModel model  = new ProtoPackageModel();
 		
 		{
-			ProtoPackage.Builder pkgBuild = ProtoPackage.newBuilder();
-			ProtoMessage.Builder msgBuild = ProtoMessage.newBuilder();
-			pkgBuild.setName("Hello");
-			pkgBuild.setFilePath("filePath");
-			msgBuild.setName("Message");
-			msgBuild.setClassName("class name 1");
-			msgBuild.addMessage(ByteString.copyFrom("adf".getBytes()));
-			pkgBuild.addMsgs(msgBuild);
-			model.addProtoPkg(pkgBuild.build());
-			pkgBuild.setName("Hello2");
-			pkgBuild.setFilePath("filePath");
-			msgBuild.setName("Message2");
-			msgBuild.setClassName("class name 1");
-			msgBuild.addMessage(ByteString.copyFrom("adf".getBytes()));
-			pkgBuild.addMsgs(msgBuild);
-			model.addProtoPkg(pkgBuild.build());
-		}
+			for(ProtoPackage pkg : ProtoPackages.getPackages())
+			{
+				model.addProtoPkg(pkg);
+			}
+		}*/
 		
 		@Override
 		public void dispose() {
@@ -136,7 +158,7 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 
 		@Override
 		public Object getParent(Object element) {
-			return null;
+			return model.getParent(element);
 		}
 
 		@Override
@@ -159,6 +181,9 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 			else if(element instanceof ProtoMessage)
 			{
 				ProtoMessage proto = (ProtoMessage) element;
+				return proto.getName();
+			}else if(element instanceof ProtoInstance){
+				ProtoInstance proto = (ProtoInstance) element;
 				return proto.getName();
 			}else {
 				return element.toString();
