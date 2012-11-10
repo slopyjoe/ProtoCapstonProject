@@ -27,6 +27,21 @@
             name="EditorTree"
             restorable="true">
       </view>
+      <view
+            class="protodebugger.views.Tester"
+            id="protodebugger.views.Tester"
+            name="New ViewPart">
+      </view>
+      <view
+            class="protodebugger.views.ViewEditor"
+            id="protodebugger.views.ViewEditor"
+            name="New ViewPart">
+      </view>
+      <view
+            class="protodebugger.views.RCPProtoEditor"
+            id="protodebugger.views.RCPProtoEditor"
+            name="New ViewPart">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -174,6 +189,14 @@
             id="ProtoDebugger.perspective"
             name="ProtoDebugger">
       </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="protodebugger.views.RCPProtoEditor"
+            id="protodebugger.views.RCPProtoEditor"
+            name="New EditorPart">
+      </editor>
    </extension>
 
 </plugin>

@@ -1,6 +1,7 @@
 package protodebugger.model.descriptors.generic;
 
 import com.google.protobuf.Descriptors;
+import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.google.protobuf.GeneratedMessage.Builder;
 
 public abstract class AbstractFieldDescriptor<V> implements IFieldDescriptor<V> {
@@ -8,7 +9,6 @@ public abstract class AbstractFieldDescriptor<V> implements IFieldDescriptor<V> 
 	protected V v;
 	protected Descriptors.FieldDescriptor protoField;
 	protected String name;
-	
 	public AbstractFieldDescriptor(Descriptors.FieldDescriptor protoField){
 		this.protoField = protoField;
 		name = protoField.getName();
@@ -57,5 +57,9 @@ public abstract class AbstractFieldDescriptor<V> implements IFieldDescriptor<V> 
 	@Override
 	public String getName() {
 		return name;
+	}
+	
+	public FieldDescriptor getProtoField(){
+		return protoField;
 	}
 }

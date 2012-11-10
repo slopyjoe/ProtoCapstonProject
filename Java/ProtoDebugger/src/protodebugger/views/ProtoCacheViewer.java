@@ -35,16 +35,16 @@ import com.google.protobuf.GeneratedMessage;
 public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener{
 
 	public static final String ID = "protodebugger.views.ProtoCacheViewer"; //$NON-NLS-1$
-	private TreeItem root;
+	private TreeViewer viewer;
 	
 	private final ProtoPackageModel model  = new ProtoPackageModel();
-	
+/*	
 	{
 		for(ProtoPackage pkg : ProtoPackages.getPackages())
 		{
 			model.addProtoPkg(pkg);
 		}
-	}
+	}*/
 	
 	public ProtoCacheViewer() {
 		
@@ -56,12 +56,11 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-	    TreeViewer viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+	     viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 	    viewer.setContentProvider(new ProtoCacheContentProvider());
 	    viewer.setLabelProvider(new ProtoCacheLabelProvider());
 	    
 	    // Provide the input to the ContentProvider
-	    viewer.setInput(model);
 	    viewer.addDoubleClickListener(new IDoubleClickListener() {
 			
 			@Override
@@ -88,19 +87,8 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(ProtoEvents.valueOf(evt.getPropertyName()) == ProtoEvents.CACHED_LOADED)
 		{
-			root.clearAll(true);
-			Map<String, List<GeneratedMessage>> cachedProtos = CachedProtos.INSTANCE.getCacheProtos();
-			for(String proto : cachedProtos.keySet())
-			{
-				TreeItem protoItem = new TreeItem(root, SWT.None);
-				protoItem.setText(proto);
-				for(GeneratedMessage msg : cachedProtos.get(proto))
-				{
-					TreeItem protoMsgItem = new TreeItem(protoItem, SWT.None);
-					protoMsgItem.setText("Message");
-					protoMsgItem.setData(msg);
-				}
-			}
+			ProtoPackageModel model = (ProtoPackageModel)evt.getNewValue();
+			viewer.setInput(model);
 		}
 	}
 

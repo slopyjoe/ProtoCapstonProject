@@ -1,8 +1,11 @@
 package protodebugger.test.packages;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.test.AlienSpeciesProto.Alien;
 import org.test.AlienSpeciesProto.Alien.Language;
 import org.test.AlienSpeciesProto.Alien.PlanetType;
@@ -78,15 +81,14 @@ public class ProtoPackages {
 	
 	public static void main(String args[])
 	{
+		FileDialog fil = new FileDialog(Display.getCurrent().getActiveShell());
 		
-		Descriptors.FieldDescriptor field = null;
-		for(FieldDescriptor desc : Language.getDescriptor().getFields())
-		{
-			if(desc.getJavaType() == JavaType.ENUM)
-				field = desc;
+		
+		File file = new File("/C/Users/sloppyjoe");
+		if(file.exists())
+			System.out.println("YAY");
+		else{
+			file.mkdir();
 		}
-		System.out.println(field.getDefaultValue());
-		ArrayList<Integer> h = new ArrayList<Integer>();
-		System.out.println(h.getClass().getGenericSuperclass());
 	}
 }

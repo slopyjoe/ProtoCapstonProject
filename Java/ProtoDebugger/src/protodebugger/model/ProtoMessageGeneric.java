@@ -14,7 +14,7 @@ public class ProtoMessageGeneric {
 
 	private List<IFieldDescriptor<?>> fieldDescriptors;
 	private GeneratedMessage genMsg;
-
+	
 	public ProtoMessageGeneric(){
 		
 	}
