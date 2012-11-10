@@ -18,7 +18,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.test.AlienSpeciesProto.Alien;
 
-import protodebugger.cache.CachedProtos;
 import protodebugger.model.ProtoMessageGeneric;
 import protodebugger.model.descriptors.generic.IFieldDescriptor;
 import protodebugger.model.descriptors.generic.MessageDescriptor;
@@ -78,7 +77,7 @@ public class ProtoEditorTree extends ViewPart implements PropertyChangeListener{
 		if(ProtoEvents.valueOf(evt.getPropertyName()) == ProtoEvents.CACHED_LOADED)
 		{
 			root.clearAll(true);
-			Map<String, List<GeneratedMessage>> cachedProtos = CachedProtos.INSTANCE.getCacheProtos();
+			/*Map<String, List<GeneratedMessage>> cachedProtos = CachedProtos.INSTANCE.getCacheProtos();
 			for(String proto : cachedProtos.keySet())
 			{
 				TreeItem protoItem = new TreeItem(root, SWT.None);
@@ -89,7 +88,7 @@ public class ProtoEditorTree extends ViewPart implements PropertyChangeListener{
 					protoMsgItem.setText("Message");
 					protoMsgItem.setData(msg);
 				}
-			}
+			}*/
 		}
 	}
 	

@@ -35,7 +35,7 @@ public class ProtoPackages {
 				field = desc;
 		}
 		pkgBuild.setName("Alian's Protos");
-		pkgBuild.setFilePath("/e/temp/alian.protoPkg");
+		pkgBuild.setFilePath("/temp/alian.protoPkg");
 		msgBuild.setName("Alien");
 		msgBuild.setClassName(Alien.class.getName());
 		insBuild.setName("MarsBar");
@@ -59,7 +59,7 @@ public class ProtoPackages {
 		
 		
 		pkgBuild.setName("Joe's Protos");
-		pkgBuild.setFilePath("/e/temp/joe.protoPkg");
+		pkgBuild.setFilePath("/temp/joe.protoPkg");
 		msgBuild.setName("Alien");
 		msgBuild.setClassName(Alien.class.getName());
 		insBuild.setName("PlutoScar");

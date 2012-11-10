@@ -24,8 +24,6 @@ public class ParseGeneratedMessage {
 		return list;
 	}
 	
-	
-	
 	public static IFieldDescriptor<?> parseFieldDescriptor(Descriptors.FieldDescriptor field){
 		
 		switch(field.getJavaType())

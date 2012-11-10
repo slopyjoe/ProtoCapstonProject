@@ -1,7 +1,12 @@
 package protodebugger.controller;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import protodebugger.model.ProtoPackageModel;
+import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
 import protodebugger.views.ProtoCacheViewer;
+import protodebugger.util.ProtoEvents;
 
 /**
  * 
@@ -17,7 +22,7 @@ public enum ViewerController {
 
 	INSTANCE;
 	private ProtoPackageModel packageModel  = new ProtoPackageModel();
-	
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	
 	private ViewerController()
 	{
@@ -31,6 +36,17 @@ public enum ViewerController {
 	public final ProtoPackageModel getModel()
 	{
 		return packageModel;
+	}
+	
+	public void addProtoPkg(ProtoPackage pkg)
+	{
+		packageModel.addProtoPkg(pkg);
+		pcs.firePropertyChange(ProtoEvents.CACHED_LOADED.name(), null, this.getModel() );		
+	}
+	
+	public void addChangeListener(PropertyChangeListener pcl)
+	{
+		pcs.addPropertyChangeListener(pcl);
 	}
 	
 }

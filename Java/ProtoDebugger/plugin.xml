@@ -47,35 +47,35 @@
       </perspectiveExtension>
    </extension>
    <extension
-         id="toolbar:protodebugger.views.ProtoViewer"
+         id="toolbar:protodebugger.views.ProtoEditorTree"
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="true"
-            locationURI="toolbar:protodebugger.views.ProtoViewer">
+            locationURI="toolbar:protodebugger.views.ProtoEditorTree">
          <command
                commandId="protodebugger.commands.ProtoSelection"
-               id="protodebugger.views.ProtoViewer.Toolbar.ProtoSelection"
+               id="protodebugger.views.ProtoEditorTree.Toolbar.ProtoSelection"
                label="ProtoSelection"
                style="push"
                tooltip="Selects the proto file">
          </command>
          <command
                commandId="protodebugger.commands.Build"
-               id="protodebugger.views.ProtoViewer.Toolbar.Build"
+               id="protodebugger.views.ProtoEditorTree.Toolbar.Build"
                label="Build"
                style="push"
                tooltip="Builds the current proto file">
          </command>
          <command
                commandId="protodebugger.commands.Add"
-               id="protodebugger.views.ProtoViewer.Toolbar.Add"
+               id="protodebugger.views.ProtoEditorTree.Toolbar.Add"
                label="Add Repeated Field"
                style="push"
                tooltip="Adds a repeated field to the message">
          </command>
          <command
                commandId="protodebugger.commands.Remove"
-               id="protodebugger.views.ProtoViewer.Toolbar.Remove"
+               id="protodebugger.views.ProtoEditorTree.Toolbar.Remove"
                label="Remove Added Field"
                style="push"
                tooltip="Removes an added field from the message">
@@ -91,41 +91,12 @@
                style="push"
                tooltip="Saves Proto Files">
          </command>
-      </menuContribution>
-      <menuContribution
-            allPopups="false"
-            locationURI="menu:org.eclipse.ui.main.menu">
-         <menu
-               id="protodebugger.Menu"
-               label="Proto">
-            <command
-                  commandId="ProtoSelection"
-                  id="protodebugger.commands.ProtoSelection"
-                  label="ProtoSelection"
-                  style="push">
-            </command>
-         </menu>
-      </menuContribution>
-      <menuContribution
-            allPopups="true"
-            locationURI="popup:protodebugger.views.ProtoCacheViewer?after=additions">
          <command
-               commandId="protodebugger.commands.Save"
-               id="protodebugger.views.ProtoViewer.Toolbar.Save"
-               label="Save"
+               commandId="protodebugger.commands.Load"
+               id="protodebugger.views.ProtoViewer.Toolbar.Load"
+               label="Load"
                style="push"
-               tooltip="Saves Proto Files">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="activeMenuSelection">
-                  <iterate>
-                     <adapt
-                           type="protodebugger.model.protos.ProtoPkgContainer$ProtoPackage">
-                     </adapt>
-                  </iterate>
-               </with>
-            </visibleWhen>
+               tooltip="Loads Proto Files">
          </command>
       </menuContribution>
    </extension>
@@ -156,16 +127,21 @@
             id="protodebugger.commands.Add"
             name="Add">
       </command>
-            <command
+      <command
             defaultHandler="protodebugger.commands.Save"
             id="protodebugger.commands.Save"
             name="Save">
       </command>
-            <command
-                  defaultHandler="protodebugger.commands.AddProtoPackage"
-                  id="protodebugger.commands.AddProtoPackage"
-                  name="AddProtoPackage">
-            </command>
+      <command
+            defaultHandler="protodebugger.commands.Load"
+            id="protodebugger.commands.Load"
+            name="Load">
+      </command>
+      <command
+       		defaultHandler="protodebugger.commands.AddProtoPackage"
+            id="protodebugger.commands.AddProtoPackage"
+            name="AddProtoPackage">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.perspectives">
