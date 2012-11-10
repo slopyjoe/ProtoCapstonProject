@@ -4,6 +4,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.AbstractHandler;
 
+import protodebugger.test.packages.ProtoPackages;
 import protodebugger.util.ProtoWriter;
 import protodebugger.controller.ViewerController;
 

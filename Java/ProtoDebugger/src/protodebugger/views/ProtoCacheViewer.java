@@ -21,7 +21,6 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import protodebugger.cache.CachedProtos;
 import protodebugger.controller.EditorController;
 import protodebugger.model.ProtoPackageModel;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
@@ -38,14 +37,7 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	private TreeViewer viewer;
 	
 	private final ProtoPackageModel model  = new ProtoPackageModel();
-/*	
-	{
-		for(ProtoPackage pkg : ProtoPackages.getPackages())
-		{
-			model.addProtoPkg(pkg);
-		}
-	}*/
-	
+
 	public ProtoCacheViewer() {
 		
 	}
@@ -56,7 +48,8 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-	     viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+
+	    viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 	    viewer.setContentProvider(new ProtoCacheContentProvider());
 	    viewer.setLabelProvider(new ProtoCacheLabelProvider());
 	    
@@ -87,8 +80,13 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(ProtoEvents.valueOf(evt.getPropertyName()) == ProtoEvents.CACHED_LOADED)
 		{
+<<<<<<< HEAD
 			ProtoPackageModel model = (ProtoPackageModel)evt.getNewValue();
 			viewer.setInput(model);
+=======
+			 ProtoPackageModel model = (ProtoPackageModel)evt.getNewValue();
+             viewer.setInput(model);
+>>>>>>> 9788c0c0883c5f96eae7c68a0be9f18399fd3d2a
 		}
 	}
 

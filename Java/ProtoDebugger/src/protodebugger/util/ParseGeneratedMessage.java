@@ -34,6 +34,7 @@ public class ParseGeneratedMessage {
 			Descriptors.FieldDescriptor field) {
 
 		switch (field.getJavaType()) {
+
 		case FLOAT:
 			return new AbstractFieldDescriptor<Float>(field) {
 				@Override
