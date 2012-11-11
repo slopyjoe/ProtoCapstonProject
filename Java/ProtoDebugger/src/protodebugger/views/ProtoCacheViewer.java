@@ -22,6 +22,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import protodebugger.controller.EditorController;
+import protodebugger.controller.ViewerController;
 import protodebugger.model.ProtoPackageModel;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
@@ -38,8 +39,9 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	
 	private final ProtoPackageModel model  = new ProtoPackageModel();
 
-	public ProtoCacheViewer() {
-		
+	public ProtoCacheViewer() 
+	{
+		ViewerController.INSTANCE.addChangeListener(this);
 	}
 
 	/**
@@ -50,6 +52,7 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	public void createPartControl(Composite parent) {
 
 	    viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+
 	    viewer.setContentProvider(new ProtoCacheContentProvider());
 	    viewer.setLabelProvider(new ProtoCacheLabelProvider());
 	    
@@ -80,8 +83,12 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(ProtoEvents.valueOf(evt.getPropertyName()) == ProtoEvents.CACHED_LOADED)
 		{
-			ProtoPackageModel model = (ProtoPackageModel)evt.getNewValue();
-			viewer.setInput(model);
+			if(evt.getNewValue() instanceof ProtoPackageModel)
+			{
+				ProtoPackageModel model = (ProtoPackageModel)evt.getNewValue();
+				viewer.setInput(model);
+				viewer.refresh();
+			}
 		}
 	}
 
@@ -93,14 +100,14 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	
 	private class ProtoCacheContentProvider implements ITreeContentProvider{
 
-		/*private ProtoPackageModel model  = new ProtoPackageModel();
+		private ProtoPackageModel model  = new ProtoPackageModel();
 		
 		{
 			for(ProtoPackage pkg : ProtoPackages.getPackages())
 			{
 				model.addProtoPkg(pkg);
 			}
-		}*/
+		}
 		
 		@Override
 		public void dispose() {
@@ -109,10 +116,10 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 
 		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		/*	if(newInput instanceof ProtoPackage)
+			if(newInput instanceof ProtoPackage)
 			{
 				this.model = (ProtoPackageModel) newInput;
-			}*/
+			}
 		}
 
 		@Override
