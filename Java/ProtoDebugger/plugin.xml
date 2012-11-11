@@ -128,11 +128,6 @@
             name="Build">
       </command>
       <command
-            defaultHandler="CacheCommand"
-            id="protodebugger.commands.cache"
-            name="Cache">
-      </command>
-      <command
             defaultHandler="protodebugger.commands.Remove"
             id="protodebugger.commands.Remove"
             name="Remove">
