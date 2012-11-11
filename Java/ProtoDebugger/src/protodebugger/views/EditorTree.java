@@ -37,6 +37,7 @@ public class EditorTree extends ViewPart {
 	private Text javaFieldTxt;
 	private Text nameFieldTxt;
 	private Composite editedFieldWdg;
+	private Widget wid;
 	private TreeViewer treeViewer;
 	
 	{
