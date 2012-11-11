@@ -22,6 +22,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import protodebugger.controller.EditorController;
+import protodebugger.controller.ViewerController;
 import protodebugger.model.ProtoPackageModel;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
@@ -38,8 +39,9 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	
 	private final ProtoPackageModel model  = new ProtoPackageModel();
 
-	public ProtoCacheViewer() {
-		
+	public ProtoCacheViewer() 
+	{
+		ViewerController.INSTANCE.addChangeListener(this);
 	}
 
 	/**
@@ -80,9 +82,12 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(ProtoEvents.valueOf(evt.getPropertyName()) == ProtoEvents.CACHED_LOADED)
 		{
-			ProtoPackageModel model = (ProtoPackageModel)evt.getNewValue();
-			viewer.setInput(model);
-			viewer.refresh();
+			if(evt.getNewValue() instanceof ProtoPackageModel)
+			{
+				ProtoPackageModel model = (ProtoPackageModel)evt.getNewValue();
+				viewer.setInput(model);
+				viewer.refresh();
+			}
 		}
 	}
 
