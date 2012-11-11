@@ -80,13 +80,8 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(ProtoEvents.valueOf(evt.getPropertyName()) == ProtoEvents.CACHED_LOADED)
 		{
-<<<<<<< HEAD
 			ProtoPackageModel model = (ProtoPackageModel)evt.getNewValue();
 			viewer.setInput(model);
-=======
-			 ProtoPackageModel model = (ProtoPackageModel)evt.getNewValue();
-             viewer.setInput(model);
->>>>>>> 9788c0c0883c5f96eae7c68a0be9f18399fd3d2a
 		}
 	}
 
