@@ -80,13 +80,9 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(ProtoEvents.valueOf(evt.getPropertyName()) == ProtoEvents.CACHED_LOADED)
 		{
-<<<<<<< HEAD
 			ProtoPackageModel model = (ProtoPackageModel)evt.getNewValue();
 			viewer.setInput(model);
-=======
-			 ProtoPackageModel model = (ProtoPackageModel)evt.getNewValue();
-             viewer.setInput(model);
->>>>>>> 9788c0c0883c5f96eae7c68a0be9f18399fd3d2a
+			viewer.refresh();
 		}
 	}
 
@@ -98,14 +94,14 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	
 	private class ProtoCacheContentProvider implements ITreeContentProvider{
 
-		/*private ProtoPackageModel model  = new ProtoPackageModel();
+		private ProtoPackageModel model  = new ProtoPackageModel();
 		
 		{
 			for(ProtoPackage pkg : ProtoPackages.getPackages())
 			{
 				model.addProtoPkg(pkg);
 			}
-		}*/
+		}
 		
 		@Override
 		public void dispose() {
@@ -114,10 +110,10 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 
 		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		/*	if(newInput instanceof ProtoPackage)
+			if(newInput instanceof ProtoPackage)
 			{
 				this.model = (ProtoPackageModel) newInput;
-			}*/
+			}
 		}
 
 		@Override
