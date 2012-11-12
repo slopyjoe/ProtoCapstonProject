@@ -1,5 +1,4 @@
 package protodebugger.util;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,11 +119,19 @@ public class ParseGeneratedMessage {
 				@Override
 				public void setValue(Object value) {
 					if (value instanceof Integer)
+					{
 						v = (EnumValueDescriptor) protoField.getEnumType()
 								.findValueByNumber((Integer) value);
-					else if (value instanceof String)
+						if(v == null)
+							System.err.println("ENUM NULL");
+						else{
+							System.out.println(v.getName() + " : " + v.getIndex());
+						}
+					}
+					else if (value instanceof String){
 						v = (EnumValueDescriptor) protoField.getEnumType()
 								.findValueByName(value.toString());
+					}
 				}
 			};
 		case MESSAGE:
@@ -142,7 +149,7 @@ public class ParseGeneratedMessage {
 		case INT:
 		case DOUBLE:
 		case LONG:
-			return new SWTFieldWrapper(new Text(parent, SWT.NONE)) {
+			return new SWTFieldWrapper(new Text(parent, SWT.BORDER)) {
 
 				@Override
 				public void widgetValueToProtoField(IFieldDescriptor<?> field) {
@@ -168,7 +175,7 @@ public class ParseGeneratedMessage {
 			};
 		case STRING:
 		case BYTE_STRING:
-			return new SWTFieldWrapper(new Text(parent, SWT.NONE)) {
+			return new SWTFieldWrapper(new Text(parent, SWT.BORDER)) {
 
 				@Override
 				public void widgetValueToProtoField(IFieldDescriptor<?> field) {
@@ -187,7 +194,7 @@ public class ParseGeneratedMessage {
 			};
 		case BOOLEAN:
 
-			return new SWTFieldWrapper(new Button(parent, SWT.CHECK)) {
+			return new SWTFieldWrapper(new Button(parent, SWT.CHECK | SWT.BORDER)) {
 
 				@Override
 				public void widgetValueToProtoField(IFieldDescriptor<?> field) {
@@ -206,7 +213,7 @@ public class ParseGeneratedMessage {
 				}
 			};
 		case ENUM:
-			Combo fieldCombo = new Combo(parent, SWT.NONE);
+			Combo fieldCombo = new Combo(parent, SWT.BORDER);
 			int arraySize = field.getProtoField().getEnumType().getValues()
 					.size();
 			if (field.getProtoField().isOptional())
@@ -217,6 +224,7 @@ public class ParseGeneratedMessage {
 				ret[evd.getIndex()] = evd.getName();
 			if (field.getProtoField().isOptional())
 				ret[arraySize - 1] = "";
+			fieldCombo.setItems(ret);
 			return new SWTFieldWrapper(fieldCombo) {
 
 				@Override

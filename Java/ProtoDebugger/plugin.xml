@@ -68,32 +68,11 @@
             allPopups="true"
             locationURI="toolbar:protodebugger.views.ProtoEditorTree">
          <command
-               commandId="protodebugger.commands.ProtoSelection"
-               id="protodebugger.views.ProtoEditorTree.Toolbar.ProtoSelection"
-               label="ProtoSelection"
-               style="push"
-               tooltip="Selects the proto file">
-         </command>
-         <command
                commandId="protodebugger.commands.Build"
                id="protodebugger.views.ProtoEditorTree.Toolbar.Build"
                label="Build"
                style="push"
                tooltip="Builds the current proto file">
-         </command>
-         <command
-               commandId="protodebugger.commands.Add"
-               id="protodebugger.views.ProtoEditorTree.Toolbar.Add"
-               label="Add Repeated Field"
-               style="push"
-               tooltip="Adds a repeated field to the message">
-         </command>
-         <command
-               commandId="protodebugger.commands.Remove"
-               id="protodebugger.views.ProtoEditorTree.Toolbar.Remove"
-               label="Remove Added Field"
-               style="push"
-               tooltip="Removes an added field from the message">
          </command>
       </menuContribution>
 	<menuContribution

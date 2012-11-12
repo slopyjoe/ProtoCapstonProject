@@ -3,8 +3,6 @@ package protodebugger.views;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -13,14 +11,12 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MenuEvent;
-import org.eclipse.swt.events.MenuListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
@@ -28,7 +24,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.test.AlienSpeciesProto.Alien;
@@ -38,6 +33,7 @@ import protodebugger.model.ProtoMessageGeneric;
 import protodebugger.model.descriptors.generic.AbstractFieldDescriptor;
 import protodebugger.model.descriptors.generic.IFieldDescriptor;
 import protodebugger.model.descriptors.generic.IMessageDescriptor;
+import protodebugger.model.swt.SWTFieldWrapper;
 import protodebugger.util.ParseGeneratedMessage;
 import protodebugger.util.ProtoEvents;
 import protodebugger.views.menus.ProtoEditorMenu;
@@ -46,10 +42,11 @@ public class EditorTree extends ViewPart implements PropertyChangeListener {
 	private final ProtoMessageGeneric model  = new ProtoMessageGeneric();
 	private Text javaFieldTxt;
 	private Text nameFieldTxt;
-	private Composite editedFieldWdg;
+	private Composite editedFieldCmp;
+	private Widget editedFieldWdg;
 	private TreeViewer treeViewer;
+	private SWTFieldWrapper currentWrap;
 	private ProtoEditorMenu menuListener;
-	
 	
 	{
 		model.setGenMsg(Alien.getDefaultInstance());
@@ -60,7 +57,7 @@ public class EditorTree extends ViewPart implements PropertyChangeListener {
 	}
 
 	@Override
-	public void createPartControl(Composite parent) {
+	public void createPartControl(final Composite parent) {
 		parent.setLayout(new FormLayout());
 		
 		treeViewer = new TreeViewer(parent, SWT.BORDER);
@@ -74,53 +71,44 @@ public class EditorTree extends ViewPart implements PropertyChangeListener {
 		treeViewer.setContentProvider(new ProtoEditorTreeContentProvider());
 		treeViewer.setLabelProvider(new ProtoEditorTreeLabelProvider());
 		treeViewer.setInput(model);
-		Label nameLbl = new Label(parent,  SWT.NONE);
-		nameLbl.setText("Name: ");
-		FormData fd_lblNewLabel = new FormData();
-		fd_lblNewLabel.top = new FormAttachment(0, 57);
-		fd_lblNewLabel.left = new FormAttachment(tree, 45);
-		nameLbl.setLayoutData(fd_lblNewLabel);
+		EditorController.INSTANCE.setModel(model);
 		
-		Label typeLbl = new Label(parent, SWT.NONE);
-		typeLbl.setText("Type: ");
-		FormData fd_lblNewLabel_1 = new FormData();
-		fd_lblNewLabel_1.left = new FormAttachment(tree, 45);
-		fd_lblNewLabel_1.top = new FormAttachment(nameLbl, 54);
-		typeLbl.setLayoutData(fd_lblNewLabel_1);
-		
-		Label valueLbl = new Label(parent, SWT.NONE);
-		valueLbl.setText("Value: ");
-		FormData fd_lblNewLabel_2 = new FormData();
-		fd_lblNewLabel_2.right = new FormAttachment(100, -204);
-		fd_lblNewLabel_2.left = new FormAttachment(tree, 45);
-		fd_lblNewLabel_2.top = new FormAttachment(typeLbl, 54);
-		valueLbl.setLayoutData(fd_lblNewLabel_2);
-		
-		javaFieldTxt = new Text(parent, SWT.NONE);
-		javaFieldTxt.setEditable(false);
-		fd_lblNewLabel_1.right = new FormAttachment(javaFieldTxt, -56);
-		FormData fd_txtNewText_1 = new FormData();
-		fd_txtNewText_1.right = new FormAttachment(100, -87);
-		fd_txtNewText_1.left = new FormAttachment(0, 316);
-		fd_txtNewText_1.top = new FormAttachment(typeLbl, 0, SWT.TOP);
-		javaFieldTxt.setLayoutData(fd_txtNewText_1);
-		
-		nameFieldTxt = new Text(parent, SWT.NONE);
-		nameFieldTxt.setEditable(false);
-		FormData fd_txtNewtext = new FormData();
-		fd_txtNewtext.left = new FormAttachment(javaFieldTxt, -58);
-		fd_txtNewtext.right = new FormAttachment(javaFieldTxt, 0, SWT.RIGHT);
-		fd_txtNewtext.top = new FormAttachment(nameLbl, -3, SWT.TOP);
-		nameFieldTxt.setLayoutData(fd_txtNewtext);
-		
-		editedFieldWdg = new Composite(parent, SWT.NONE);
+		editedFieldCmp = new Composite(parent, SWT.NONE);
 		FormData fd_composite = new FormData();
-		fd_composite.bottom = new FormAttachment(javaFieldTxt, 64, SWT.BOTTOM);
-		fd_composite.top = new FormAttachment(javaFieldTxt, 34);
-		fd_composite.left = new FormAttachment(valueLbl, 56);
-		fd_composite.right = new FormAttachment(100, -65);
-		editedFieldWdg.setLayoutData(fd_composite);
+		fd_composite.bottom = new FormAttachment(0, 153);
+		fd_composite.right = new FormAttachment(100, -10);
+		fd_composite.top = new FormAttachment(0, 10);
+		fd_composite.left = new FormAttachment(tree, 39);
 		
+		editedFieldCmp.setLayout(new GridLayout(2, true));
+		GridData gData = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+		//gData.horizontalAlignment = SWT.LEFT;
+		//gData.verticalAlignment = SWT.TOP;
+		
+		
+		Label nameLbl = new Label(editedFieldCmp,  SWT.NONE);
+		nameLbl.setText("Name: ");
+		nameLbl.setLayoutData(gData);
+		
+		nameFieldTxt = new Text(editedFieldCmp, SWT.NONE);
+		nameFieldTxt.setLayoutData(gData);
+		//new Label(comp,  SWT.NONE);
+		
+		Label typeLbl = new Label(editedFieldCmp, SWT.NONE);
+		typeLbl.setText("Type: ");
+		typeLbl.setLayoutData(gData);
+		
+		javaFieldTxt = new Text(editedFieldCmp, SWT.NONE);
+		javaFieldTxt.setLayoutData(gData);
+		//new Label(comp,  SWT.NONE);
+		
+		Label valueLbl = new Label(editedFieldCmp, SWT.NONE);
+		valueLbl.setText("Value: ");
+		valueLbl.setLayoutData(gData);
+				
+		
+		
+		editedFieldCmp.setLayoutData(fd_composite);
 		
 		Menu menu = new Menu(tree);
 		menuListener = new ProtoEditorMenu(menu);
@@ -134,12 +122,22 @@ public class EditorTree extends ViewPart implements PropertyChangeListener {
 			    Object selectedNode = thisSelection.getFirstElement(); 
 			    if(selectedNode instanceof AbstractFieldDescriptor<?>)
 			    {
+			    	
+			    	if(currentWrap != null){
+			    		currentWrap.widgetValueToProtoField();
+			    		currentWrap.getSwtWidget().dispose();
+			    		editedFieldCmp.layout();
+			    	}
 			    	AbstractFieldDescriptor<?> msg = (AbstractFieldDescriptor<?>)selectedNode;
 			    	System.out.println("editing " + msg.getName());
-			    	javaFieldTxt.setText(msg.getName());
-			    	nameFieldTxt.setText(msg.getProtoField().getJavaType().name());
-			    	ParseGeneratedMessage.parseSWT(msg, editedFieldWdg);
+			    	javaFieldTxt.setText(msg.getProtoField().getJavaType().name());
+			    	nameFieldTxt.setText(msg.getName());
+			    	currentWrap = ParseGeneratedMessage.parseSWT(msg, editedFieldCmp);
+			    	currentWrap.setFieldDescriptor(msg);
+			    	currentWrap.protoValueToWidget();
 			    	menuListener.setModel(null);
+			    	editedFieldCmp.layout();
+			    	
 			    }
 			    if(selectedNode instanceof IMessageDescriptor<?>)
 			    {

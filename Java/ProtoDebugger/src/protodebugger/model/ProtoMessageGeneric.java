@@ -8,7 +8,9 @@ import protodebugger.model.descriptors.generic.IFieldDescriptor;
 import protodebugger.model.descriptors.generic.MessageDescriptor;
 import protodebugger.util.ParseGeneratedMessage;
 
+import com.google.protobuf.ByteString;
 import com.google.protobuf.GeneratedMessage;
+import com.google.protobuf.Message;
 
 
 public class ProtoMessageGeneric {
@@ -35,4 +37,21 @@ public class ProtoMessageGeneric {
 			return Collections.emptyList();
 		return fieldDescriptors;
 	}
+	
+
+	
+	public ByteString buildByteStringProto()
+	{
+		
+		Message message = desc.getMessage();
+		if(message != null)
+		{
+		System.out.println(message.toString());
+		return message.toByteString();
+		}else{
+			System.err.println("Error");
+			return null;
+		}
+	}
+	
 }

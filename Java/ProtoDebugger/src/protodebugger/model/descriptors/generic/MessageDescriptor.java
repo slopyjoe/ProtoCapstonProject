@@ -18,7 +18,7 @@ implements IMessageDescriptor<Builder<?>> {
 	private List<IFieldDescriptor<?>> addedDescriptors;
 	private GeneratedMessage msg;
 	private FieldDescriptor protoField;
-	private Builder<?> builder;
+	private Builder<?> v;
 	private boolean isRepeated;
 	private String name;
 
@@ -57,8 +57,10 @@ implements IMessageDescriptor<Builder<?>> {
 	public Message getMessage() {
 		Builder<?> msgBuilder = getValue();
 		for (IFieldDescriptor<?> descriptor : descriptors) {
-			if (!descriptor.buildMsg(msgBuilder))
+			if (!descriptor.buildMsg(msgBuilder)){
+				System.err.println(descriptor.getName());
 				return null;
+			}
 		}
 		return msgBuilder.build();
 	}
@@ -66,10 +68,14 @@ implements IMessageDescriptor<Builder<?>> {
 	@Override
 	public boolean buildMsg(Builder<?> builder) {
 		if (protoField != null) {
+			v = (Builder<?>) builder.newBuilderForField(protoField);
 			Message builtMsg = getMessage();
 			if (builtMsg == null)
 				return false;
-			builder.setField(protoField, builtMsg);
+			if(protoField.isRepeated())
+				builder.addRepeatedField(protoField, builtMsg);
+			else
+				builder.setField(protoField, builtMsg);
 			return true;
 		} else
 			return false;
@@ -130,9 +136,8 @@ implements IMessageDescriptor<Builder<?>> {
 			return (Builder<?>) msg.getDefaultInstanceForType()
 					.newBuilderForType();
 		else
-			return (Builder<?>) builder.newBuilderForField(protoField);
+			return v;
 	}
-
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub

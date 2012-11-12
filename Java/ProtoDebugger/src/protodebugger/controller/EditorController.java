@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+import protodebugger.model.ProtoMessageGeneric;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
 import protodebugger.util.ParseProtoMessage;
@@ -22,7 +23,9 @@ public enum EditorController implements PropertyChangeListener {
 
 	private ProtoInstance editedMessage;
 	private Map<String, GeneratedMessage> generatedClasses = new HashMap<String, GeneratedMessage>();
+	private ProtoMessageGeneric model;
 
+	
 	public void addPropertyListener(PropertyChangeListener list){
 		support.addPropertyChangeListener(list);
 	}
@@ -30,6 +33,15 @@ public enum EditorController implements PropertyChangeListener {
 	
 	public void fireEvent(ProtoEvents event, Object newVal, Object oldVal){
 		support.firePropertyChange(event.name(), oldVal, newVal);
+	}
+	
+	public void setModel(ProtoMessageGeneric model){
+		this.model = model;
+	}
+	
+	public void buildMsg(){
+		if(model != null)
+			model.buildByteStringProto();
 	}
 	
 	private GeneratedMessage getGenMsgForString(String className) {
