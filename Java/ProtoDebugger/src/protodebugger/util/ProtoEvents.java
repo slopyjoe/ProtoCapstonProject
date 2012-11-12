@@ -3,6 +3,7 @@ package protodebugger.util;
 
 public enum ProtoEvents {
 
-	CACHED_LOADED;
+	CACHED_LOADED,
+	UPDATE_EDITOR;
 	
 }

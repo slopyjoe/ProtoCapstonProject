@@ -2,6 +2,7 @@ package protodebugger.controller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,20 +17,26 @@ import com.google.protobuf.GeneratedMessage;
 public enum EditorController implements PropertyChangeListener {
 
 	INSTANCE;
-	 private final String DEFAULT_METHOD = "getDefaultInstance";
-	
+	private final String DEFAULT_METHOD = "getDefaultInstance";
+	private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
 	private ProtoInstance editedMessage;
-	private Map<String, GeneratedMessage> generatedClasses = 
-			new HashMap<String, GeneratedMessage>();
+	private Map<String, GeneratedMessage> generatedClasses = new HashMap<String, GeneratedMessage>();
+
+	public void addPropertyListener(PropertyChangeListener list){
+		support.addPropertyChangeListener(list);
+	}
 	
 	
-	private GeneratedMessage getGenMsgForString(String className)
- {
+	public void fireEvent(ProtoEvents event, Object newVal, Object oldVal){
+		support.firePropertyChange(event.name(), oldVal, newVal);
+	}
+	
+	private GeneratedMessage getGenMsgForString(String className) {
 		try {
 			Class<?> genMsg = Class.forName(className);
-			Object obj = genMsg.getMethod(DEFAULT_METHOD, null).invoke(
-					genMsg, null);
+			Object obj = genMsg.getMethod(DEFAULT_METHOD, null).invoke(genMsg,
+					null);
 			if (obj instanceof GeneratedMessage) {
 				return (GeneratedMessage) obj;
 			}
@@ -41,24 +48,22 @@ public enum EditorController implements PropertyChangeListener {
 		}
 		return null;
 	}
-	
-	public void editMessage(ProtoMessage msg, ProtoInstance instance)
-	{
-		if(!generatedClasses.containsKey(msg.getClassName()))
-		{
+
+	public void editMessage(ProtoMessage msg, ProtoInstance instance) {
+		if (!generatedClasses.containsKey(msg.getClassName())) {
 			GeneratedMessage genMsg = getGenMsgForString(msg.getClassName());
 			generatedClasses.put(msg.getClassName(), genMsg);
 		}
-		ParseProtoMessage.INSTANCE.selectionChange(generatedClasses.get(msg.getClassName()));
+		ParseProtoMessage.INSTANCE.selectionChange(generatedClasses.get(msg
+				.getClassName()));
 	}
-	
+
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		ProtoEvents protoEvents = ProtoEvents.valueOf(evt.getPropertyName());
-		switch (protoEvents){
+		switch (protoEvents) {
 		}
-	}
-	
 
+	}
 
 }

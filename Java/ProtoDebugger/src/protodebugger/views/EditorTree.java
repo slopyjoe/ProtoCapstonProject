@@ -1,5 +1,10 @@
 package protodebugger.views;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -8,76 +13,52 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MenuEvent;
+import org.eclipse.swt.events.MenuListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.part.ViewPart;
 import org.test.AlienSpeciesProto.Alien;
 
+import protodebugger.controller.EditorController;
 import protodebugger.model.ProtoMessageGeneric;
 import protodebugger.model.descriptors.generic.AbstractFieldDescriptor;
 import protodebugger.model.descriptors.generic.IFieldDescriptor;
-import protodebugger.model.descriptors.generic.MessageDescriptor;
-import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
+import protodebugger.model.descriptors.generic.IMessageDescriptor;
 import protodebugger.util.ParseGeneratedMessage;
+import protodebugger.util.ProtoEvents;
+import protodebugger.views.menus.ProtoEditorMenu;
 
-public class EditorTree extends ViewPart {
+public class EditorTree extends ViewPart implements PropertyChangeListener {
 	private final ProtoMessageGeneric model  = new ProtoMessageGeneric();
 	private Text javaFieldTxt;
 	private Text nameFieldTxt;
 	private Composite editedFieldWdg;
-	private Widget wid;
 	private TreeViewer treeViewer;
+	private ProtoEditorMenu menuListener;
+	
 	
 	{
 		model.setGenMsg(Alien.getDefaultInstance());
 	}
 	
 	public EditorTree() {
-		// TODO Auto-generated constructor stub
+		EditorController.INSTANCE.addPropertyListener(this);
 	}
 
-/*	@Override
-	public void createPartControl(Composite parent) {
-		
-		TreeViewer viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-	    viewer.setContentProvider(new ProtoEditorTreeContentProvider());
-	    viewer.setLabelProvider(new ProtoEditorTreeLabelProvider());
-	    
-	    // Provide the input to the ContentProvider
-	    viewer.setInput(model);
-	    viewer.addDoubleClickListener(new IDoubleClickListener() {
-			
-			@Override
-			public void doubleClick(DoubleClickEvent event) {
-				TreeViewer view = (TreeViewer) event.getViewer();
-				IStructuredSelection thisSelection = (IStructuredSelection) event.getSelection(); 
-			    Object selectedNode = thisSelection.getFirstElement(); 
-			    if(selectedNode instanceof ProtoInstance &&
-			    		view.getInput() instanceof ProtoPackageModel)
-			    {
-			    	ProtoPackageModel derp =  (ProtoPackageModel)view.getInput();
-			    	ProtoMessage msg = derp.getMessageForInstance((ProtoInstance)selectedNode);
-			    	if(msg != null)
-			    	{
-			    		EditorController.INSTANCE.editMessage(msg, (ProtoInstance) selectedNode);
-			    	}
-			    }
-			}
-		});
-	}
-*/
 	@Override
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new FormLayout());
@@ -140,75 +121,11 @@ public class EditorTree extends ViewPart {
 		fd_composite.right = new FormAttachment(100, -65);
 		editedFieldWdg.setLayoutData(fd_composite);
 		
-/*		parent.setLayout(new FormLayout());
 		
-		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-		Tree tree = viewer.getTree();
-		viewer.setContentProvider(new ProtoEditorTreeContentProvider());
-	    viewer.setLabelProvider(new ProtoEditorTreeLabelProvider());
-	    
-	    // Provide the input to the ContentProvider
-	    viewer.setInput(model);
-	    
-		
-		Label nameLbl = new Label(parent, SWT.NONE);
-		nameLbl.setText("Name: ");
-		Label javaLbl = new Label(parent, SWT.NONE);
-		javaLbl.setText("Type: ");
-		Label valueLbl = new Label(parent, SWT.NONE);
-		valueLbl.setText("Value: ");
-		
-		nameFieldTxt = new Text(parent, SWT.NONE);
-		
-		javaFieldTxt = new Text(parent, SWT.NONE);
-		
-		editedFieldWdg = new Composite(parent, SWT.NONE);
-	 //   editedFieldWdg.setLayout(new FillLayout(SWT.HORIZONTAL));
-	    
-	    FormData data = new FormData();
-	    data.top = new FormAttachment(tree, 0, SWT.TOP);
-	    data.left = new FormAttachment(tree, 0, SWT.CENTER);
-	    data.bottom = new FormAttachment(tree, 0, SWT.BOTTOM);
-	    tree.setLayoutData(data);
-	    
-	    data = new FormData();
-	    data.top = new FormAttachment(nameLbl, 5, SWT.TOP);
-	    data.left = new FormAttachment(tree, 5, SWT.LEFT);
-	    data.bottom = new FormAttachment(javaLbl, 5, SWT.BOTTOM);
-	    nameLbl.setLayoutData(data);
-	    
-	    data = new FormData();
-	    data.top = new FormAttachment(nameLbl, 5, SWT.TOP);
-	    data.left = new FormAttachment(tree, 5, SWT.LEFT);
-	    data.bottom = new FormAttachment(valueLbl, 5, SWT.BOTTOM);
-	    javaLbl.setLayoutData(data);
-	    
-	    data = new FormData();
-	    data.top = new FormAttachment(javaLbl, 5, SWT.TOP);
-	    data.left = new FormAttachment(tree, 5, SWT.LEFT);
-	    data.bottom = new FormAttachment(valueLbl, 5, SWT.BOTTOM);
-	    valueLbl.setLayoutData(data);
-	    
-	    data = new FormData();
-	    data.top = new FormAttachment(nameFieldTxt, 5, SWT.TOP);
-	    data.left = new FormAttachment(nameLbl, 5, SWT.LEFT);
-	    data.bottom = new FormAttachment(javaFieldTxt, 5, SWT.BOTTOM);
-	    nameFieldTxt.setLayoutData(data);
-	    
-	    data = new FormData();
-	    data.top = new FormAttachment(nameFieldTxt, 5, SWT.TOP);
-	    data.left = new FormAttachment(javaLbl, 5, SWT.LEFT);
-	    data.bottom = new FormAttachment(valueLbl, 5, SWT.BOTTOM);
-	    javaFieldTxt.setLayoutData(data);
-	    
-	    data = new FormData();
-	    data.top = new FormAttachment(javaFieldTxt, 5, SWT.TOP);
-	    data.left = new FormAttachment(valueLbl, 5, SWT.LEFT);
-	    data.bottom = new FormAttachment(editedFieldWdg, 5, SWT.BOTTOM);
-	    editedFieldWdg.setLayoutData(data);
-	    
-	    parent.pack();*/
-	    
+		Menu menu = new Menu(tree);
+		menuListener = new ProtoEditorMenu(menu);
+		tree.setMenu(menu);
+		menu.addMenuListener(menuListener);
 	    treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			
 			@Override
@@ -217,27 +134,22 @@ public class EditorTree extends ViewPart {
 			    Object selectedNode = thisSelection.getFirstElement(); 
 			    if(selectedNode instanceof AbstractFieldDescriptor<?>)
 			    {
-		
 			    	AbstractFieldDescriptor<?> msg = (AbstractFieldDescriptor<?>)selectedNode;
 			    	System.out.println("editing " + msg.getName());
 			    	javaFieldTxt.setText(msg.getName());
 			    	nameFieldTxt.setText(msg.getProtoField().getJavaType().name());
 			    	ParseGeneratedMessage.parseSWT(msg, editedFieldWdg);
+			    	menuListener.setModel(null);
+			    }
+			    if(selectedNode instanceof IMessageDescriptor<?>)
+			    {
+			    	menuListener.setModel((IMessageDescriptor<?>)selectedNode);
 			    }
 			}
 		});
 	}
 	private class ProtoEditorTreeContentProvider implements ITreeContentProvider{
 
-		/*private ProtoPackageModel model  = new ProtoPackageModel();
-		
-		{
-			for(ProtoPackage pkg : ProtoPackages.getPackages())
-			{
-				model.addProtoPkg(pkg);
-			}
-		}*/
-		
 		@Override
 		public void dispose() {
 			
@@ -245,25 +157,19 @@ public class EditorTree extends ViewPart {
 
 		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		/*	if(newInput instanceof ProtoPackage)
-			{
-				this.model = (ProtoPackageModel) newInput;
-			}*/
+
 		}
 
 		@Override
 		public Object[] getElements(Object inputElement) {
-			return model.getDescriptors().toArray();
+			return new Object[]{model.getProto()};//model.getDescriptors().toArray();
 		}
 
 		@Override
 		public Object[] getChildren(Object parentElement) {
-			if(parentElement instanceof MessageDescriptor)
+			if(parentElement instanceof IMessageDescriptor<?>)
 			{
-				return ((MessageDescriptor)parentElement).getDescriptors().toArray();
-			}else if(parentElement instanceof ProtoMessage)
-			{
-				return((ProtoMessage)parentElement).getMessageList().toArray();
+				return ((IMessageDescriptor<?>)parentElement).getDescriptors().toArray();
 			}
 			return null;
 		}
@@ -275,7 +181,7 @@ public class EditorTree extends ViewPart {
 
 		@Override
 		public boolean hasChildren(Object element) {
-			return (element instanceof MessageDescriptor);
+			return (element instanceof IMessageDescriptor<?>);
 		}
 		
 	}
@@ -294,7 +200,7 @@ public class EditorTree extends ViewPart {
 		}
 		  @Override
 		  public Image getImage(Object element) {
-		    if (element instanceof MessageDescriptor) {
+		    if (element instanceof IMessageDescriptor<?>) {
 		      return PlatformUI.getWorkbench().getSharedImages()
 		          .getImage(ISharedImages.IMG_OBJ_FOLDER);
 		    }
@@ -304,12 +210,22 @@ public class EditorTree extends ViewPart {
 
 	}
 
-
-
-
 	@Override
 	public void setFocus() {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		try{
+			ProtoEvents event = ProtoEvents.valueOf(evt.getPropertyName());
+			if(event == ProtoEvents.UPDATE_EDITOR)
+				treeViewer.refresh();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+
 }
