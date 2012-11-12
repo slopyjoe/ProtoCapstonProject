@@ -8,15 +8,20 @@ import java.util.Map;
 
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
@@ -24,11 +29,15 @@ import org.eclipse.ui.part.ViewPart;
 import protodebugger.controller.EditorController;
 import protodebugger.controller.ViewerController;
 import protodebugger.model.ProtoPackageModel;
+import protodebugger.model.descriptors.generic.AbstractFieldDescriptor;
+import protodebugger.model.descriptors.generic.IMessageDescriptor;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
 import protodebugger.test.packages.ProtoPackages;
+import protodebugger.util.ParseGeneratedMessage;
 import protodebugger.util.ProtoEvents;
+import protodebugger.views.menus.ProtoCacheViewerMenu;
 
 import com.google.protobuf.GeneratedMessage;
 
@@ -36,7 +45,7 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 
 	public static final String ID = "protodebugger.views.ProtoCacheViewer"; //$NON-NLS-1$
 	private TreeViewer viewer;
-	
+	private ProtoCacheViewerMenu menuListener;
 	private final ProtoPackageModel model  = new ProtoPackageModel();
 
 	public ProtoCacheViewer() 
@@ -52,7 +61,6 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 	public void createPartControl(Composite parent) {
 
 	    viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-
 	    viewer.setContentProvider(new ProtoCacheContentProvider());
 	    viewer.setLabelProvider(new ProtoCacheLabelProvider());
 	    
@@ -76,6 +84,25 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 			    }
 			}
 		});
+	    Tree tree = viewer.getTree();
+		Menu menu = new Menu(tree);
+		menuListener = new ProtoCacheViewerMenu(menu);
+		tree.setMenu(menu);
+		menu.addMenuListener(menuListener);
+	    viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {				
+				IStructuredSelection thisSelection = (IStructuredSelection) event.getSelection(); 
+			    Object selectedNode = thisSelection.getFirstElement(); 
+			    if(selectedNode instanceof ProtoPackage)
+			    {
+			    	ProtoPackage pkg = (ProtoPackage)selectedNode;
+			    	System.out.println("editing " + pkg.getName());
+			    	menuListener.setModel(pkg);
+			    }
+			}
+		});		
 	}
 
 
