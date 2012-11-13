@@ -12,8 +12,8 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
 import protodebugger.controller.EditorController;
-import protodebugger.model.descriptors.generic.IFieldDescriptor;
-import protodebugger.model.descriptors.generic.IMessageDescriptor;
+import protodebugger.model.descriptors.IFieldDescriptor;
+import protodebugger.model.descriptors.IMessageDescriptor;
 import protodebugger.util.ParseGeneratedMessage;
 import protodebugger.util.ProtoEvents;
 

@@ -3,16 +3,13 @@ package protodebugger.util;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
-
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.FileDialog;
+import java.util.Set;
 
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
 
 public class ProtoWriter 
 {
-	public static void writeProto(List<ProtoPackage> protoPackages)
+	public static void writeProto(Set<ProtoPackage> protoPackages)
 	{
 		File file;
 		try

@@ -3,8 +3,6 @@ package protodebugger.views;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
@@ -19,8 +17,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
@@ -29,24 +25,17 @@ import org.eclipse.ui.part.ViewPart;
 import protodebugger.controller.EditorController;
 import protodebugger.controller.ViewerController;
 import protodebugger.model.ProtoPackageModel;
-import protodebugger.model.descriptors.generic.AbstractFieldDescriptor;
-import protodebugger.model.descriptors.generic.IMessageDescriptor;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
-import protodebugger.test.packages.ProtoPackages;
-import protodebugger.util.ParseGeneratedMessage;
 import protodebugger.util.ProtoEvents;
 import protodebugger.views.menus.ProtoCacheViewerMenu;
-
-import com.google.protobuf.GeneratedMessage;
 
 public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener{
 
 	public static final String ID = "protodebugger.views.ProtoCacheViewer"; //$NON-NLS-1$
 	private TreeViewer viewer;
 	private ProtoCacheViewerMenu menuListener;
-	private final ProtoPackageModel model  = new ProtoPackageModel();
 
 	public ProtoCacheViewer() 
 	{
@@ -129,12 +118,7 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 
 		private ProtoPackageModel model  = new ProtoPackageModel();
 		
-		{
-			for(ProtoPackage pkg : ProtoPackages.getPackages())
-			{
-				model.addProtoPkg(pkg);
-			}
-		}
+
 		
 		@Override
 		public void dispose() {
@@ -143,7 +127,7 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 
 		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-			if(newInput instanceof ProtoPackage)
+			if(newInput instanceof ProtoPackageModel)
 			{
 				this.model = (ProtoPackageModel) newInput;
 			}

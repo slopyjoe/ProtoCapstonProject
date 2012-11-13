@@ -1,9 +1,6 @@
 package protodebugger.views.menus;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-
 
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
@@ -17,12 +14,14 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.test.AddressBookProtos.AddressBook;
+import org.test.AddressBookProtos.Person;
+import org.test.AlienSpeciesProto.Alien;
 import org.test.AlienSpeciesProto.AlienSpecies;
-
-import com.google.protobuf.GeneratedMessage;
 
 import protodebugger.controller.ViewerController;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
+
+import com.google.protobuf.GeneratedMessage;
 
 public class ProtoCacheViewerMenu extends SelectionAdapter implements MenuListener 
 {
@@ -30,8 +29,8 @@ public class ProtoCacheViewerMenu extends SelectionAdapter implements MenuListen
 	private ProtoPackage pkg;
 	private final Map<String, GeneratedMessage> messageList = new LinkedHashMap<String, GeneratedMessage>();
 	{
-		messageList.put("AddressBook", AddressBook.getDefaultInstance());
-		messageList.put("AlienSpecies", AlienSpecies.getDefaultInstance());
+		messageList.put("AddressBook", Person.getDefaultInstance());
+		messageList.put("AlienSpecies", Alien.getDefaultInstance());
 	}
 	private MenuItem selectMenuItem;
 
@@ -43,7 +42,6 @@ public class ProtoCacheViewerMenu extends SelectionAdapter implements MenuListen
 
 	public void setModel(ProtoPackage pkg) {
 		this.pkg = pkg;
-		System.out.println("Changing the pkg");
 	}
 	
 	@Override
@@ -53,7 +51,6 @@ public class ProtoCacheViewerMenu extends SelectionAdapter implements MenuListen
 	@Override
 	public void menuShown(MenuEvent e) 
 	{
-		System.out.println("Calling Menu shown");
 		resetMenu();
 		if (pkg != null) {
 			createSelectSubItems();
@@ -87,7 +84,6 @@ public class ProtoCacheViewerMenu extends SelectionAdapter implements MenuListen
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		System.out.println(e.getClass().getName());
 		if (e.getSource() instanceof MenuItem) {
 			MenuItem item = (MenuItem) e.getSource();
 			if (item.getParent().getParentMenu() != null) {
@@ -105,7 +101,7 @@ public class ProtoCacheViewerMenu extends SelectionAdapter implements MenuListen
 				          if(dialog.open() == Window.OK) 
 				          {
 				            name = dialog.getValue();
-							ViewerController.INSTANCE.updatePackageModel(pkg, (GeneratedMessage)data, name);
+							ViewerController.INSTANCE.newProtoInstance(pkg, (GeneratedMessage)data, name);
 				          }
 					}
 				} 

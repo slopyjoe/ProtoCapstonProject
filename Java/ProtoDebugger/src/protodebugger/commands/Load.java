@@ -21,6 +21,7 @@ public class Load extends AbstractHandler
 	public Object execute(ExecutionEvent event) throws ExecutionException 
 	{
 		browseFiles = new FileDialog(Display.getCurrent().getActiveShell());
+		browseFiles.setFilterExtensions(new String[]{"*.protoPkg"});
 		File file = new File(browseFiles.open());	
 		ProtoPackage result = ProtoReader.readProto(file);
 		if( result != null)

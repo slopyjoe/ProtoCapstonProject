@@ -1,8 +1,11 @@
 package protodebugger.model.swt;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
 
-import protodebugger.model.descriptors.generic.IFieldDescriptor;
+import protodebugger.model.descriptors.IFieldDescriptor;
 
 public abstract class SWTFieldWrapper {
 
@@ -11,6 +14,14 @@ public abstract class SWTFieldWrapper {
 	public SWTFieldWrapper(Widget widget)
 	{
 		swtWidget = widget;
+		swtWidget.addListener(SWT.MouseExit | SWT.CHANGED, new Listener() {
+			
+			@Override
+			public void handleEvent(Event event) {
+			System.out.println("Change Focus");
+				widgetValueToProtoField();
+			}
+		});
 	}
 	
 	public Widget getSwtWidget() {

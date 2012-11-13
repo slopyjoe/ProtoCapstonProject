@@ -1,7 +1,8 @@
 package protodebugger.model;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
@@ -26,7 +27,7 @@ import protodebugger.views.ProtoCacheViewer;
  */
 public class ProtoPackageModel {
 
-	private List<ProtoPackage> protoPackages = new ArrayList<ProtoPackage>();
+	private Set<ProtoPackage> protoPackages = new HashSet<ProtoPackage>();
 	
 	public ProtoPackageModel()
 	{
@@ -40,6 +41,16 @@ public class ProtoPackageModel {
 	{
 		protoPackages.add(addPackage);
 	}
+
+	public void updateProtoPkg(ProtoPackage addPackage)
+	{
+		if(protoPackages.contains(addPackage)){
+			System.out.println("Contains the proto file");
+		}
+	}
+	public void removeProtoPk(ProtoPackage removePkg){
+		protoPackages.remove(removePkg);
+	}
 	
 	/**
 	 * 
@@ -47,7 +58,7 @@ public class ProtoPackageModel {
 	 * 
 	 * @return {@link List} of {@link ProtoPackage}
 	 */
-	public List<ProtoPackage> getPackages()
+	public Set<ProtoPackage> getPackages()
 	{
 		return protoPackages;
 	}
@@ -89,6 +100,21 @@ public class ProtoPackageModel {
 				{
 					if(msgIns.equals(instance))
 						return pkgMsg;
+				}
+			}
+		}
+		return null;
+	}
+	public ProtoInstance getInstanceFromString(String name)
+	{
+		for(ProtoPackage pkg : protoPackages)
+		{
+			for(ProtoMessage pkgMsg : pkg.getMsgsList())
+			{
+				for(ProtoInstance msgIns : pkgMsg.getMessageList())
+				{
+					if(msgIns.getName().equals(name))
+						return msgIns;
 				}
 			}
 		}

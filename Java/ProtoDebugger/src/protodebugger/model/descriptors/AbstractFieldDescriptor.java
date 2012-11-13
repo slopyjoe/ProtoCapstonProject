@@ -1,4 +1,4 @@
-package protodebugger.model.descriptors.generic;
+package protodebugger.model.descriptors;
 
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Descriptors.FieldDescriptor;

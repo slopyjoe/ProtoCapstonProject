@@ -1,4 +1,4 @@
-package protodebugger.model.descriptors.generic;
+package protodebugger.model.descriptors;
 
 import java.util.List;
 

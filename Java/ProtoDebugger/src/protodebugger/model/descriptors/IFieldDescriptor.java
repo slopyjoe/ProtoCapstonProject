@@ -1,4 +1,4 @@
-package protodebugger.model.descriptors.generic;
+package protodebugger.model.descriptors;
 import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.google.protobuf.GeneratedMessage.Builder;
 

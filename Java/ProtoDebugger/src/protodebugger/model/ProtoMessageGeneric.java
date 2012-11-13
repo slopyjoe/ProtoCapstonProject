@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import protodebugger.model.descriptors.generic.IFieldDescriptor;
-import protodebugger.model.descriptors.generic.MessageDescriptor;
+import protodebugger.model.descriptors.IFieldDescriptor;
+import protodebugger.model.descriptors.MessageDescriptor;
 import protodebugger.util.ParseGeneratedMessage;
 
 import com.google.protobuf.ByteString;
@@ -18,16 +18,15 @@ public class ProtoMessageGeneric {
 	private List<IFieldDescriptor<?>> fieldDescriptors;
 	private GeneratedMessage genMsg;
 	private MessageDescriptor desc;
-	public ProtoMessageGeneric(){
-		
+	public ProtoMessageGeneric(GeneratedMessage msg){
+		setGenMsg(msg);
 	}
 	
-	public void setGenMsg(GeneratedMessage msg){
+	private  void setGenMsg(GeneratedMessage msg){
 		this.genMsg = msg;
 		desc = new MessageDescriptor(genMsg);
 		fieldDescriptors = new ArrayList<IFieldDescriptor<?>>(ParseGeneratedMessage.parseGeneric(genMsg));
 	}
-	
 	
 	public MessageDescriptor getProto(){
 		return desc;
@@ -36,9 +35,12 @@ public class ProtoMessageGeneric {
 		if(fieldDescriptors == null)
 			return Collections.emptyList();
 		return fieldDescriptors;
+		
 	}
 	
-
+	public GeneratedMessage getGenMsg(){
+		return genMsg;
+	}
 	
 	public ByteString buildByteStringProto()
 	{

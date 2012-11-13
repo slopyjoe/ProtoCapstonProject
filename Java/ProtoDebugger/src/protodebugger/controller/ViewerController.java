@@ -2,16 +2,15 @@ package protodebugger.controller;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.lang.reflect.InvocationTargetException;
 
 import protodebugger.model.ProtoPackageModel;
-import protodebugger.model.ProtoMessageModel;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
-import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
-import protodebugger.views.ProtoCacheViewer;
+import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
 import protodebugger.util.ProtoEvents;
+import protodebugger.views.ProtoCacheViewer;
 
+import com.google.protobuf.ByteString;
 import com.google.protobuf.GeneratedMessage;
 
 /**
@@ -27,10 +26,8 @@ import com.google.protobuf.GeneratedMessage;
 public enum ViewerController {
 
 	INSTANCE;
-	private final String DEFAULT_METHOD = "getDefaultInstance";
 	private ProtoPackageModel packageModel  = new ProtoPackageModel();
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-	private ProtoInstance viewedMessage;
 	private ViewerController()
 	{
 	}
@@ -48,52 +45,62 @@ public enum ViewerController {
 	public void addProtoPkg(ProtoPackage pkg)
 	{
 		packageModel.addProtoPkg(pkg);
-		pcs.firePropertyChange(ProtoEvents.CACHED_LOADED.name(), null, this.getModel() );		
+		pcs.firePropertyChange(ProtoEvents.CACHED_LOADED.name(), null, packageModel );		
 	}
 	
-	private GeneratedMessage getGenMsgForString(String className) {
-		try {
-			Class<?> genMsg = Class.forName(className);
-			Object obj = genMsg.getMethod(DEFAULT_METHOD, null).invoke(genMsg,
-					null);
-			if (obj instanceof GeneratedMessage) {
-				return (GeneratedMessage) obj;
-			}
-
-		} catch (ClassNotFoundException | NoSuchMethodException
-				| IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException | SecurityException cnfe) {
-			cnfe.printStackTrace();
-		}
-		return null;
+	public void newProtoInstance(ProtoPackage pkg, GeneratedMessage msg, String name)
+	{
+		updatePackageModel(pkg, msg, name, ByteString.copyFrom("NEW PROTO".getBytes()));
 	}
 	
-	public void updatePackageModel(ProtoPackage pkg, GeneratedMessage msg, String name)
+	public void updatePackageModel(ProtoInstance ins, GeneratedMessage msg)
+	{
+		ProtoMessage protoMsgParent = packageModel.getMessageForInstance(packageModel.getInstanceFromString(ins.getName()));
+		System.out.println("updating the proto instance");
+		
+		updatePackageModel(packageModel.getPackageForMessage(protoMsgParent), msg,
+				ins.getName(), ins.getMessage());
+	}
+	
+	public void updatePackageModel(ProtoPackage pkg, GeneratedMessage msg, String name, ByteString byteMsg)
 	{
 		try
 		{
+			this.getModel().removeProtoPk(pkg);
 			ProtoInstance.Builder builder = ProtoInstance.newBuilder();
 			builder.setName(name);
-			builder.setMessage(msg.toByteString());
-			
-			for (ProtoMessage var : pkg.getMsgsList())
+			builder.setMessage(byteMsg);
+			ProtoPackage.Builder protoPkgBuilder = ProtoPackage.newBuilder(pkg);
+			boolean foundMessage = false;
+			for (int i = 0; i < pkg.getMsgsCount(); ++i)
 			{
-				if ( this.getGenMsgForString(var.getClassName()).equals(msg) )
+				if (pkg.getMsgs(i).getClassName().equals(msg.getClass().getName()) )
 				{
-					ProtoMessage.Builder proto = ProtoMessage.newBuilder(var);
-					proto.addMessage(builder.build());
-				}	
-				else
-				{
-					ProtoMessage.Builder newProto = ProtoMessage.newBuilder();
-					newProto.addMessage(builder.build());
-					pkg.getMsgsList().add(newProto.build());
+					ProtoMessage.Builder protoMsgBuilder = ProtoMessage.newBuilder(pkg.getMsgs(i));
+					for(int j = 0; j < protoMsgBuilder.getMessageCount() ; i++){
+						if(protoMsgBuilder.getMessage(i).getName().equals(name))
+						{
+							protoMsgBuilder.removeMessage(i);
+							break;
+						}
+					}
+					protoMsgBuilder.addMessage(builder.build());
+					protoPkgBuilder.removeMsgs(i);
+					protoPkgBuilder.addMsgs( protoMsgBuilder.build());
+					foundMessage = true;
+					break;
 				}
 			}
+			if(!foundMessage){
+				protoPkgBuilder.addMsgs(ProtoMessage.newBuilder().addMessage(builder.build()).
+						setName(msg.getDescriptorForType().getName()).setClassName(msg.getClass().getName()).build());
+			}
+			this.getModel().addProtoPkg(protoPkgBuilder.build());
 			pcs.firePropertyChange(ProtoEvents.CACHED_LOADED.name(), null, this.getModel() );	
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
 	}

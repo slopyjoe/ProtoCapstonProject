@@ -8,9 +8,9 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
-import protodebugger.model.descriptors.generic.AbstractFieldDescriptor;
-import protodebugger.model.descriptors.generic.IFieldDescriptor;
-import protodebugger.model.descriptors.generic.MessageDescriptor;
+import protodebugger.model.descriptors.AbstractFieldDescriptor;
+import protodebugger.model.descriptors.IFieldDescriptor;
+import protodebugger.model.descriptors.MessageDescriptor;
 import protodebugger.model.swt.SWTFieldWrapper;
 
 import com.google.protobuf.ByteString;
@@ -31,7 +31,6 @@ public class ParseGeneratedMessage {
 
 	public static IFieldDescriptor<?> parseFieldDescriptor(
 			Descriptors.FieldDescriptor field) {
-
 		switch (field.getJavaType()) {
 
 		case FLOAT:
@@ -131,6 +130,9 @@ public class ParseGeneratedMessage {
 					else if (value instanceof String){
 						v = (EnumValueDescriptor) protoField.getEnumType()
 								.findValueByName(value.toString());
+					}
+					else if(value instanceof EnumValueDescriptor){
+						v = (EnumValueDescriptor)value;
 					}
 				}
 			};
