@@ -20,6 +20,7 @@ import org.test.AlienSpeciesProto.AlienSpecies;
 
 import protodebugger.controller.ViewerController;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
+import protodebugger.util.Logger;
 
 import com.google.protobuf.GeneratedMessage;
 
@@ -68,7 +69,7 @@ public class ProtoCacheViewerMenu extends SelectionAdapter implements MenuListen
 			selectMenuItem.setMenu(selectMenu);
 			for ( String key : messageList.keySet()) 
 			{
-				System.out.println("Adding " + key);
+				Logger.INSTANCE.writeDebug("Adding " + key);
 				MenuItem item = new MenuItem(selectMenu, SWT.NONE);
 				item.setText(key);
 				item.setData(messageList.get(key));

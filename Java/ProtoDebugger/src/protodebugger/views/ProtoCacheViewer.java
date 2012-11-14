@@ -28,6 +28,7 @@ import protodebugger.model.ProtoPackageModel;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
+import protodebugger.util.Logger;
 import protodebugger.util.ProtoEvents;
 import protodebugger.views.menus.ProtoCacheViewerMenu;
 
@@ -87,7 +88,7 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 			    if(selectedNode instanceof ProtoPackage)
 			    {
 			    	ProtoPackage pkg = (ProtoPackage)selectedNode;
-			    	System.out.println("editing " + pkg.getName());
+			    	Logger.INSTANCE.writeDebug("editing " + pkg.getName());
 			    	menuListener.setModel(pkg);
 			    }
 			}

@@ -7,6 +7,7 @@ import protodebugger.model.ProtoPackageModel;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
+import protodebugger.util.Logger;
 import protodebugger.util.ProtoEvents;
 import protodebugger.views.ProtoCacheViewer;
 
@@ -56,7 +57,7 @@ public enum ViewerController {
 	public void updatePackageModel(ProtoInstance ins, GeneratedMessage msg)
 	{
 		ProtoMessage protoMsgParent = packageModel.getMessageForInstance(packageModel.getInstanceFromString(ins.getName()));
-		System.out.println("updating the proto instance");
+		Logger.INSTANCE.writeDebug("updating the proto instance");
 		
 		updatePackageModel(packageModel.getPackageForMessage(protoMsgParent), msg,
 				ins.getName(), ins.getMessage());
@@ -101,7 +102,7 @@ public enum ViewerController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			System.out.println(e.getMessage());
+			Logger.INSTANCE.writeError(e.getMessage());
 		}
 	}
 

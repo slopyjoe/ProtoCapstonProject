@@ -13,6 +13,7 @@ import org.test.AlienSpeciesProto.Alien.PlanetType;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
+import protodebugger.util.Logger;
 
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Descriptors.FieldDescriptor;
@@ -86,7 +87,7 @@ public class ProtoPackages {
 		
 		File file = new File("/C/Users/sloppyjoe");
 		if(file.exists())
-			System.out.println("YAY");
+			Logger.INSTANCE.writeDebug("YAY");
 		else{
 			file.mkdir();
 		}

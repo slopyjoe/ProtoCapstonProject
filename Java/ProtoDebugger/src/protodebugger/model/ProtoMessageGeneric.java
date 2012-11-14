@@ -7,6 +7,7 @@ import java.util.List;
 import protodebugger.model.descriptors.IFieldDescriptor;
 import protodebugger.model.descriptors.MessageDescriptor;
 import protodebugger.util.ParseGeneratedMessage;
+import protodebugger.util.Logger;
 
 import com.google.protobuf.ByteString;
 import com.google.protobuf.GeneratedMessage;
@@ -48,10 +49,10 @@ public class ProtoMessageGeneric {
 		Message message = desc.getMessage();
 		if(message != null)
 		{
-		System.out.println(message.toString());
+		Logger.INSTANCE.writeInfo(message.toString());
 		return message.toByteString();
 		}else{
-			System.err.println("Error");
+			Logger.INSTANCE.writeError("Error");
 			return null;
 		}
 	}

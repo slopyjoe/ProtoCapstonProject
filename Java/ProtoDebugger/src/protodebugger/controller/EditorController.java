@@ -9,6 +9,7 @@ import java.util.Map;
 import protodebugger.model.ProtoMessageGeneric;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
+import protodebugger.util.Logger;
 import protodebugger.util.ProtoEvents;
 
 import com.google.protobuf.GeneratedMessage;
@@ -76,10 +77,10 @@ public enum EditorController {
 		try {
 			genMsg = (GeneratedMessage) genMsg.newBuilderForType()
 					.mergeFrom(instance.getMessage()).build();
-			System.out.println("Message has validated");
+			Logger.INSTANCE.writeDebug("Message has validated");
 			model.getProto().setValue(instance.getMessage());
 		} catch (InvalidProtocolBufferException e) {
-			System.err.println("Unable to create proto intance. Using default instead.");
+			Logger.INSTANCE.writeDebug("Unable to create proto intance. Using default instead.");
 			
 		}
 

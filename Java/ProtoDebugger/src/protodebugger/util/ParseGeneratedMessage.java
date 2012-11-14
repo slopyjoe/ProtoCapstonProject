@@ -122,9 +122,9 @@ public class ParseGeneratedMessage {
 						v = (EnumValueDescriptor) protoField.getEnumType()
 								.findValueByNumber((Integer) value);
 						if(v == null)
-							System.err.println("ENUM NULL");
+							Logger.INSTANCE.writeError("ENUM NULL");
 						else{
-							System.out.println(v.getName() + " : " + v.getIndex());
+							Logger.INSTANCE.writeDebug(v.getName() + " : " + v.getIndex());
 						}
 					}
 					else if (value instanceof String){
@@ -160,7 +160,7 @@ public class ParseGeneratedMessage {
 							Integer.valueOf(((Text) swtWidget).getText());
 							field.setValue(((Text) swtWidget).getText());
 						} catch (NumberFormatException nfe) {
-							System.err.println("Incompatible types");
+							Logger.INSTANCE.writeError("Incompatible types");
 							((Text) swtWidget).setText("");
 						}
 
