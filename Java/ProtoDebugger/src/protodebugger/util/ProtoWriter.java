@@ -19,7 +19,7 @@ public class ProtoWriter
 				if (!file.exists()) {
 						file.createNewFile();
 				}
-				System.out.println(file.getAbsolutePath());
+				Logger.INSTANCE.writeDebug(file.getAbsolutePath());
 				FileOutputStream writer = new FileOutputStream(file);
 				protoPkg.toBuilder().build().writeTo(writer);
 				writer.close();
@@ -27,7 +27,7 @@ public class ProtoWriter
 		}
 		catch(IOException e)
 		{
-			System.out.println(e.getMessage());				
+			Logger.INSTANCE.writeError(e.getMessage());				
 		}
 		
 	}

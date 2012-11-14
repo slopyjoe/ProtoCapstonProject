@@ -5,6 +5,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
 
+import protodebugger.util.Logger;
 import protodebugger.model.descriptors.IFieldDescriptor;
 
 public abstract class SWTFieldWrapper {
@@ -18,7 +19,7 @@ public abstract class SWTFieldWrapper {
 			
 			@Override
 			public void handleEvent(Event event) {
-			System.out.println("Change Focus");
+			Logger.INSTANCE.writeDebug("Change Focus");
 				widgetValueToProtoField();
 			}
 		});

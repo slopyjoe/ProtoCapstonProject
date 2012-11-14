@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import protodebugger.controller.EditorController;
 import protodebugger.model.descriptors.IFieldDescriptor;
 import protodebugger.model.descriptors.IMessageDescriptor;
+import protodebugger.util.Logger;
 import protodebugger.util.ParseGeneratedMessage;
 import protodebugger.util.ProtoEvents;
 
@@ -34,7 +35,7 @@ public class ProtoEditorMenu extends SelectionAdapter implements MenuListener {
 
 	public void setModel(IMessageDescriptor<?> desc) {
 		this.desc = desc;
-		System.out.println("Changing the desc");
+		Logger.INSTANCE.writeDebug("Changing the desc");
 	}
 
 	@Override
@@ -43,7 +44,7 @@ public class ProtoEditorMenu extends SelectionAdapter implements MenuListener {
 
 	@Override
 	public void menuShown(MenuEvent e) {
-		System.out.println("Calling Menu shown");
+		Logger.INSTANCE.writeDebug("Calling Menu shown");
 		resetMenu();
 		if (desc != null) {
 			createAddSubItems();
@@ -63,7 +64,7 @@ public class ProtoEditorMenu extends SelectionAdapter implements MenuListener {
 			Menu addMenu = new Menu(addMenuItem);
 			addMenuItem.setMenu(addMenu);
 			for (IFieldDescriptor<?> descriptor : desc.getRepeatedDescriptors()) {
-				System.out.println("Adding " + descriptor.getName());
+				Logger.INSTANCE.writeDebug("Adding " + descriptor.getName());
 				MenuItem item = new MenuItem(addMenu, SWT.NONE);
 				item.setText(descriptor.getName());
 				item.setData(descriptor);
@@ -93,7 +94,7 @@ public class ProtoEditorMenu extends SelectionAdapter implements MenuListener {
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		System.out.println(e.getClass().getName());
+		Logger.INSTANCE.writeDebug(e.getClass().getName());
 		if (e.getSource() instanceof MenuItem) {
 			MenuItem item = (MenuItem) e.getSource();
 			if (item.getParent().getParentMenu() != null) {

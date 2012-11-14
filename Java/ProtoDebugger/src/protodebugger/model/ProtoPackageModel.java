@@ -7,6 +7,7 @@ import java.util.Set;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
+import protodebugger.util.Logger;
 import protodebugger.views.ProtoCacheViewer;
 
 /**
@@ -45,7 +46,7 @@ public class ProtoPackageModel {
 	public void updateProtoPkg(ProtoPackage addPackage)
 	{
 		if(protoPackages.contains(addPackage)){
-			System.out.println("Contains the proto file");
+			Logger.INSTANCE.writeDebug("Contains the proto file");
 		}
 	}
 	public void removeProtoPk(ProtoPackage removePkg){

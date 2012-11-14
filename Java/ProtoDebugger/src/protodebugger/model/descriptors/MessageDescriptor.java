@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import protodebugger.util.Logger;
 import protodebugger.util.ParseGeneratedMessage;
 
 import com.google.protobuf.ByteString;
@@ -52,7 +53,7 @@ implements IMessageDescriptor<Builder<?>> {
 		Builder<?> msgBuilder = getValue();
 		for (IFieldDescriptor<?> descriptor : getDescriptors()) {
 			if (!descriptor.buildMsg(msgBuilder)) {
-				System.err.println(descriptor.getName());
+				Logger.INSTANCE.writeInfo(descriptor.getName());
 				return null;
 			}
 		}
@@ -128,7 +129,7 @@ implements IMessageDescriptor<Builder<?>> {
 			Builder<?> builder = (Builder<?>)((GeneratedMessage)value).toBuilder();
 			setValue(builder);
 		}else{
-			System.out.println("unknown type");
+			Logger.INSTANCE.writeError("unknown type");
 		}
 	}
 
@@ -185,7 +186,7 @@ implements IMessageDescriptor<Builder<?>> {
 			return setValue(builder);
 
 		} catch (InvalidProtocolBufferException e) {
-			System.err.println(e.getMessage());
+			Logger.INSTANCE.writeError(e.getMessage());
 			return false;
 		}
 

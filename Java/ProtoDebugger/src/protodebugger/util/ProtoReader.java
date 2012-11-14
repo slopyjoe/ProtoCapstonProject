@@ -14,13 +14,13 @@ public class ProtoReader
 		{
 			FileInputStream reader = new FileInputStream(file);
 			ProtoPackage protoPkg = ProtoPackage.parseFrom(reader);
-			System.out.println(protoPkg.toString());
+			Logger.INSTANCE.writeInfo(protoPkg.toString());
 			return protoPkg;
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
-			System.out.println(e.getMessage());
+			Logger.INSTANCE.writeError(e.getMessage());
 		}
 		
 		return null;
