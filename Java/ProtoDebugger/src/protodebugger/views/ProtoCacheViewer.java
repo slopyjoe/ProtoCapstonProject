@@ -86,9 +86,9 @@ public class ProtoCacheViewer extends ViewPart implements PropertyChangeListener
 			    Object selectedNode = thisSelection.getFirstElement(); 
 			    if(selectedNode instanceof ProtoPackage)
 			    {
-			    	ProtoPackage pkg = (ProtoPackage)selectedNode;
-			    	System.out.println("editing " + pkg.getName());
-			    	menuListener.setModel(pkg);
+			    	menuListener.setModel((ProtoPackage)selectedNode);
+			    }else if(selectedNode instanceof ProtoMessage){
+			    	menuListener.setModel((ProtoMessage)selectedNode);
 			    }
 			}
 		});		

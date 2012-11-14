@@ -2,6 +2,7 @@ package protodebugger.views.menus;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.window.Window;
@@ -14,11 +15,11 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.test.AddressBookProtos.AddressBook;
-import org.test.AddressBookProtos.Person;
-import org.test.AlienSpeciesProto.Alien;
 import org.test.AlienSpeciesProto.AlienSpecies;
 
 import protodebugger.controller.ViewerController;
+import protodebugger.model.protos.ProtoPkgContainer.ProtoInstance;
+import protodebugger.model.protos.ProtoPkgContainer.ProtoMessage;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
 
 import com.google.protobuf.GeneratedMessage;
@@ -27,23 +28,51 @@ public class ProtoCacheViewerMenu extends SelectionAdapter implements MenuListen
 {
 	private Menu menu;
 	private ProtoPackage pkg;
+	private ProtoMessage msg;
+	private ProtoInstance ins;
+	private MenuItem selectMenuItem;
+	private MenuItem addMenuItem;
+	private MenuItem printMenuItem;
+	private MenuItem sendMenuItem;
+	
 	private final Map<String, GeneratedMessage> messageList = new LinkedHashMap<String, GeneratedMessage>();
 	{
-		messageList.put("AddressBook", Person.getDefaultInstance());
-		messageList.put("AlienSpecies", Alien.getDefaultInstance());
+		messageList.put("AddressBook", AddressBook.getDefaultInstance());
+		messageList.put("AlienSpecies", AlienSpecies.getDefaultInstance());
 	}
-	private MenuItem selectMenuItem;
+	
 
 	public ProtoCacheViewerMenu(Menu menu) {
 		this.menu = menu;
-		selectMenuItem = new MenuItem(menu, SWT.CASCADE);
-		selectMenuItem.setText("Select Proto");
+		init();
 	}
 
-	public void setModel(ProtoPackage pkg) {
-		this.pkg = pkg;
+	private void init(){
+		printMenuItem = new MenuItem(menu, SWT.NONE);
+		printMenuItem.setText("Print on Console");
+		sendMenuItem = new MenuItem(menu, SWT.NONE);
+		sendMenuItem.setText("Send");
+		new MenuItem(menu, SWT.SEPARATOR);
+		
 	}
 	
+	public void setModel(ProtoPackage pkg) {
+		this.pkg = pkg;
+		msg = null;
+		ins = null;
+	}
+	
+	public void setModel(ProtoMessage msg){
+		this.msg = msg;
+		pkg = null;
+		ins = null;
+	}
+	
+	public void setModel(ProtoInstance ins){
+		this.ins = ins;
+		msg = null;
+		pkg = null;
+	}
 	@Override
 	public void menuHidden(MenuEvent e) {
 	}
@@ -54,21 +83,33 @@ public class ProtoCacheViewerMenu extends SelectionAdapter implements MenuListen
 		resetMenu();
 		if (pkg != null) {
 			createSelectSubItems();
+		}else if(msg != null){
+			createAddItem();
 		}
 	}
 
 	private void resetMenu() {
-		if(selectMenuItem.getMenu() != null)
-			selectMenuItem.getMenu().dispose();
+		if(selectMenuItem != null)
+		{
+			selectMenuItem.dispose();
+			selectMenuItem = null;
+		}
+		if(addMenuItem != null)
+		{
+			addMenuItem.dispose();
+			addMenuItem = null;
+		}
 	}
 
 	private void createSelectSubItems() {
+		
 		if (!messageList.isEmpty()) {
+			selectMenuItem = new MenuItem(menu, SWT.CASCADE);
+			selectMenuItem.setText("Select Proto");
 			Menu selectMenu = new Menu(selectMenuItem);
 			selectMenuItem.setMenu(selectMenu);
 			for ( String key : messageList.keySet()) 
 			{
-				System.out.println("Adding " + key);
 				MenuItem item = new MenuItem(selectMenu, SWT.NONE);
 				item.setText(key);
 				item.setData(messageList.get(key));
@@ -76,33 +117,40 @@ public class ProtoCacheViewerMenu extends SelectionAdapter implements MenuListen
 			}
 			selectMenuItem.setEnabled(true);
 		}
-		else
-		{
-			selectMenuItem.setEnabled(false);
-		}
+	}
+	private void createAddItem() {
+		addMenuItem = new MenuItem(menu, SWT.NONE);
+		addMenuItem.setText("Add");
+		addMenuItem.setData(msg);
+		addMenuItem.addSelectionListener(this);
+	}
+	
+	private String getProtoName(){
+		String name = "NewProtoInstance";
+		InputDialog dialog = new InputDialog(Display.getCurrent().getActiveShell(),
+				"Proto Name", "Please name this proto message", "", null);
+        if(dialog.open() == Window.OK) 
+        {
+          name = dialog.getValue();
+        }
+		return name;
 	}
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
 		if (e.getSource() instanceof MenuItem) {
 			MenuItem item = (MenuItem) e.getSource();
-			if (item.getParent().getParentMenu() != null) {
+			if(item.equals(addMenuItem))
+			{
+				ViewerController.INSTANCE.newProtoInstance(msg, getProtoName());
+			}
+			else if (item.getParent().getParentMenu() != null) {
 				if (item.getParent().equals(selectMenuItem.getMenu())) {
 					Object data = item.getData();
 					if (data != null && data instanceof GeneratedMessage) 
 					{
-						String name;
-				        IInputValidator validator = new IInputValidator() {
-				            public String isValid(String newText) {
-				                return null;
-				            }
-				          };
-				          InputDialog dialog = new InputDialog(Display.getCurrent().getActiveShell(), "Proto Name", "Please name this proto message", "", validator);
-				          if(dialog.open() == Window.OK) 
-				          {
-				            name = dialog.getValue();
-							ViewerController.INSTANCE.newProtoInstance(pkg, (GeneratedMessage)data, name);
-				          }
+						String name = getProtoName();
+						ViewerController.INSTANCE.newProtoInstance(pkg, (GeneratedMessage)data, name);
 					}
 				} 
 			}

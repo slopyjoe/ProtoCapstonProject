@@ -48,9 +48,17 @@ public enum ViewerController {
 		pcs.firePropertyChange(ProtoEvents.CACHED_LOADED.name(), null, packageModel );		
 	}
 	
+	public void newProtoInstance(ProtoMessage msg, String name)
+	{
+		ProtoPackage pkg = packageModel.getPackageForMessage(msg);
+		updatePackageModel(pkg, msg.getClassName(), name, 
+				ByteString.copyFrom("NEW PROTO".getBytes()),msg.getName());
+	}
+	
 	public void newProtoInstance(ProtoPackage pkg, GeneratedMessage msg, String name)
 	{
-		updatePackageModel(pkg, msg, name, ByteString.copyFrom("NEW PROTO".getBytes()));
+		updatePackageModel(pkg, msg.getClass().getName(), name, 
+				ByteString.copyFrom("NEW PROTO".getBytes()),msg.getDescriptorForType().getName());
 	}
 	
 	public void updatePackageModel(ProtoInstance ins, GeneratedMessage msg)
@@ -58,11 +66,11 @@ public enum ViewerController {
 		ProtoMessage protoMsgParent = packageModel.getMessageForInstance(packageModel.getInstanceFromString(ins.getName()));
 		System.out.println("updating the proto instance");
 		
-		updatePackageModel(packageModel.getPackageForMessage(protoMsgParent), msg,
-				ins.getName(), ins.getMessage());
+		updatePackageModel(packageModel.getPackageForMessage(protoMsgParent), msg.getClass().getName(),
+				ins.getName(), ins.getMessage(), msg.getDescriptorForType().getName());
 	}
 	
-	public void updatePackageModel(ProtoPackage pkg, GeneratedMessage msg, String name, ByteString byteMsg)
+	public void updatePackageModel(ProtoPackage pkg, String className, String name, ByteString byteMsg,String protoMsgName)
 	{
 		try
 		{
@@ -74,13 +82,13 @@ public enum ViewerController {
 			boolean foundMessage = false;
 			for (int i = 0; i < pkg.getMsgsCount(); ++i)
 			{
-				if (pkg.getMsgs(i).getClassName().equals(msg.getClass().getName()) )
+				if (pkg.getMsgs(i).getClassName().equals(className) )
 				{
 					ProtoMessage.Builder protoMsgBuilder = ProtoMessage.newBuilder(pkg.getMsgs(i));
-					for(int j = 0; j < protoMsgBuilder.getMessageCount() ; i++){
-						if(protoMsgBuilder.getMessage(i).getName().equals(name))
+					for(int j = 0; j < protoMsgBuilder.getMessageCount() ; j++){
+						if(protoMsgBuilder.getMessage(j).getName().equals(name))
 						{
-							protoMsgBuilder.removeMessage(i);
+							protoMsgBuilder.removeMessage(j);
 							break;
 						}
 					}
@@ -93,7 +101,7 @@ public enum ViewerController {
 			}
 			if(!foundMessage){
 				protoPkgBuilder.addMsgs(ProtoMessage.newBuilder().addMessage(builder.build()).
-						setName(msg.getDescriptorForType().getName()).setClassName(msg.getClass().getName()).build());
+						setName(protoMsgName).setClassName(className).build());
 			}
 			this.getModel().addProtoPkg(protoPkgBuilder.build());
 			pcs.firePropertyChange(ProtoEvents.CACHED_LOADED.name(), null, this.getModel() );	
@@ -104,7 +112,7 @@ public enum ViewerController {
 			System.out.println(e.getMessage());
 		}
 	}
-
+	
 	public void addChangeListener(PropertyChangeListener pcl)
 	{
 		pcs.addPropertyChangeListener(pcl);
