@@ -14,4 +14,6 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ClassPath: .,
- swing2swt.jar
+ swing2swt.jar,
+ gen/,
+ test/

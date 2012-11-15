@@ -1,4 +1,4 @@
-package protodebugger.util.io;
+ package protodebugger.util.io;
 
 import java.io.BufferedReader;
 import java.io.IOException;

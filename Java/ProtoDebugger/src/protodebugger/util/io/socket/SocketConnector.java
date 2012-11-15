@@ -6,7 +6,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import protodebugger.util.Logger;
-import protodebugger.util.io.ConnectorReader;
 import protodebugger.util.io.IConnector;
 
 public class SocketConnector implements IConnector {
@@ -15,7 +14,6 @@ public class SocketConnector implements IConnector {
 	private String hostname;
 	private int port;
 	private boolean isServer;
-	private Thread readThread;
 	private PrintWriter printer;
 
 	public SocketConnector(String hostname, int port, boolean isServer) {
@@ -32,6 +30,10 @@ public class SocketConnector implements IConnector {
 		this("localhost", port);
 	}
 
+	public boolean isConnected(){
+		return (socket == null)?true:socket.isConnected();
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -52,13 +54,7 @@ public class SocketConnector implements IConnector {
 				Logger.INSTANCE.writeDebug("Socket Connecting to " + hostname
 						+ ":" + port);
 				socket = new Socket(hostname, port);
-				if(isServer)
 				printer = new PrintWriter(socket.getOutputStream());
-				else
-				{
-				readThread = new Thread(new ConnectorReader(socket.getInputStream()));
-				readThread.start();
-				}
 			}
 		} catch (IOException e) {
 			Logger.INSTANCE.writeError(" Error while creating a connection to "
@@ -97,7 +93,9 @@ public class SocketConnector implements IConnector {
 	public boolean sendMsg(Object msg) {
 		boolean ret = false;
 		if(printer != null){
+			Logger.INSTANCE.writeDebug("Sending " + msg);
 			printer.println(msg);
+			printer.flush();
 			ret = true;
 		}
 		return ret;

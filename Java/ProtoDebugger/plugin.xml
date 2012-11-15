@@ -121,6 +121,18 @@
             name="ProtoDebugger">
       </perspective>
    </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.ui.ide.workbench"
+            name="ProtoDebugger">
+         <property
+               name="appName"
+               value="ProtoDebugger">
+         </property>
+      </product>
+   </extension>
 
 </plugin>
 

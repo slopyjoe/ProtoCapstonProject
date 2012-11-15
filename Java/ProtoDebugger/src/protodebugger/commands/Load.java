@@ -12,21 +12,20 @@ import protodebugger.controller.ViewerController;
 import protodebugger.model.protos.ProtoPkgContainer.ProtoPackage;
 import protodebugger.util.ProtoReader;
 
-
-public class Load extends AbstractHandler 
-{
+public class Load extends AbstractHandler {
 	FileDialog browseFiles;
-	
+
 	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException 
-	{
+	public Object execute(ExecutionEvent event) throws ExecutionException {
 		browseFiles = new FileDialog(Display.getCurrent().getActiveShell());
-		browseFiles.setFilterExtensions(new String[]{"*.protoPkg"});
-		File file = new File(browseFiles.open());	
-		ProtoPackage result = ProtoReader.readProto(file);
-		if( result != null)
-		{
-			ViewerController.INSTANCE.addProtoPkg(result);
+		browseFiles.setFilterExtensions(new String[] { "*.protoPkg" });
+		String fileName = browseFiles.open();
+		if (fileName != null) {
+			File file = new File(fileName);
+			ProtoPackage result = ProtoReader.readProto(file);
+			if (result != null) {
+				ViewerController.INSTANCE.addProtoPkg(result);
+			}
 		}
 		return null;
 	}
