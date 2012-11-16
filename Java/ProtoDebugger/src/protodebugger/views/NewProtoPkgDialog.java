@@ -44,7 +44,7 @@ public class NewProtoPkgDialog extends TitleAreaDialog {
 		// Set the title
 		setTitle("Create a New Proto Package");
 		// Set the message
-		setMessage("This is a TitleAreaDialog", IMessageProvider.INFORMATION);
+		setMessage("Creates a Proto Package at the defined path", IMessageProvider.INFORMATION);
 
 	}
 
